@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/default_color">
+
+        <ImageView
+            android:id="@+id/iv_home_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/lianpu" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/iv_home_message"
+            style="@style/text_style_black"
+            android:text="人脸匹配" />
+
+        <ImageView
+            android:id="@+id/iv_home_seek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:src="@mipmap/shouye_sousuo" />
+
+        <TextView
+            android:id="@+id/tv_lines"
+            android:layout_width="1dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:layout_toLeftOf="@+id/iv_home_seek"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_home_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_lines"
+            android:text="全国"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_home_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

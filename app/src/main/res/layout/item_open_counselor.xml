@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@mipmap/zhifu_weixuanzhong"
+            android:text="12个月" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/iv_choose" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="1111.00元" />
+
+    </RelativeLayout>
+</LinearLayout>

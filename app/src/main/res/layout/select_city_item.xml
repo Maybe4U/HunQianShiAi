@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+
+        android:id="@+id/tv_city"
+        style="@style/text_style_black"
+        android:padding="10dp"
+        android:text="城市" />
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+</LinearLayout>

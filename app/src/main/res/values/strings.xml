@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">婚前试爱</string>
+    <string name="reason_color"><u>1、为什么要上传证件照？如何保护隐私？</u></string>
+    <string name="invitation_friend"><u>(邀请好友)</u></string>
+    <string name="title_activity_identification_house">IdentificationHouseActivity</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
+    <string name="upgrade"><u>请升级</u></string>
+    <string name="knone">“请让我知道，你在等我！”</string>
+</resources>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.login_register.SetInfoActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_marginLeft="25dp"
+            android:text="昵称" />
+
+        <EditText
+            android:id="@+id/et_username"
+            style="@style/register_edit"
+            android:layout_marginRight="30dp"
+            android:gravity="end|center_vertical"
+            android:hint="请输入(最多8个汉字)" />
+    </LinearLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_sex"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:text="性别" />
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_sex"
+                style="@style/text_style_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="请选择" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:src="@mipmap/jinru" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:text="出生日期" />
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                style="@style/text_style_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="请选择" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:src="@mipmap/jinru" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_work_city"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:text="工作生活在" />
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/text_style_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="请选择" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:src="@mipmap/jinru" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_income"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:text="年收入" />
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_income"
+                style="@style/text_style_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="请选择" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:src="@mipmap/jinru" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/selector_button"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+</LinearLayout>

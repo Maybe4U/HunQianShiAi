@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/default_color">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:text="取消" />
+
+        <TextView
+            android:id="@+id/tv_affirm"
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="确定" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_money"
+        style="@style/text_style_black"
+        android:layout_margin="15dp"
+        android:drawableLeft="@mipmap/jinbi"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="余额：111.00"
+        android:textColor="@color/default_color" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_gift"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_rose"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/default_color"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_meigui" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="玫瑰" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="1元" />-->
+        <!--</LinearLayout>-->
+
+        <!--<com.zykj.hunqianshiai.utils.ImaginaryLineView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="5dp" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_cake"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_dangao" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="蛋糕" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="5元" />-->
+        <!--</LinearLayout>-->
+
+        <!--<com.zykj.hunqianshiai.utils.ImaginaryLineView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="5dp" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_ring"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_zanjie" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="钻戒" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="10元" />-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+        <!--style="@style/imaginary_line"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp" />-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_car"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_chaopao" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="超跑" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="30元" />-->
+        <!--</LinearLayout>-->
+
+        <!--<com.zykj.hunqianshiai.utils.ImaginaryLineView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_boat"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_youting" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="游艇" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="50元" />-->
+        <!--</LinearLayout>-->
+
+        <!--<com.zykj.hunqianshiai.utils.ImaginaryLineView-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_hose"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_horizontal|bottom"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/liwu_bieshu" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:text="别墅" />-->
+
+            <!--<TextView-->
+                <!--style="@style/text_style_black"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:text="100元" />-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        style="@style/member_frame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/text_style_black.member"
+                android:text="包月" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_zhe_price"
+                    style="@style/text_style_black"
+                    android:text="111人民币" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_zhe"
+                style="@style/text_style_black"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:text="特价活动 8折"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <ImageView
+            style="@style/member_kaitong"
+            android:src="@mipmap/huiyuan_kaitong" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/text_style_black_1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="取消" />
+
+        <TextView
+            android:id="@+id/tv_affirm"
+            style="@style/text_style_black_1"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:text="发送" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_rounded_rectangle_white_5"
+        android:gravity="top"
+        android:hint="私密评论，仅您和TA可见"
+        android:padding="15dp"
+        android:textSize="14sp" />
+</LinearLayout>

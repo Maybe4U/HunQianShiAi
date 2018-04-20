@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.home.my.set.LogoutActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_style_black"
+            android:text="注销资料后，您的信息将不会再APP里面显示，无法查看到您的信息，请你确认好在注销，一旦注销信息无法恢复" />
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_marginTop="15dp"
+            android:text="*请选择注销的原因，然后确定即可注销"
+            android:textColor="@color/default_color" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rounded_rectangle_hollow_5"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:text="已经找到伴侣了" />
+
+                <CheckBox
+                    android:id="@+id/cb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/check_logout" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:text="通过其他渠道已经找到伴侣了" />
+
+                <CheckBox
+                    android:id="@+id/cb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/check_logout" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:text="被婚托、酒托骚扰" />
+
+                <CheckBox
+                    android:id="@+id/cb_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/check_logout" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:text="其他原因" />
+
+                <CheckBox
+                    android:id="@+id/cb_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/check_logout" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

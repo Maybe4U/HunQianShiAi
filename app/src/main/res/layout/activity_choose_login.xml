@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:context="com.zykj.hunqianshiai.intro.ChooseLoginActivity">
+
+    <com.zykj.hunqianshiai.intro.CustomVideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:src="@mipmap/logo_4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="360dp">
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button"
+                android:gravity="center"
+                android:text="登录"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button"
+                android:gravity="center"
+                android:text="注册"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+
+            android:id="@+id/tv_goago"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginTop="440dp"
+            android:background="@drawable/button_2"
+            android:gravity="center"
+            android:text="逛一逛"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

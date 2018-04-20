@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/xiaoxi_xindong" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_black"
+                android:text="心动"
+                android:textSize="15sp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:text="查看对你心动的人和你心动的记录" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/jinru" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="0dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/xiaoxi_laifang" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_black"
+                android:text="最近来访"
+                android:textSize="15sp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:text="查看谁看过你" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/jinru" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="0dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/xiaoxi_fujin" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_black"
+                android:text="附近"
+                android:textSize="15sp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:text="可以根据资料筛选匹配附近异性" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/jinru" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="0dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_layout4"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/xiaoxi_xitong" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_black"
+                android:text="系统"
+                android:textSize="15sp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:text="查看视频通话记录" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/jinru" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="0dp" />
+
+</LinearLayout>

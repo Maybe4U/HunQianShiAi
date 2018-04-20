@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.chat.ConversationActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_jiaohuan"
+            style="@style/text_style_black"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@mipmap/liaotian_weixin"
+            android:gravity="center"
+            android:text="交换微信" />
+
+        <com.zykj.hunqianshiai.utils.ImaginaryLineView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/tv_yueta"
+            style="@style/text_style_black"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@mipmap/liaotian_bangwo"
+            android:gravity="center"
+            android:text="帮我约TA" />
+
+        <com.zykj.hunqianshiai.utils.ImaginaryLineView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/tv_jujue"
+            style="@style/text_style_black"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@mipmap/liaotian_jujue"
+            android:gravity="center"
+            android:text="勿扰模式" />
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/conversation"
+        android:name="io.rong.imkit.fragment.ConversationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

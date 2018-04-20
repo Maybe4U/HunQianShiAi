@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_headpic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="15dp"
+            android:src="@mipmap/fujin_fujin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/iv_headpic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/text_style_black"
+                android:text="@string/app_name" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginRight="15dp"
+                android:id="@+id/recycler_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_arename"
+                style="@style/text_style_gray"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/dong_weizhi"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="sit" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_addtime3"
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/app_name" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/dong_zanping" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            style="@style/text_style_gray"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.home.my.online.OnlineActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/background_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_marginLeft="15dp"
+            android:text="服务时间：" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/text_style_black"
+            android:layout_weight="1"
+            android:text="time"
+            android:textColor="@color/default_color" />
+
+        <TextView
+            android:id="@+id/tv_renew"
+            style="@style/text_style_black"
+            android:layout_height="24dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shape_rounded_rectangle_default_12"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text=" 续费 " />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.login_register.NameAuthenticationActivity">
+
+    <include
+        android:id="@+id/include_view"
+        layout="@layout/view_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="上传身份证照片"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reason_color"
+                    android:textColor="@color/default_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginTop="3dp"
+                    android:text="2、照片仅后台审核使用，就不对外展示" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="15dp"
+                        android:src="@mipmap/shiming_cankao1" />
+
+                    <TextView
+                        style="@style/text_style_black"
+                        android:layout_gravity="center_horizontal"
+                        android:text="手持身份证正面照"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_front"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="15dp"
+                        android:src="@mipmap/shiming_tianjia" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="15dp"
+                        android:src="@mipmap/shiming_cankao2" />
+
+                    <TextView
+                        style="@style/text_style_black"
+                        android:layout_gravity="center_horizontal"
+                        android:text="身份证正面照"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_front2"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="15dp"
+                        android:src="@mipmap/shiming_tianjia" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_gravity="center_horizontal"
+
+                android:text="（请务必按示例上传对应的证件照，否则将不通过）" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_button"
+                android:gravity="center"
+                android:text="提交"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_skip"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_2"
+                android:gravity="center"
+                android:text="证件不在身边？暂时跳过"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+</LinearLayout>

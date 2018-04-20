@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.login_register.RegisterActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/register_icon"
+            android:src="@mipmap/z_shoujihao" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            style="@style/register_edit"
+            android:hint="请输入手机号"
+            android:inputType="phone" />
+    </LinearLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/register_icon"
+            android:src="@mipmap/z_yanzhengma" />
+
+        <EditText
+            android:id="@+id/et_verification_code"
+            style="@style/register_edit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="验证码"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_get_code"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="获取验证码" />
+    </LinearLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/register_icon"
+            android:src="@mipmap/z_mima" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/register_edit"
+            android:hint="密码（6-20位数字或字母）"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/register_icon"
+            android:src="@mipmap/mimaqueren" />
+
+        <EditText
+            android:id="@+id/et_again_password"
+            style="@style/register_edit"
+            android:hint="确认密码（6-20位数字或字母）"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <View
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/register_icon"
+            android:src="@mipmap/yaoqingma" />
+
+        <EditText
+            android:id="@+id/et_invitation_code"
+            style="@style/register_edit"
+            android:hint="邀请码（选填，可向各城市代理商索取）" />
+    </LinearLayout>
+
+    <View
+        android:visibility="gone"
+        style="@style/imaginary_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_button"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:src="@mipmap/z_xuanzhong" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_text"
+                style="@style/text_style_gray"
+                android:text="点击注册默认同意《婚前试爱注册协议》"
+                android:textSize="13sp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:text="无法获取验证码？请联系客服0755-23326702"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

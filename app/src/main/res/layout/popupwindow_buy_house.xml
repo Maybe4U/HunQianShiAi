@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/default_color">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:text="取消" />
+
+        <TextView
+            android:id="@+id/tv_affirm"
+            style="@style/text_style_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:text="确定" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_inform"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_1"
+            style="@style/inform_type"
+            android:layout_marginTop="20dp"
+            android:text="已购房" />
+
+        <RadioButton
+            style="@style/inform_type"
+            android:text="已购房、按揭中" />
+
+        <RadioButton
+            style="@style/inform_type"
+            android:text="父母帮忙购房" />
+
+        <RadioButton
+            style="@style/inform_type"
+            android:text="和父母住" />
+    </RadioGroup>
+</LinearLayout>

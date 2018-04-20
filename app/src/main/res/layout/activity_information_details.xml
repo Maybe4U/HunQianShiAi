@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_layout"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.activities.information.InformationDetailsActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/recycler_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_rounded_rectangle_hollow_5_gray">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="评论"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_send"
+            style="@style/text_style_black"
+            android:layout_width="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="发送" />
+    </RelativeLayout>
+</RelativeLayout>

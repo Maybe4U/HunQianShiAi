@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_my_look"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="不再显示该用户动态"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp" />
+
+    <TextView
+        android:id="@+id/tv_look_me"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="不让该用户看到我的动态"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp" />
+
+    <TextView
+        android:id="@+id/tv_inform"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="举报"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/background_color" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+</LinearLayout>

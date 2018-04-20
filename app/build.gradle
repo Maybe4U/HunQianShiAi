@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.zykj.hunqianshiai"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 3
+        versionName "1.2"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+            maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.hyman:flowlayout-lib:1.1.2'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
+    implementation files('libs/MobCommons-2017.1201.1507.jar')
+    implementation files('libs/MobTools-2017.1201.1507.jar')
+    implementation files('libs/ShareSDK-Core-3.1.2.jar')
+    implementation files('libs/ShareSDK-QQ-3.1.2.jar')
+    implementation files('libs/ShareSDK-QZone-3.1.2.jar')
+    implementation files('libs/ShareSDK-SinaWeibo-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-Core-3.1.2.jar')
+    implementation files('libs/ShareSDK-Wechat-Moments-3.1.2.jar')
+    implementation files('libs/SMSSDK-3.1.0.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile files('libs/alipaySdk-20170922.jar')
+    implementation files('libs/jcore-android-1.1.9.jar')
+    implementation files('libs/jpush-android-3.1.1.jar')
+    compile 'com.android.support:multidex:1.0.1'
+    implementation files('libs/MiPush_SDK_Client_3_5_1.jar')
+    implementation project(':CallKit')
+    implementation project(':CallLib')
+    implementation project(':IMKit')
+    implementation project(':IMLib')
+    compile(name: 'HMS-SDK-2.4.0.300', ext: 'aar')
+    compile 'com.github.lzyzsd:jsbridge:1.0.4'
+    compile 'com.pgyersdk:sdk:2.8.1'
+    compile 'com.squareup.picasso:picasso:2.5.1'
+}

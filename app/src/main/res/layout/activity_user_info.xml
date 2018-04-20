@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.user_home.user_info.UserInfoActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="昵称" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="ID" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="出生日期" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="星座" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="身高" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="年收入" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="工作生活在" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="期望结婚时间" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="民族" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="户籍" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="婚姻状况" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="职业" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="信仰" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="饮酒" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="吸烟" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="家中排行" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="有无子女" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <TextView
+                    style="@style/text_style_black.info_lift"
+                    android:text="体重" />
+
+                <TextView
+                    style="@style/text_style_black.info_right"
+                    android:text="NAME" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

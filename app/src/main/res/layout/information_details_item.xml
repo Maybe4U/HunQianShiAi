@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/fujin_fujin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="22dp"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    style="@style/text_style_black"
+
+                    android:text="@string/app_name" />
+
+                <TextView
+                    android:id="@+id/tv_reply"
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_username"
+                    android:text="回复"
+                    android:textColor="@color/default_color" />
+
+                <TextView
+                    style="@style/text_style_gray"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+
+                    android:text="9月16日 01：01"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_marginTop="5dp"
+                android:text="不错啊"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

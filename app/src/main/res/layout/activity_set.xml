@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.home.my.set.SetActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/background_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="消息通知" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_help"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="帮助与反馈" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_blacklist"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="黑名单" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_update"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="检查更新" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_logout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="注销资料" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_cache"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="清除缓存" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_criterion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="友善度规范" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/background_color" />
+
+            <LinearLayout
+                android:id="@+id/ll_share"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="分享给朋友" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_info"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:text="关于我们" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/jinru" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/background_color" />
+
+            <TextView
+                android:id="@+id/tv_quit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="退出"
+                android:textColor="@color/default_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/background_color" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_headpic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/fujin_fujin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_head_username"
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:text="NAME  28岁" />
+
+                <TextView
+                    android:id="@+id/tv_isonline"
+                    style="@style/text_style_gray"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_head_username"
+                    android:text="在线"
+                    android:visibility="gone"
+                    android:textColor="@color/default_color" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/text_style_gray"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="9月9日"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <!--<TextView-->
+            <!--style="@style/text_style_gray"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:text="已认证个人身份-房-车"-->
+            <!--android:textColor="@color/default_color" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_areaname"
+                    style="@style/text_style_gray"
+                    android:drawableLeft="@mipmap/fujin_weizhi"
+                    android:drawablePadding="5dp"
+                    android:text="工作生活在：山东-临沂"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_yearmoney"
+                    style="@style/text_style_gray"
+                    android:layout_marginLeft="15dp"
+                    android:drawableLeft="@mipmap/fujin_shouru"
+                    android:drawablePadding="5dp"
+                    android:text="100w以上"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="3dp"
+                android:text="TA查看了您的个人资料"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/background_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@mipmap/fujin_huiyuan"
+            android:drawablePadding="7dp"
+            android:gravity="center"
+            android:text="以下更多最近来访只有会员才能查看"
+            android:textColor="@color/default_color"
+            android:textSize="15sp"
+            android:id="@+id/textView" />
+    </RelativeLayout>
+
+</LinearLayout>

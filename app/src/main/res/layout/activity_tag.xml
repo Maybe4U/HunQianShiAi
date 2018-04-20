@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.login_register.hobby_interest.PersonageTagActivity">
+
+    <include
+
+        layout="@layout/view_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_custom_tag"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_add_tag"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#eaeaea"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/biaoqian_tianjia" />
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_add"
+                android:text="创建我自己的标签" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@mipmap/jinru" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_tag"
+            style="@style/text_style_black"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

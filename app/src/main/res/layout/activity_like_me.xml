@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".home.message.like_me.LikeMeActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <RadioGroup
+        android:id="@+id/rg_activities"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/background_color"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_activities"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最近对我心动的人"
+            android:textColor="@drawable/selector_information_text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+        <RadioButton
+            android:id="@+id/rb_information"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="我的心动记录"
+            android:textColor="@drawable/selector_information_text"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shape_line"
+        android:layerType="software" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="@color/default_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="@color/default_color" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
+</LinearLayout>

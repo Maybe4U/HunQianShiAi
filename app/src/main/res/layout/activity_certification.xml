@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.login_register.CertificationActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="为什么要收取认证费？"
+                android:textSize="16sp" />
+
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_margin="20dp"
+                android:text="“婚前试爱”致力打造100%真实、严肃的婚恋交友平台，通过收取基本平台维护费用可以筛选掉大部分的酒托、饭托、推销等虚假用户。" />
+
+            <View
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_margin="20dp"
+                android:text="响应国家号召号召打造实名认证安全高效的婚恋平台，进行严格的身份认证需要耗费大量的人力成本收取基本的平台认证维护费用可以保证“婚前试爱”持续稳定运营。" />
+
+            <View
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_margin="20dp"
+                android:text="为了保障平台的真实性，我们要求用户必须完成身份认证，对于以结婚为目的的用户，我们希望为他们提供一个安全高效的婚恋环境。" />
+
+            <View
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_renz"
+                    style="@style/text_style_gray"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:text="永久认证￥50" />
+
+                <TextView
+                    android:id="@+id/tv_tuig"
+                    style="@style/text_style_black"
+                    android:layout_marginLeft="20dp"
+                    android:text="推广期￥0.0（免费）"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_style_gray"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="（通过收取认证费筛选掉大部分的酒托、饭托、婚托等虚假用户）"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@drawable/shape_rounded_rectangle_hollow_5"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="“我们只欢迎认真的人”"
+                    android:textSize="16sp" />
+
+                <TextView
+                    style="@style/text_style_gray"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="唯有真心诚意才值得拥有真挚的爱情" />
+
+                <TextView
+                    android:id="@+id/tv_count"
+                    style="@style/text_style_gray"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="8dp"
+                    android:text="已有111111位优质单身用户已付费认证身份" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_certification"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_button"
+                android:gravity="center"
+                android:text="立刻认证"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/shape_rounded_rectangle_white_5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_style_black"
+            android:padding="20dp"
+            android:text="提示"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@style/text_style_black"
+            android:text="此功能需要开通会员才可使用" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/tv_reset"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_2"
+                android:gravity="center"
+                android:text="等一会" />
+
+            <TextView
+                android:id="@+id/tv_affirm"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_button"
+                android:gravity="center"
+                android:text="确定" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

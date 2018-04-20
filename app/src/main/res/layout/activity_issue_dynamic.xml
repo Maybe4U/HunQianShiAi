@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.home.dynamic.my_dynamic.IssueDynamicActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="说点什么吧"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_text_count"
+                style="@style/text_style_black"
+                android:layout_gravity="end"
+                android:layout_marginRight="15dp"
+                android:text="0/150" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/iv_add_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@mipmap/dong_tianjiadongtai" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
+            </LinearLayout>
+
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_sit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:drawableLeft="@mipmap/fabu_weizhi1"
+                    android:drawablePadding="10dp"
+                    android:text="所在位置" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_select_sit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/jinru" />
+
+                    <TextView
+                        android:id="@+id/tv_set_sit"
+                        style="@style/text_style_black" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/background_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_select_look"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:drawableLeft="@mipmap/fabu_shiuikekan"
+                    android:drawablePadding="10dp"
+                    android:text="谁可以看" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_select_look"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/jinru" />
+
+                    <TextView
+                        android:id="@+id/tv_set_look"
+                        style="@style/text_style_black" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
+                android:gravity="end"
+                android:paddingBottom="20dp">
+
+                <CheckBox
+                    android:id="@+id/check_synchronization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:button="@drawable/check_synchronization"
+                    android:padding="10dp"
+                    android:text="将照片同步到相册"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zykj.hunqianshiai.home.HomeMainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <RadioGroup
+            android:id="@+id/rg_tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/default_color"
+            android:orientation="horizontal">
+
+            <com.zykj.hunqianshiai.tools.TabButton
+                android:id="@+id/tb_home"
+                style="@style/tab_button"
+                android:text="首页"
+                app:drawableTop="@drawable/selector_main_tab_home"
+                app:drawable_size="21dp" />
+
+            <com.zykj.hunqianshiai.tools.TabButton
+                android:id="@+id/tb_region"
+                style="@style/tab_button"
+                android:text="活动"
+                app:drawableTop="@drawable/selector_main_tab_region"
+                app:drawable_size="21dp" />
+
+            <com.zykj.hunqianshiai.tools.TabButton
+                android:id="@+id/tb_dynamic"
+                style="@style/tab_button"
+                android:text="动态"
+                app:drawableTop="@drawable/selector_main_tab_dynamic"
+                app:drawable_size="21dp" />
+
+            <com.zykj.hunqianshiai.tools.TabButton
+                android:id="@+id/rb_tab5"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <com.zykj.hunqianshiai.tools.TabButton
+                    android:id="@+id/tb_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    style="@style/tab_button"
+                    android:text="消息"
+                    app:drawableTop="@drawable/selector_main_tab_message"
+                    app:drawable_size="21dp" />
+
+                <ImageView
+                    android:id="@+id/iv_message_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/shape_red_dot"
+                    android:visibility="visible" />
+            </RelativeLayout>
+            <!--<com.zykj.hunqianshiai.tools.TabButton-->
+                <!--android:id="@+id/tb_message"-->
+                <!--style="@style/tab_button"-->
+                <!--android:text="消息"-->
+                <!--app:drawableTop="@drawable/selector_main_tab_message"-->
+                <!--app:drawable_size="21dp" />-->
+
+
+            <com.zykj.hunqianshiai.tools.TabButton
+                android:id="@+id/tb_my"
+                style="@style/tab_button"
+                android:text="我的"
+                app:drawableTop="@drawable/selector_main_tab_my"
+                app:drawable_size="21dp" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

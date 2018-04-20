@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zykj.hunqianshiai.user_home.personal_assistant.OpenStewardActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_5"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_rounded_rectangle_hollow_5"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <CheckBox
+                    android:id="@+id/cb_three_month"
+                    style="@style/text_style_black"
+                    android:button="@drawable/selector_pay"
+                    android:padding="10dp"
+                    android:text="3个月" />
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="1111.00元" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <CheckBox
+                    android:id="@+id/cb_six_month"
+                    style="@style/text_style_black"
+                    android:button="@drawable/selector_pay"
+                    android:padding="10dp"
+                    android:text="6个月" />
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="1111.00元" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <CheckBox
+                    android:id="@+id/cb_year"
+                    style="@style/text_style_black"
+                    android:button="@drawable/selector_pay"
+                    android:padding="10dp"
+                    android:text="12个月" />
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="1111.00元" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/text_style_black"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:text="选择支付方式"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_rounded_rectangle_hollow_5"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:text="支付宝" />
+
+                <CheckBox
+                    android:id="@+id/cb_zfb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:button="@drawable/selector_pay_mode"
+                    android:padding="5dp" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:text="微信" />
+
+                <CheckBox
+                    android:id="@+id/cb_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:button="@drawable/selector_pay_mode"
+                    android:padding="5dp" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/imaginary_line"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:text="金额合计" />
+
+                <TextView
+                    style="@style/text_style_black"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:text="88.8元" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="40dp"
+            android:background="@drawable/selector_button"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

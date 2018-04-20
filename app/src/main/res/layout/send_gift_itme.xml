@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_headpic"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:src="@mipmap/fujin_fujin" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/text_style_black"
+                android:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/text_style_black"
+                android:layout_marginLeft="10dp"
+                android:text="@string/app_name"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_type"
+                style="@style/text_style_black"
+                android:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                style="@style/text_style_black"
+                android:layout_marginLeft="10dp"
+                android:text="@string/app_name"
+                android:textColor="@color/default_color" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/liwu_bieshu" />
+
+    <TextView
+        style="@style/text_style_black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="X 1"
+        android:textSize="17sp"
+        android:visibility="gone" />
+</LinearLayout>

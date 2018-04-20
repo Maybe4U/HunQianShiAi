@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zykj.hunqianshiai.home.my.identifacation_education.IdentificationEducationActivity">
+    <include layout="@layout/view_toolbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="您的最高学历"
+                android:textColor="@color/default_color" />
+
+            <TextView
+                android:id="@+id/tv_education"
+                style="@style/text_style_gray"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:drawablePadding="10dp"
+                android:padding="5dp"
+                android:drawableRight="@mipmap/jinru"
+                android:text="请选择" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/imaginary_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写您的毕业院校"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="上传行驶证或购买证明"
+                android:textColor="@color/default_color" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/imaginary_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="80dp"
+                    android:src="@mipmap/xueli" />
+
+                <TextView
+                    style="@style/text_style_gray"
+                    android:layout_marginTop="10dp"
+                    android:text="学历证样式" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_education"
+                    android:layout_width="140dp"
+                    android:layout_height="80dp"
+                    android:src="@mipmap/che_shangchuan" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
