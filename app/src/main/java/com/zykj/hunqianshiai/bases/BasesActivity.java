@@ -47,6 +47,7 @@ public abstract class BasesActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initMapView();
         setContentView(getContentViewX());
         ButterKnife.bind(this);
 
@@ -74,6 +75,10 @@ public abstract class BasesActivity extends AppCompatActivity implements View.On
         }
         mActivityList.add(this);
         initView();
+    }
+    //初始化地图引擎
+    protected void initMapView() {
+
     }
 
     public void destroyApp() {

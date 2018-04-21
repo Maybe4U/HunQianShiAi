@@ -31,7 +31,8 @@ public class MyApplication extends MultiDexApplication {
         RongIM.init(this);
 
         // MOB  通过代码注册你的AppKey和AppSecret
-        MobSDK.init(this, "226a52e6f74e0", "eb2a1d829bbb5a20061f5aa54e04d814");
+        //MobSDK.init(this, "226a52e6f74e0", "eb2a1d829bbb5a20061f5aa54e04d814");
+        MobSDK.init(this, "0cf89e8dc0ddabf85be6e3b1", "eea7dc5b20b1d5724d76c7ab");
         api = WXAPIFactory.createWXAPI(this, UrlContent.WX_APP_ID, true);
         api.registerApp(UrlContent.WX_APP_ID);
 

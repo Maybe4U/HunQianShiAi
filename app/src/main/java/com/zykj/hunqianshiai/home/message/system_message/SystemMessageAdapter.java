@@ -1,6 +1,7 @@
 package com.zykj.hunqianshiai.home.message.system_message;
 
 import android.support.annotation.Nullable;
+import android.view.ViewTreeObserver;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,5 +23,7 @@ public class SystemMessageAdapter extends BaseQuickAdapter<SystemMessageBean.Sys
         helper.setText(R.id.tv_title, item.title);
         helper.setText(R.id.tv_content, item.content);
         helper.setText(R.id.tv_time, item.remark);
+
     }
+
 }

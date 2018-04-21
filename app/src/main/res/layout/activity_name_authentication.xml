@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.zykj.hunqianshiai.login_register.NameAuthenticationActivity">
 
     <include
         android:id="@+id/include_view"
         layout="@layout/view_toolbar" />
+    <ScrollView
+        android:layout_below="@id/include_view"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +51,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
 
                 android:orientation="horizontal">
 
@@ -114,28 +118,35 @@
 
                 android:text="（请务必按示例上传对应的证件照，否则将不通过）" />
 
-            <TextView
-                android:id="@+id/tv_submit"
-                android:layout_width="220dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/selector_button"
-                android:gravity="center"
-                android:text="提交"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_skip"
-                android:layout_width="220dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button_2"
-                android:gravity="center"
-                android:text="证件不在身边？暂时跳过"
-                android:textSize="15sp" />
         </LinearLayout>
+    </ScrollView>
 
-</LinearLayout>
+
+    <TextView
+        android:layout_above="@id/tv_skip"
+        android:id="@+id/tv_submit"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_button"
+        android:gravity="center"
+        android:text="提交"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_2"
+        android:gravity="center"
+        android:text="证件不在身边？暂时跳过"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp" />
+
+</RelativeLayout>

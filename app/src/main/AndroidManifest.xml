@@ -240,8 +240,8 @@
         <!-- 百度地图start -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="d2QXLf6SELTywe4qAHcYF6MZfMPIm3s2" />
-        <!--  原来的AK  android:value="d2QXLf6SELTywe4qAHcYF6MZfMPIm3s2"-->
+            android:value="ZhR8nEAWmfmfb1MK6zixq6UBr3FZX3XQ" />
+        <!--  原来的AK  android:value="d2QXLf6SELTywe4qAHcYF6MZfMPIm3s2_______________8DD6SgPTOk0E7PXr6w57kwzXvZ5yIdKu"-->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

@@ -456,7 +456,7 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
              */
             @Override
             public void onSuccess(String userid) {
-                toastShow("--onSuccess" + userid);
+                //toastShow("--onSuccess" + userid);
                 //                    startActivity(new Intent(LoginActivity.this, HomeMainActivity.class));
                 //                    finish();
                 //                toastShow("连接融云成功");

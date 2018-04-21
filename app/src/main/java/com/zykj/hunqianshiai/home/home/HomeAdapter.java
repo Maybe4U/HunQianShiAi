@@ -36,7 +36,7 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, final HomeBean.HomeData item) {
-        helper.addOnClickListener(R.id.iv_recommend).addOnClickListener(R.id.ll_chat);
+        helper.addOnClickListener(R.id.iv_recommend).addOnClickListener(R.id.ll_chat).addOnClickListener(R.id.ll_dynamic);
         helper.setText(R.id.tv_identification, item.userauth);
         Glide.with(mContext)
                 .load(item.headpic)

@@ -120,7 +120,7 @@ public class PeopleNearbyActivity extends BasesActivity implements BaseView<Stri
         fab_nearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toastShow("悬浮点击");
+                openActivity(NearbyLocationActivity.class);
             }
         });
     }

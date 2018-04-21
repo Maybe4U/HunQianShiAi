@@ -142,7 +142,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     TextView tv_black;
 
     @Bind(R.id.rl_chat)
-    TextView rl_chat;
+    RelativeLayout rl_chat;
 
     String[] hobbies = {"电影", "音乐", "书籍", "美食", "运动"};
     int[] images = {R.mipmap.dianying, R.mipmap.yinyue, R.mipmap.shuji, R.mipmap.meishi, R.mipmap.yundong};
