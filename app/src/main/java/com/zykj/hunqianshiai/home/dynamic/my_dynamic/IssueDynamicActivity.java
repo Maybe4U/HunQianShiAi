@@ -341,7 +341,7 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
                 case 1:
                     ArrayList<Integer> list = data.getIntegerArrayListExtra("deleteList");
                     for (int i = 0; i < list.size(); i++) {
-                        Log.e("得到的要删除的位置", list.get(i) + "");
+                        //Log.e("得到的要删除的位置", list.get(i) + "");
                         mInformPicAdapter.remove(list.get(i));
                     }
             }
@@ -359,7 +359,7 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
 
     @Override
     public void success(String bean) {
-        Log.e("success",bean);
+        //Log.e("success",bean);
         BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
         if (baseBean.code != 200) {
             toastShow("不支持的图片格式，请重新选择图片");

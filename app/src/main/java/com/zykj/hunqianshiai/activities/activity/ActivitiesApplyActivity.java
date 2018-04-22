@@ -170,7 +170,7 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
     public void success(String bean) {
         ActivitiesApplyBean activitiesApplyBean = JsonUtils.GsonToBean(bean, ActivitiesApplyBean.class);
         mBundle.putString("id", activitiesApplyBean.data.id);
-        Log.e("活动报名",activitiesApplyBean.data.phone);
+        //Log.e("活动报名",activitiesApplyBean.data.phone);
         if (mCost.equals("0")) {
             mParams.clear();
             mParams.put("userid", UrlContent.USER_ID);

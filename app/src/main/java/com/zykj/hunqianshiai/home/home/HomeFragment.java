@@ -259,8 +259,8 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
                     mBundle.clear();
                     mBundle.putString("userid", userid);
 
-                    Log.e("该用户的ID",userid + "userid");
-                    Log.e("该用户的ID",UrlContent.USER_ID + "UrlContent.USER_ID");
+                    //Log.e("该用户的ID",userid + "userid");
+                    //Log.e("该用户的ID",UrlContent.USER_ID + "UrlContent.USER_ID");
                     openActivity(UserDynamicActivity.class, mBundle);
                     break;
                 }

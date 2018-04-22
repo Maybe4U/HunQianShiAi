@@ -27,5 +27,24 @@ public class InformationDetailsBean extends BaseBean {
         public List<DynamicDetailsBean.Comment> comment;
         public String addtime;
         public int comment_num;
-     }
+
+        @Override
+        public String toString() {
+            return "InformationDetailsData{" +
+                    "actid='" + actid + '\'' +
+                    ", areaid='" + areaid + '\'' +
+                    ", info='" + info + '\'' +
+                    ", ji_value='" + ji_value + '\'' +
+                    ", remark='" + remark + '\'' +
+                    ", see='" + see + '\'' +
+                    ", thumb='" + thumb + '\'' +
+                    ", time='" + time + '\'' +
+                    ", title='" + title + '\'' +
+                    ", video='" + video + '\'' +
+                    ", comment=" + comment +
+                    ", addtime='" + addtime + '\'' +
+                    ", comment_num=" + comment_num +
+                    '}';
+        }
+    }
 }

@@ -33,5 +33,15 @@ public class PeopleNearbyBean extends BaseBean {
         public String userid;
         public String username;
         public String yearmoney;
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "areaname='" + areaname + '\'' +
+                    ", juli='" + juli + '\'' +
+                    ", lat='" + lat + '\'' +
+                    ", lng='" + lng + '\'' +
+                    '}';
+        }
     }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +25,7 @@ import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BaseBean;
 import com.zykj.hunqianshiai.bases.BaseModel;
 import com.zykj.hunqianshiai.bases.BaseModelImpl;
+import com.zykj.hunqianshiai.bases.BasePopupWindow;
 import com.zykj.hunqianshiai.bases.BasePresenterImpl;
 import com.zykj.hunqianshiai.bases.BaseView;
 import com.zykj.hunqianshiai.bases.BasesActivity;
@@ -63,13 +66,24 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     private ImageView mIv_thumb;
     private TextView mTv_title;
     private CheckBox mCheck_like;
-    private String mActid;
     private String mOther_id;
     private int keyHeight;
     private String mId;
     private BasePresenterImpl mPresenter;
     private String mId1;
     private InformationDetailsAdapter mInformationDetailsAdapter;
+    private TextView mComment_num;
+    private TextView mLike_number;
+    private ImageView mIv_details_comment;
+    private int mLike_num = 0;
+
+    private String mUserid;
+    private Bundle mBundle;
+
+    private String mState;
+    private String mTitle;
+    private String mUrl;
+    private String mActid;
 
     @Override
     protected int getContentViewX() {
@@ -82,6 +96,11 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
 //        rightShare.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
         mId1 = bundle.getString("id");
+        mTitle = bundle.getString("title");
+        mUrl = bundle.getString("url");
+        mActid = bundle.getString("actid");
+        mState = bundle.getString("state");
+        rightShare.setVisibility(View.VISIBLE);
 
         mHeadView = LayoutInflater.from(this).inflate(R.layout.information_details_header, null);
         ImageView headViewComment = mHeadView.findViewById(R.id.iv_details_comment);
@@ -92,6 +111,13 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         mTv_see = mHeadView.findViewById(R.id.tv_see);
         mTv_num = mHeadView.findViewById(R.id.tv_num);
         mCheck_like = mHeadView.findViewById(R.id.check_like);
+
+        //评论数量
+        mComment_num = mHeadView.findViewById(R.id.comment_num);
+        //点赞数量
+        mLike_number = mHeadView.findViewById(R.id.like_number);
+        //评论
+        mIv_details_comment = mHeadView.findViewById(R.id.iv_details_comment);
 
         headViewComment.setOnClickListener(this);
 
@@ -111,10 +137,11 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         mParams.put("userid", UrlContent.USER_ID);
         mParams.put("id", mId1);
         mPresenter.getData(UrlContent.INFORMATION_PARTICULARS_URL, mParams, BaseModel.DEFAULT_TYPE);
-
+        //mPresenter.getData(UrlContent.IS_LIKE_URL, mParams, BaseModel.DEFAULT_TYPE);
     }
 
-    @OnClick({R.id.tv_send})
+    //发送
+    @OnClick({R.id.tv_send,  R.id.iv_right_share})
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -166,32 +193,41 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                 }
                 break;
             case R.id.iv_details_comment:
-//                PopupWindowInformationReply popupWindowInformationReply = new PopupWindowInformationReply(InformationDetailsActivity.this);
-//                popupWindowInformationReply.showAtLocation(rightShare, Gravity.BOTTOM, 0, 0);
-//                popupWindowInformationReply.setClickListener(new BasePopupWindow.ClickListener() {
-//                    @Override
-//                    public void onClickListener(Object object) {
-//                        mParams.clear();
-//                        mParams.put("userid", UrlContent.USER_ID);
-//                        mParams.put("act_id", mActid);
-//                        mParams.put("content", object.toString());
-//                        mParams.put("rdm", UrlContent.RDM);
-//                        mParams.put("sign", UrlContent.SIGN);
-//                        OkGo.<String>post(UrlContent.COMMENT_INFORMATION_URL)
-//                                .params(mParams)
-//                                .execute(new StringCallback() {
-//                                    @Override
-//                                    public void onSuccess(Response<String> response) {
-//
-//                                    }
-//                                });
-//                    }
-//                });
+                PopupWindowInformationReply popupWindowInformationReply = new PopupWindowInformationReply(InformationDetailsActivity.this);
+                popupWindowInformationReply.showAtLocation(rightShare, Gravity.BOTTOM, 0, 0);
+                popupWindowInformationReply.setClickListener(new BasePopupWindow.ClickListener() {
+                    @Override
+                    public void onClickListener(Object object) {
+                        mParams.clear();
+                        mParams.put("userid", UrlContent.USER_ID);
+                        mParams.put("act_id", mActid);
+                        mParams.put("content", object.toString());
+                        mParams.put("rdm", UrlContent.RDM);
+                        mParams.put("sign", UrlContent.SIGN);
+                        OkGo.<String>post(UrlContent.COMMENT_INFORMATION_URL)
+                                .params(mParams)
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        mParams.clear();
+                                        mParams.put("userid", UrlContent.USER_ID);
+                                        mParams.put("id", mId1);
+                                        mPresenter.getData(UrlContent.INFORMATION_PARTICULARS_URL, mParams, BaseModel.REFRESH_TYPE);
+                                    }
+                                });
+                    }
+                });
+                break;
+            case R.id.iv_right_share:
+                showShare(mTitle,"首家实名制认证严肃婚恋社交平台",mUrl,mActid);
                 break;
             default:
                 break;
         }
     }
+
+
+
 
     @Override
     public void success(String bean) {
@@ -201,7 +237,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         }
         InformationDetailsBean informationDetailsBean = JsonUtils.GsonToBean(bean, InformationDetailsBean.class);
         InformationDetailsBean.InformationDetailsData data = informationDetailsBean.data;
-
+        data.toString();
         mActid = data.actid;
         mTv_title.setText(data.title);
         glide(UrlContent.PIC_URL + data.thumb, mIv_thumb, mCircleRequestOptions);
@@ -209,6 +245,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         mTv_content.setText(data.info);
         mTv_see.setText(data.see);
         mTv_num.setText("评论（" + data.comment_num + "）");
+        mComment_num.setText(data.comment_num + "");
+        mLike_number.setText(data.remark + "");
+
         mCheck_like.setOnCheckedChangeListener(this);
 
         ArrayList<String> strings = new ArrayList<>();
@@ -250,6 +289,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         InformationDetailsBean informationDetailsBean = JsonUtils.GsonToBean(bean, InformationDetailsBean.class);
         InformationDetailsBean.InformationDetailsData data = informationDetailsBean.data;
         mTv_num.setText("评论（" + data.comment_num + "）");
+        mComment_num.setText(data.comment_num + "");
         List<DynamicDetailsBean.Comment> comment = data.comment;
         mInformationDetailsAdapter.setNewData(comment);
     }
@@ -263,12 +303,45 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     public void failed(String content) {
 
     }
-
+    //点赞
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mBundle = getIntent().getExtras();
+        mUserid = mBundle.getString("userid");
+        mParams.clear();
+        mParams.put("userid", UrlContent.USER_ID);
+        mParams.put("uid", mUserid);
+        mParams.put("rdm", UrlContent.RDM);
+        mParams.put("sign", UrlContent.SIGN);
         if (b) {
 
+            OkGo.<String>post(UrlContent.IS_LIKE_URL)
+                    .params(mParams)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                            String s = response.body().toString();
+                            //Log.e("response",s);
+                            mCheck_like.setChecked(true);
+                            //mLike_number.setText(mLike_num + "");
+                            mLike_num++;
+                            mLike_number.setText(mLike_num + "");
+                        }
+                    });
+        } else {
+            OkGo.<String>post(UrlContent.IS_LIKE_URL)
+                    .params(mParams)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            mLike_num--;
+                            mLike_number.setText(mLike_num + "");
+                            mCheck_like.setChecked(false);
+                        }
+                    });
         }
+
     }
 
     @Override

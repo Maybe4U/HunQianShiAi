@@ -102,7 +102,6 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
         mSystemMessageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toastShow("点击");
                 toggle(true);
             }
         });
@@ -112,7 +111,6 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
             @Override
             public void onGlobalLayout() {
                 mMeasuredHeight = mContent.getMeasuredHeight();
-                Log.e("测量的高度",mMeasuredHeight+"");
                 //默认折叠
                 toggle(false);
                 mContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);

@@ -30,12 +30,12 @@ public class PeopleNearbyAdapter extends BaseQuickAdapter<PeopleNearbyBean.Data,
         helper.setText(R.id.tv_head_username, item.username + "  " + item.age + "岁");
         helper.setVisible(R.id.iv_isvip, item.isvip);
 
-
         helper.setText(R.id.tv_userauth, item.userauth);
         helper.setText(R.id.tv_areaname, item.areaname);
         helper.setText(R.id.tv_yearmoney, item.yearmoney);
+
         if (null!=item.juli&& !TextUtils.isEmpty(item.juli)) {
-            helper.setText(R.id.tv_distance, item.juli + "km以内");
+            helper.setText(R.id.tv_distance, item.juli + "以内");
         }
     }
 }
