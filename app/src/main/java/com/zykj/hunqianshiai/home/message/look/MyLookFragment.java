@@ -17,6 +17,8 @@ import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -75,9 +77,21 @@ public class MyLookFragment extends BaseFragment implements BaseView<String> {
         MyLikeBean myLikeBean = JsonUtils.GsonToBean(bean, MyLikeBean.class);
         final List<MyLikeBean.MyLikeData> data = myLikeBean.data;
         if (data.isEmpty()) {
+            toastShow("没有记录");
             return;
         }
-        LookMeAdapter lookMeAdapter = new LookMeAdapter(data);
+        //过滤自己
+        List<MyLikeBean.MyLikeData> filterData = new ArrayList<>();
+        for(int i=0;i<data.size();i++){
+            String comeid = data.get(i).comeuserid;
+            if(!comeid.equals(UrlContent.USER_ID)){
+                filterData.add(data.get(i));
+            }
+        }
+        //逆序排列
+        Collections.reverse(filterData);
+
+        LookMeAdapter lookMeAdapter = new LookMeAdapter(filterData);
         mRecyclerView.setAdapter(lookMeAdapter);
         lookMeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

@@ -105,6 +105,10 @@ public class UrlContent {
      * 点赞（取消）
      */
     public static final String IS_LIKE_URL = BASE_URL + "c=Friends&a=dian_zan";
+    /**
+     * 查询我是否点赞
+     */
+    public static final String ISMY_LIKE_URL = BASE_URL + "c=Friends&a=is_zan";
 
     /**
      * 查询所有符合条件的动态列表
@@ -310,9 +314,14 @@ public class UrlContent {
     public static final String REMOVE_BLACKLIST_URL = BASE_URL + "c=user&a=del_Blacklist";
 
     /**
-     * 不让显示不让看
+     * 让看不让看
      */
     public static final String SEE_URL = BASE_URL + "c=friends&a=limit_see";
+
+    /**
+     * 不让显示不让看
+     */
+    public static final String SECRET_URL = BASE_URL + "c=user&a=kan_list";
 
     /**
      * 查询推送给自己的信息

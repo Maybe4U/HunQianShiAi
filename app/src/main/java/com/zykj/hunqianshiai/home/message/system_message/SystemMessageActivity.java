@@ -41,11 +41,8 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
     RecyclerView mRecyclerView;
     private SystemMessageAdapter mSystemMessageAdapter;
 
-    private int mMeasuredHeight;
-    private boolean isOpen = true;
     private List<SystemMessageBean.SystemMessageData> mData;
     private TextView mContent;
-    private ImageView mArrow;
     private String mContentText;
 
     @Override
@@ -62,7 +59,6 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
 
         View view = View.inflate(this,R.layout.system_message_imte,null);
         mContent = (TextView)view.findViewById(R.id.tv_content);
-        mArrow = view.findViewById(R.id.iv_arrow);
 
         Bundle bundle = getIntent().getExtras();
         String userid = bundle.getString("userid");
@@ -72,24 +68,6 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
         presenter.getData(UrlContent.SYSTEM_MESSAGE_URL, mParams, BaseModel.DEFAULT_TYPE);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if(mContent != null){
-//            mContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                @Override
-//                public void onGlobalLayout() {
-//                    mMeasuredHeight = mContent.getMeasuredHeight();
-//                    Log.e("测量的高度",mMeasuredHeight+"");
-//                    //默认折叠
-//                    //toggle(false);
-//                    mContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                }
-//            });
-//        }else {
-//            Log.e("mContent","为空");
-//        }
-//    }
 
     @Override
     public void success(String bean) {
@@ -99,21 +77,17 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
         mSystemMessageAdapter = new SystemMessageAdapter(mData);
         mRecyclerView.setAdapter(mSystemMessageAdapter);
 
+        Bundle bundle = new Bundle();
+
+
         mSystemMessageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toggle(true);
-            }
-        });
-
-        //布局完成的监听事件
-        mContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mMeasuredHeight = mContent.getMeasuredHeight();
-                //默认折叠
-                toggle(false);
-                mContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                bundle.clear();
+                bundle.putString("content",mData.get(position).content);
+                bundle.putString("time",mData.get(position).time);
+                bundle.putString("title",mData.get(position).title);
+                openActivity(SysMsgDetailsActivity.class,bundle);
             }
         });
     }
@@ -134,94 +108,5 @@ public class SystemMessageActivity extends BasesActivity implements BaseView<Str
     @Override
     public void failed(String content) {
 
-    }
-
-
-
-    private void toggle(boolean isAnimation) {
-        int end = 0;
-        int start = 0;
-        mContentText = mContent.getText().toString();
-        if(isOpen){
-            /**
-             mTvDes高度发生改变
-             应有的高度-->7行的高度
-             */
-            start = mMeasuredHeight;
-            end = getShortHeight(1,mContentText);
-            if(isAnimation){
-                doAnimation(start,end);
-            }else {
-                mContent.setHeight(end);
-            }
-
-
-        }else {
-
-            start = getShortHeight(1,mContentText);
-            end = mMeasuredHeight;
-            if(isAnimation){
-                doAnimation(start,end);
-            }else {
-                mContent.setHeight(end);
-            }
-
-
-        }
-        if(isAnimation){
-            if(isOpen){
-                ObjectAnimator.ofFloat(mArrow,"rotation",180,0).start();
-            }else {
-                ObjectAnimator.ofFloat(mArrow,"rotation",0,180).start();
-            }
-        }
-        isOpen = !isOpen;
-    }
-    private void doAnimation(int start, int end) {
-        ObjectAnimator animator = ObjectAnimator.ofInt(mContent,"height",start,end);
-        animator.start();
-
-        animator.addListener(new Animator.AnimatorListener() {
-            //动画结束
-            //去找mTvDes的父类，递归向上查找，直到父类为空或者父类为ScrollView
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                ViewParent parent = mContent.getParent();
-                while(true){
-                    parent = parent.getParent();
-                    if(parent == null){
-                        break;
-                    }
-                    if(parent instanceof ScrollView){
-                        ((ScrollView) parent).fullScroll(View.FOCUS_DOWN);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-    }
-    private int getShortHeight(int line, String contents) {
-        TextView tv = new TextView(getApplicationContext());
-        tv.setLines(line);
-        tv.setText(contents);
-
-        tv.measure(0,0);
-        int tvMeasuredHeight = tv.getMeasuredHeight();
-        return tvMeasuredHeight;
     }
 }

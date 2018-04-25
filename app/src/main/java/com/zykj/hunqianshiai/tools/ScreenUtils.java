@@ -5,8 +5,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * 获得屏幕相关的辅助类
@@ -112,4 +114,5 @@ public class ScreenUtils {
         return bp;
 
     }
+
 }

@@ -27,6 +27,8 @@ public class InformationDetailsBean extends BaseBean {
         public List<DynamicDetailsBean.Comment> comment;
         public String addtime;
         public int comment_num;
+        public int zan_num;
+        public int state;
 
         @Override
         public String toString() {
@@ -44,6 +46,7 @@ public class InformationDetailsBean extends BaseBean {
                     ", comment=" + comment +
                     ", addtime='" + addtime + '\'' +
                     ", comment_num=" + comment_num +
+                    ", zan_num=" + zan_num +
                     '}';
         }
     }

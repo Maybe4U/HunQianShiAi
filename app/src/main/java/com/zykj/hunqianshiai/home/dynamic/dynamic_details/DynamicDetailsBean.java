@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DynamicDetailsBean extends BaseBean {
     public List<DynamicDetailsData> data;
-
+    public List<Comment> comment;
     public static class DynamicDetailsData implements Serializable{
         public String address;
         public String addtime;
@@ -48,4 +48,5 @@ public class DynamicDetailsBean extends BaseBean {
         public String userid;
         public String username;
     }
+
 }

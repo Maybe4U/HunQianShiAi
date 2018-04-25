@@ -31,14 +31,17 @@ public class InformationDetailsAdapter extends BaseQuickAdapter<DynamicDetailsBe
                 .into((ImageView) helper.getView(R.id.iv_headpic));
         helper.setText(R.id.tv_username, item.username);
         helper.setText(R.id.tv_addtime, item.addtime);
-        if (!item.userid.equals(UrlContent.USER_ID)) {
+
+
+        //if (!item.userid.equals(UrlContent.USER_ID)) {
             if (item.userid.equals(item.other_id) || TextUtils.isEmpty(item.other_username)) {
                 helper.setText(R.id.tv_content, item.content);
             } else {
                 helper.setText(R.id.tv_content, "回复 " + item.other_username + " : " + item.content);
             }
-        } else {
-            helper.setText(R.id.tv_content, item.content);
-        }
+        //}
+//        else {
+//            helper.setText(R.id.tv_content, item.content);
+//        }
     }
 }

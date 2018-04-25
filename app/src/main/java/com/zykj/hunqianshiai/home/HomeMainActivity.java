@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -78,6 +79,8 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
     TabButton rb_tab5;
     @Bind(R.id.iv_message_dot)
     ImageView iv_message_dot;
+    @Bind(R.id.msg_num)
+    TextView msg_num;
 
     private int click = 0;
     private HomeFragment mHomeFragment;
@@ -204,6 +207,9 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
                 } else {
                     transaction.show(mDynamicFragment);
                 }
+
+//                mDynamicFragment = DynamicFragment.getInstance();
+//                transaction.add(R.id.fl_layout, mDynamicFragment);
                 break;
             case R.id.rb_tab5:
 
@@ -413,6 +419,11 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
                     iv_message_dot.setVisibility(View.GONE);
                 } else {
                     iv_message_dot.setVisibility(View.VISIBLE);
+                    if(i>99){
+                        msg_num.setText("99+");
+                    }else {
+                        msg_num.setText(i+"");
+                    }
                 }
             }
         }, Conversation.ConversationType.PRIVATE);
@@ -439,7 +450,7 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                //                                toastShow(response.body());
+                                                               toastShow(response.body());
                             }
 
                             @Override

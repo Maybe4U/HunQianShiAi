@@ -2,12 +2,14 @@ package com.zykj.hunqianshiai.activities.information;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -33,12 +35,14 @@ import com.zykj.hunqianshiai.home.dynamic.dynamic_details.DynamicDetailsAdapter;
 import com.zykj.hunqianshiai.home.dynamic.dynamic_details.DynamicDetailsBean;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
+import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 
 import static io.rong.imkit.utilities.RongUtils.screenHeight;
 
@@ -73,9 +77,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     private String mId1;
     private InformationDetailsAdapter mInformationDetailsAdapter;
     private TextView mComment_num;
-    private TextView mLike_number;
+    private TextView mThumb_up;
     private ImageView mIv_details_comment;
-    private int mLike_num = 0;
+    private int mLike_num;
 
     private String mUserid;
     private Bundle mBundle;
@@ -84,6 +88,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     private String mTitle;
     private String mUrl;
     private String mActid;
+    //点赞数量
+    private int mThumbUpNum;
+
 
     @Override
     protected int getContentViewX() {
@@ -93,13 +100,11 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     @Override
     protected void initView() {
         appBar("资讯详情页");
-//        rightShare.setVisibility(View.VISIBLE);
+        //        rightShare.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
+
         mId1 = bundle.getString("id");
-        mTitle = bundle.getString("title");
-        mUrl = bundle.getString("url");
-        mActid = bundle.getString("actid");
-        mState = bundle.getString("state");
+
         rightShare.setVisibility(View.VISIBLE);
 
         mHeadView = LayoutInflater.from(this).inflate(R.layout.information_details_header, null);
@@ -115,7 +120,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         //评论数量
         mComment_num = mHeadView.findViewById(R.id.comment_num);
         //点赞数量
-        mLike_number = mHeadView.findViewById(R.id.like_number);
+        mThumb_up = mHeadView.findViewById(R.id.thumb_up_num);
+
+
         //评论
         mIv_details_comment = mHeadView.findViewById(R.id.iv_details_comment);
 
@@ -131,17 +138,21 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         //阀值设置为屏幕高度的1/3
         keyHeight = screenHeight / 3;
+        //查询我是否点赞
+        queryThumb();
 
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
         mParams.clear();
         mParams.put("userid", UrlContent.USER_ID);
         mParams.put("id", mId1);
+
         mPresenter.getData(UrlContent.INFORMATION_PARTICULARS_URL, mParams, BaseModel.DEFAULT_TYPE);
         //mPresenter.getData(UrlContent.IS_LIKE_URL, mParams, BaseModel.DEFAULT_TYPE);
+
     }
 
     //发送
-    @OnClick({R.id.tv_send,  R.id.iv_right_share})
+    @OnClick({R.id.tv_send, R.id.iv_right_share})
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -175,7 +186,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                     mParams.put("userid", UrlContent.USER_ID);
                     mParams.put("act_id", mActid);
                     mParams.put("content", trim);
-                    mParams.put("comment_id", mId);
+
                     mParams.put("other_id", mOther_id);
                     mParams.put("rdm", UrlContent.RDM);
                     mParams.put("sign", UrlContent.SIGN);
@@ -190,6 +201,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                                     mPresenter.getData(UrlContent.INFORMATION_PARTICULARS_URL, mParams, BaseModel.REFRESH_TYPE);
                                 }
                             });
+                    mOther_id = "";
                 }
                 break;
             case R.id.iv_details_comment:
@@ -219,14 +231,13 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                 });
                 break;
             case R.id.iv_right_share:
-                showShare(mTitle,"首家实名制认证严肃婚恋社交平台",mUrl,mActid);
+                //Log.e("分享","点击");
+                showShare(mUrl, mActid);
                 break;
             default:
                 break;
         }
     }
-
-
 
 
     @Override
@@ -237,16 +248,23 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         }
         InformationDetailsBean informationDetailsBean = JsonUtils.GsonToBean(bean, InformationDetailsBean.class);
         InformationDetailsBean.InformationDetailsData data = informationDetailsBean.data;
-        data.toString();
+
+
+
+        //Log.e("information", data.toString());
         mActid = data.actid;
         mTv_title.setText(data.title);
         glide(UrlContent.PIC_URL + data.thumb, mIv_thumb, mCircleRequestOptions);
         mTv_time.setText(data.addtime);
         mTv_content.setText(data.info);
         mTv_see.setText(data.see);
+
+        //点赞数量
+        mThumbUpNum = data.zan_num;
         mTv_num.setText("评论（" + data.comment_num + "）");
         mComment_num.setText(data.comment_num + "");
-        mLike_number.setText(data.remark + "");
+        //设置点赞数量显示
+        mThumb_up.setText(mThumbUpNum + "");
 
         mCheck_like.setOnCheckedChangeListener(this);
 
@@ -256,7 +274,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         }
 
         List<DynamicDetailsBean.Comment> comment = data.comment;
-//        mInformationDetailsAdapter = new DynamicDetailsAdapter(comment);
+        //        mInformationDetailsAdapter = new DynamicDetailsAdapter(comment);
         mInformationDetailsAdapter = new InformationDetailsAdapter(comment);
         mInformationDetailsAdapter.addHeaderView(mHeadView);
         mRecyclerView.setAdapter(mInformationDetailsAdapter);
@@ -276,7 +294,31 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                 inputManager.showSoftInput(et_content, 0);
             }
         });
+    }
 
+    private void queryThumb() {
+        mParams.clear();
+        mParams.put("userid", UrlContent.USER_ID);
+        mParams.put("type", 1);
+        mParams.put("other_id", mId1);
+        mParams.put("rdm", UrlContent.RDM);
+        mParams.put("sign", UrlContent.SIGN);
+        OkGo.<String>post(UrlContent.ISMY_LIKE_URL)
+                .params(mParams)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
+                        if (baseBean.code == 200) {
+                            if (baseBean.message.equals("有点赞")) {
+                                mCheck_like.setChecked(true);
+                            } else {
+                                mCheck_like.setChecked(false);
+                            }
+                        }
+
+                    }
+                });
     }
 
     @Override
@@ -303,57 +345,69 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     public void failed(String content) {
 
     }
+
     //点赞
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        mBundle = getIntent().getExtras();
-        mUserid = mBundle.getString("userid");
         mParams.clear();
         mParams.put("userid", UrlContent.USER_ID);
-        mParams.put("uid", mUserid);
+        mParams.put("type", 1);
+        mParams.put("other_id", mActid);
+
         mParams.put("rdm", UrlContent.RDM);
         mParams.put("sign", UrlContent.SIGN);
         if (b) {
-
+            mParams.put("type_c", 2);
             OkGo.<String>post(UrlContent.IS_LIKE_URL)
                     .params(mParams)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-
-                            String s = response.body().toString();
-                            //Log.e("response",s);
+                            BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
+                            if (baseBean.code == 200) {
+                                toastShow(baseBean.message);
+                            }
                             mCheck_like.setChecked(true);
-                            //mLike_number.setText(mLike_num + "");
-                            mLike_num++;
-                            mLike_number.setText(mLike_num + "");
+                            mThumbUpNum++;
+                            mThumb_up.setText(mThumbUpNum + "");
                         }
                     });
         } else {
+            mParams.put("type_c", 1);
             OkGo.<String>post(UrlContent.IS_LIKE_URL)
                     .params(mParams)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            mLike_num--;
-                            mLike_number.setText(mLike_num + "");
+                            BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
+                            if (baseBean.code == 200) {
+                                toastShow(baseBean.message);
+                            }
                             mCheck_like.setChecked(false);
+                            mThumbUpNum--;
+                            mThumb_up.setText(mThumbUpNum + "");
                         }
                     });
         }
 
     }
+
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        return false;
+//    }
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
         if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
 
-//            toastShow("监听到软键盘弹起");
+            //            toastShow("监听到软键盘弹起");
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
-            mOther_id = "";
+
             et_content.setHint("评论");
-//            toastShow("监听到软件盘关闭");
+            //            toastShow("监听到软件盘关闭");
         }
     }
+
 }

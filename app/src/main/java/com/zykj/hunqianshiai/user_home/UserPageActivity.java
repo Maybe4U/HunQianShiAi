@@ -235,7 +235,13 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                                                 @Override
                                                                 public void onSuccess() {
                                                                     hideDialog();
-                                                                    tv_black.setText("已拉黑");
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            tv_black.setText("已拉黑");
+                                                                        }
+                                                                    });
+
                                                                 }
 
                                                                 @Override
@@ -261,7 +267,12 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                     RongIM.getInstance().removeFromBlacklist(mUserid, new RongIMClient.OperationCallback() {
                         @Override
                         public void onSuccess() {
-                            tv_black.setText("拉黑");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    tv_black.setText("拉黑");
+                                }
+                            });
                         }
 
                         @Override

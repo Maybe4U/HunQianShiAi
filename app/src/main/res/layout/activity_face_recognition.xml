@@ -9,15 +9,19 @@
 
     <include layout="@layout/view_toolbar" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 style="@style/text_style_black"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="为什么要识别人脸？"
                 android:textSize="16sp" />
 
@@ -25,73 +29,61 @@
                 style="@style/text_style_black"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="为了保护平台每个用户的人身安全和财产安全，我们将要求每个用户完成人脸识别验证，为每个用户提供一个真是的婚恋交友平台。" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/renlian_cankao" />
+
+            <TextView
+                style="@style/text_style_black"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="15dp"
+                android:text="五官必须全部显示在扫描框内"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="110dp"
+                android:layout_height="140dp"
+                android:scaleType="center"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/renlian_tianjia" />
+
+            <TextView
+                style="@style/text_style_black"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="（请将脸部扫描框，否则影响系统识别精准度！）" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="130dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:src="@mipmap/renlian_cankao" />
-
-                <TextView
-                    style="@style/text_style_black"
-                    android:layout_gravity="center_horizontal"
-                    android:text="五官必须全部显示在扫描框内"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:id="@+id/iv_camera"
-                    android:layout_width="100dp"
-                    android:layout_height="130dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/renlian_tianjia" />
-
-                <TextView
-                    style="@style/text_style_black"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:text="（请将脸部扫描框，否则影响系统识别精准度！）" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:background="@drawable/selector_button"
                 android:gravity="center"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_submit"
-                    android:layout_width="220dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/selector_button"
-                    android:gravity="center"
-                    android:text="提交"
-                    android:textSize="15sp" />
+                android:text="提交"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/tv_skip"
-                    android:layout_width="220dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/button_2"
-                    android:gravity="center"
-                    android:text="证件不在身边？暂时跳过"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/tv_skip"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_2"
+                android:gravity="center"
+                android:text="证件不在身边？暂时跳过"
+                android:textSize="15sp" />
         </LinearLayout>
+    </ScrollView>
 </LinearLayout>

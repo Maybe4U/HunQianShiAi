@@ -57,6 +57,10 @@ public class VipSearchActivity extends BasesActivity implements BaseView<String>
         String p13 = mBundle.getString("p13", "");
         String p14 = mBundle.getString("p14", "");
         String p15 = mBundle.getString("p15", "");
+        String p16 = mBundle.getString("p16", "");
+        String p17 = mBundle.getString("p17", "");
+        String p18 = mBundle.getString("p18", "");
+        String p19 = mBundle.getString("p19", "");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -99,6 +103,18 @@ public class VipSearchActivity extends BasesActivity implements BaseView<String>
         }
         if (!TextUtils.isEmpty(p15)) {
             mParams.put("p15", p15);
+        }
+        if (!TextUtils.isEmpty(p16)) {
+            mParams.put("p16", p16);
+        }
+        if (!TextUtils.isEmpty(p17)) {
+            mParams.put("p17", p17);
+        }
+        if (!TextUtils.isEmpty(p18)) {
+            mParams.put("p18", p18);
+        }
+        if (!TextUtils.isEmpty(p19)) {
+            mParams.put("p19", p19);
         }
         if (!TextUtils.isEmpty(p1)) {
         }

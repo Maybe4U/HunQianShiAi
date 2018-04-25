@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.IBinder;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.zykj.hunqianshiai.R;
@@ -110,6 +113,7 @@ public class LoginActivity extends BasesActivity implements BaseView<String>, Pl
                 }
                 showDialog();
                 mParams.clear();
+                SPUtils.put(LoginActivity.this,"phone",phone);
                 mParams.put("phone", phone);
                 mParams.put("pass", trim);
                 mPresenter.getData(UrlContent.LOGIN_PHONE_URL, mParams, BaseModel.DEFAULT_TYPE);
@@ -128,20 +132,21 @@ public class LoginActivity extends BasesActivity implements BaseView<String>, Pl
                 platform.setPlatformActionListener(this); // 设置分享事件回调
                 platform.authorize();//单独授权
                 break;
-            case R.id.iv_qq:
-                type = 1;
-                platform = ShareSDK.getPlatform(QQ.NAME);
-                platform.SSOSetting(false);  //设置false表示使用SSO授权方式
-                platform.setPlatformActionListener(this); // 设置分享事件回调
-                platform.authorize();//单独授权
-                break;
-            case R.id.iv_weibo:
-                type = 3;
-                platform = ShareSDK.getPlatform(SinaWeibo.NAME);
-                platform.SSOSetting(false);  //设置false表示使用SSO授权方式
-                platform.setPlatformActionListener(this); // 设置分享事件回调
-                platform.authorize();//单独授权
-                break;
+//去掉第三方
+//            case R.id.iv_qq:
+//                type = 1;
+//                platform = ShareSDK.getPlatform(QQ.NAME);
+//                platform.SSOSetting(false);  //设置false表示使用SSO授权方式
+//                platform.setPlatformActionListener(this); // 设置分享事件回调
+//                platform.authorize();//单独授权
+//                break;
+//            case R.id.iv_weibo:
+//                type = 3;
+//                platform = ShareSDK.getPlatform(SinaWeibo.NAME);
+//                platform.SSOSetting(false);  //设置false表示使用SSO授权方式
+//                platform.setPlatformActionListener(this); // 设置分享事件回调
+//                platform.authorize();//单独授权
+//                break;
         }
     }
 
@@ -275,4 +280,5 @@ public class LoginActivity extends BasesActivity implements BaseView<String>, Pl
     public void onCancel(Platform platform, int i) {
 
     }
+
 }

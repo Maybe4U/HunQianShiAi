@@ -71,7 +71,7 @@
             android:button="@drawable/check_like" />
 
         <TextView
-            android:id="@+id/like_number"
+            android:id="@+id/thumb_up_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

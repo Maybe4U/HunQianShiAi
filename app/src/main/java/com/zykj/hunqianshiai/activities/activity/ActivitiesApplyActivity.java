@@ -30,6 +30,7 @@ import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.seek.GetJsonDataUtil;
 import com.zykj.hunqianshiai.seek.JsonBean;
 import com.zykj.hunqianshiai.tools.JsonUtils;
+import com.zykj.hunqianshiai.tools.SPUtils;
 import com.zykj.hunqianshiai.tools.TextUtil;
 
 import org.json.JSONArray;
@@ -56,6 +57,9 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
     TextView setSit;
     @Bind(R.id.iv_select_sit)
     ImageView selectSit;
+    @Bind(R.id.et_sit_detail)
+    EditText sitDetail;
+
     /*===================省市区JSON数据解析相关 begin====================*/
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
@@ -87,7 +91,15 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
         mBundle = getIntent().getExtras();
         mActid = mBundle.getString("actid");
         mCost = mBundle.getString("cost");
+
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
+
+        //强制填写用户注册手机号
+        String phone = (String) SPUtils.get(ActivitiesApplyActivity.this, "phone", "");
+        et_phone.setText(phone);
+        et_phone.setCursorVisible(false);
+        et_phone.setFocusable(false);
+        et_phone.setFocusableInTouchMode(false);
 
         //初始化省市区数据
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
@@ -142,23 +154,37 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
                     toastShow("姓名不能为空");
                     return;
                 }
+
                 String trim1 = et_phone.getText().toString().trim();
                 if (!TextUtil.isMobile(trim1)) {
                     toastShow("手机号码不正确");
                     return;
                 }
-                mBundle.putString("name", trim);
-                mBundle.putString("phone", trim1);
+
+                String trim2 = et_sit.getText().toString().trim();
+                if (TextUtils.isEmpty(trim2)) {
+                    toastShow("地址不能为空");
+                    return;
+                }
+                //详细地址
+                String trim3 = sitDetail.getText().toString().trim();
+                if(trim3.isEmpty()){
+                    toastShow("详细地址不能为空");
+                    return;
+                }
+                String [] sit = null;
+                sit = trim2.split(" ");
+
 
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("p1", mActid);
                 mParams.put("phone", trim1);
                 mParams.put("name", trim);
-                String trim2 = et_sit.getText().toString().trim();
-                if (!TextUtils.isEmpty(trim2)) {
-                    mParams.put("address", trim2);
-                }
+                mParams.put("address", trim3);
+                mParams.put("sheng", sit[0]);
+                mParams.put("shi", sit[1]);
+                mParams.put("qu", sit[2]);
 
                 mPresenter.getData(UrlContent.JOIN_ACTIVITY_URL, mParams, BaseModel.DEFAULT_TYPE);
 
@@ -210,8 +236,8 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText() +
-                        options2Items.get(options1).get(options2) +
+                String tx = options1Items.get(options1).getPickerViewText() + " " +
+                        options2Items.get(options1).get(options2) + " " +
                         options3Items.get(options1).get(options2).get(options3);
                 et_sit.setText(tx);
                 selectSit.setVisibility(View.GONE);

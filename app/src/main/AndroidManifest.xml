@@ -184,6 +184,9 @@
             android:name=".home.dynamic.my_dynamic.MyDynamicActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".home.dynamic.secret_dynamic.SecretDynamicActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".home.dynamic.my_dynamic.IssueDynamicActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
@@ -195,6 +198,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".home.message.system_message.SystemMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.message.system_message.SysMsgDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".home.message.like_me.LikeMeActivity"
@@ -419,7 +425,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="1cff346268fc495902a0f204" /> <!-- </>值来自开发者平台取得的AppKey -->
+            android:value="0cf89e8dc0ddabf85be6e3b1" /> <!-- </>值来自开发者平台取得的AppKey -->
 
 
         <!-- 极光 end -->

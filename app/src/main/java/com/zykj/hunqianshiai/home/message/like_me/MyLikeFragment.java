@@ -126,7 +126,7 @@ public class MyLikeFragment extends BaseFragment implements BaseView<String> {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                if (UrlContent.IS_MEMBER_KEY) {
-//                    List<MyLikeBean.MyLikeData> data1 = adapter.getData();
+//                    List<SecretBean.MyLikeData> data1 = adapter.getData();
 //                    String userid = data1.get(position).info.userid;
 //                    mBundle.clear();
 //                    mBundle.putString("userid", userid);
@@ -139,7 +139,7 @@ public class MyLikeFragment extends BaseFragment implements BaseView<String> {
                 /*=====================修改==================*/
                 //取消只有会员才能查看
                 List<MyLikeBean.MyLikeData> data1 = adapter.getData();
-                String userid = data1.get(position).userid;
+                String userid = data1.get(position).info.userid;
                 mBundle.clear();
                 mBundle.putString("userid", userid);
                 openActivity(UserPageActivity.class, mBundle);

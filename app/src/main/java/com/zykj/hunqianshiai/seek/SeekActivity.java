@@ -20,6 +20,7 @@ import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.chat.PopupWindowVip;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.select_city.SelectCityActivity;
+import com.zykj.hunqianshiai.tools.ButtonUtils;
 
 import org.json.JSONArray;
 
@@ -267,7 +268,8 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                 showOption(mTvCar,carsList);
                 break;
             case R.id.rl_occupation://有无职业
-                showOption(mTvHasChild,childrenList);
+
+                String occupation = mTvOccupation.getText().toString().trim();
                 break;
 
             case R.id.tv_reset://重置
@@ -309,7 +311,7 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
     }
 
     /**
-     * method desc.  :显示有无子女选择框
+     * method desc.  :显示选择框
      * params        :
      * return        :
      */
@@ -317,110 +319,37 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         //隐藏软键盘
         hideSoftInput();
 
-        if (UrlContent.IS_MEMBER_KEY) {
-            mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                @Override
-                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                    tv.setText(list.get(options1));
-
-                }
-            }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
-                    .setSubmitColor(R.color.black)
-                    .setCancelColor(R.color.black)//取消按钮文字颜色
-                    .build();
-
-            mPickerView.setPicker(list);
-            mPickerView.show();
+        if(tv.equals(tvStature) || tv.equals(tvAge) || tv.equals(tvIncome)){
+            showPickerView(tv, list);
+        }else if (UrlContent.IS_MEMBER_KEY) {
+            showPickerView(tv, list);
         } else {
             PopupWindowVip popupWindowVip = new PopupWindowVip(this);
             popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
         }
     }
 
-    /**
-     * method desc.  :显示有无信仰选择框
-     * params        :
-     * return        :
-     */
-    private void showHasBeliefOption() {
-        if (UrlContent.IS_MEMBER_KEY) {
-            mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                @Override
-                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                    mTvBelief.setText(beliefsList.get(options1));
+    private void showPickerView(TextView tv, List<String> list) {
+        mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                tv.setText(list.get(options1));
 
-                }
-            }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
-                    .setSubmitColor(R.color.black)
-                    .setCancelColor(R.color.black)//取消按钮文字颜色
-                    .build();
+            }
+        }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
+                .setSubmitColor(R.color.black)
+                .setCancelColor(R.color.black)//取消按钮文字颜色
+                .build();
 
-            mPickerView.setPicker(beliefsList);
-            mPickerView.show();
-        } else {
-            PopupWindowVip popupWindowVip = new PopupWindowVip(this);
-            popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
-        }
+        mPickerView.setPicker(list);
+        mPickerView.show();
     }
-
-
-    /**
-     * method desc.  :显示有无房产选择框
-     * params        :
-     * return        :
-     */
-    private void showHasHouseOption() {
-        if (UrlContent.IS_MEMBER_KEY) {
-            mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                @Override
-                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                    mTvHouse.setText(housesList.get(options1));
-
-                }
-            }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
-                    .setSubmitColor(R.color.black)
-                    .setCancelColor(R.color.black)//取消按钮文字颜色
-                    .build();
-
-            mPickerView.setPicker(housesList);
-            mPickerView.show();
-        } else {
-            PopupWindowVip popupWindowVip = new PopupWindowVip(this);
-            popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
-        }
-    }
-
-    /**
-     * method desc.  :显示有无车辆选择框
-     * params        :
-     * return        :
-     */
-    private void showHasCarOption() {
-        if (UrlContent.IS_MEMBER_KEY) {
-            mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                @Override
-                public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                    mTvCar.setText(carsList.get(options1));
-
-                }
-            }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
-                    .setSubmitColor(R.color.black)
-                    .setCancelColor(R.color.black)//取消按钮文字颜色
-                    .build();
-
-            mPickerView.setPicker(carsList);
-            mPickerView.show();
-        } else {
-            PopupWindowVip popupWindowVip = new PopupWindowVip(this);
-            popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
-        }
-    }
-
 
     /*==================优化=====================*/
     //搜索条件 包括基本筛选和高级筛选条件
     private void specialSeek() {
         String stature = tvStature.getText().toString();
+        //身高
         if (!stature.equals("不限")) {
             String cm = stature.replace("cm", "");
             String replace = cm.replace("以下", "");
@@ -438,7 +367,7 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                 }
             }
         }
-
+        //年龄
         String age = tvAge.getText().toString();
         if (!age.equals("不限")) {
             //                    String cm = age.replace("cm", "");
@@ -458,39 +387,70 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
 
             }
         }
+        //收入
         String income = tvIncome.getText().toString();
         if (!income.equals("不限")) {
             mBundle.putString("p5", income);
         }
 
+        //工作城市
         String workCity = tvWorkCity.getText().toString();
         if (!workCity.equals("不限")) {
             mBundle.putString("p10", mCity_id);
         }
 
+        //户籍
         String homeCity = tvHomeCity.getText().toString();
         if (!homeCity.equals("不限")) {
             mBundle.putString("p11", mCity_id1);
         }
 
+        //学历
         String education = tvEducation.getText().toString();
         if (!education.equals("不限")) {
             mBundle.putString("p12", education);
         }
 
+        //星座
         String constellation = tvConstellation.getText().toString();
         if (!education.equals("不限")) {
             mBundle.putString("p13", constellation);
         }
 
+        //
         String zodiac = tvZodiac.getText().toString();
         if (!education.equals("不限")) {
             mBundle.putString("p14", zodiac);
         }
-
+        //婚史
         String marriage = tvMarriage.getText().toString();
         if (!marriage.equals("不限")) {
             mBundle.putString("p14", marriage);
+        }
+        //有无子女
+        String hasChild = mTvHasChild.getText().toString();
+        if (!hasChild.equals("不限")) {
+            mBundle.putString("P15", hasChild);
+        }
+        //信仰
+        String belief = mTvBelief.getText().toString();
+        if (!belief.equals("不限")) {
+            mBundle.putString("p16", belief);
+        }
+        //房产情况
+        String house = mTvHouse.getText().toString();
+        if (!house.equals("不限")) {
+            mBundle.putString("p17", house);
+        }
+        //购车情况
+        String car = mTvCar.getText().toString();
+        if (!car.equals("不限")) {
+            mBundle.putString("p18", car);
+        }
+        //职业
+        String occupation = mTvOccupation.getText().toString();
+        if (!occupation.equals("不限")) {
+            mBundle.putString("p19", occupation);
         }
     }
 
@@ -570,17 +530,21 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
 
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        if (i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_SEND || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-            //让mPasswordEdit获取输入焦点
-            et_id.requestFocus();
-            String id = et_id.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(id)) {
-                mBundle.clear();
-                mBundle.putString("searchid", id);
-                openActivity(SearchResultActivity.class, mBundle);
+        //防止误触
+        if(!ButtonUtils.isFastDoubleClick()){
+            if (i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_SEND || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                //让mPasswordEdit获取输入焦点
+                et_id.requestFocus();
+                String id = et_id.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(id)) {
+                    mBundle.clear();
+                    mBundle.putString("searchid", id);
+                    openActivity(SearchResultActivity.class, mBundle);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }

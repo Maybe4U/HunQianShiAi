@@ -24,6 +24,8 @@ import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -89,6 +91,7 @@ public class LookMeFragment extends BaseFragment implements BaseView<String> {
         MyLikeBean myLikeBean = JsonUtils.GsonToBean(bean, MyLikeBean.class);
         List<MyLikeBean.MyLikeData> data = myLikeBean.data;
         if (data.isEmpty()) {
+            toastShow("没有记录");
             return;
         }
         final MyLikeBean.MyLikeData myLikeData = data.get(0);
@@ -111,37 +114,48 @@ public class LookMeFragment extends BaseFragment implements BaseView<String> {
             mTv_isonline.setTextColor(getResources().getColor(R.color.gray));
         }
 
+        //过滤自己
         data.remove(myLikeData);
-
-        LookMeAdapter lookMeAdapter = new LookMeAdapter(data);
-        mRecyclerView.setAdapter(lookMeAdapter);
-        lookMeAdapter.addHeaderView(mHeadView);
-
-        mHeadView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mBundle.clear();
-                mBundle.putString("userid", myLikeData.userid);
-                openActivity(UserPageActivity.class, mBundle);
+        List<MyLikeBean.MyLikeData> filterData = new ArrayList<>();
+        for(int i=0;i<data.size();i++){
+            String comeid = data.get(i).comeuserid;
+            if(!comeid.equals(UrlContent.USER_ID)){
+                filterData.add(data.get(i));
             }
-        });
+        }
+
+        Collections.reverse(filterData);
+
+        LookMeAdapter lookMeAdapter = new LookMeAdapter(filterData);
+        mRecyclerView.setAdapter(lookMeAdapter);
+        //lookMeAdapter.addHeaderView(mHeadView);
+
+//        mHeadView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mBundle.clear();
+//                mBundle.putString("userid", myLikeData.userid);
+//                openActivity(UserPageActivity.class, mBundle);
+//            }
+//        });
 
         lookMeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (UrlContent.IS_MEMBER_KEY) {
+                //if (UrlContent.IS_MEMBER_KEY) {
                     List<MyLikeBean.MyLikeData> data1 = adapter.getData();
                     String userid = data1.get(position).userid;
                     mBundle.clear();
                     mBundle.putString("userid", userid);
                     openActivity(UserPageActivity.class, mBundle);
-                } else {
-                    PopupWindowVip popupWindowVip = new PopupWindowVip(getActivity());
-                    popupWindowVip.showAtLocation(mRecyclerView, Gravity.CENTER, 0, 0);
-                }
+                //}
+//                else {
+//                    PopupWindowVip popupWindowVip = new PopupWindowVip(getActivity());
+//                    popupWindowVip.showAtLocation(mRecyclerView, Gravity.CENTER, 0, 0);
+//                }
 //                /*=====================修改==================*/
 //                //取消只有会员才能查看
-//                List<MyLikeBean.MyLikeData> data1 = adapter.getData();
+//                List<SecretBean.MyLikeData> data1 = adapter.getData();
 //                String userid = data1.get(position).userid;
 //                mBundle.clear();
 //                mBundle.putString("userid", userid);

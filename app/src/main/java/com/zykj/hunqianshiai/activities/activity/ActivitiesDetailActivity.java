@@ -2,6 +2,7 @@ package com.zykj.hunqianshiai.activities.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.widget.ImageView;
@@ -77,6 +78,7 @@ public class ActivitiesDetailActivity extends BasesActivity implements BaseView<
                 break;
 
             case R.id.iv_right_share:
+                //Log.e("分享","点击");
                 showShare(mTitle,"首家实名制认证严肃婚恋社交平台",mUrl,mActid);
                 break;
         }

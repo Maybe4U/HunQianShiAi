@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
@@ -21,6 +22,7 @@ import com.zykj.hunqianshiai.bases.BasePopupWindow;
 import com.zykj.hunqianshiai.bases.BasePresenterImpl;
 import com.zykj.hunqianshiai.bases.BaseView;
 import com.zykj.hunqianshiai.bases.BasesActivity;
+import com.zykj.hunqianshiai.home.dynamic.secret_dynamic.SecretDynamicActivity;
 import com.zykj.hunqianshiai.home.dynamic.PopupWindowDelete;
 import com.zykj.hunqianshiai.home.dynamic.dynamic_details.DynamicDetailsActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
@@ -37,6 +39,10 @@ public class MyDynamicActivity extends BasesActivity implements BaseView<String>
 
     @Bind(R.id.recycler_dynamic)
     RecyclerView mRecyclerView;
+
+    @Bind(R.id.tv_right)
+    TextView mSecret;
+
     private View mHeadView;
     private BasePresenterImpl mPresenter;
     private MyDynamicAdapter mMyDynamicAdapter;
@@ -51,6 +57,8 @@ public class MyDynamicActivity extends BasesActivity implements BaseView<String>
     @Override
     protected void initView() {
         appBar("我的动态");
+        mSecret.setVisibility(View.VISIBLE);
+        mSecret.setText("隐私");
         mHeadView = LayoutInflater.from(this).inflate(R.layout.my_dynamic_item_header, null);
         ImageView addDynamic = mHeadView.findViewById(R.id.iv_add_dynamic);
         addDynamic.setOnClickListener(this);
@@ -67,6 +75,14 @@ public class MyDynamicActivity extends BasesActivity implements BaseView<String>
         mParams.put("size", 6);
         mPresenter.getData(UrlContent.MY_DYNAMIC_URL, mParams, BaseModel.DEFAULT_TYPE);
         showDialog();
+
+        //进入屏蔽页面
+        mSecret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(SecretDynamicActivity.class);
+            }
+        });
     }
 
     @Override
@@ -78,10 +94,12 @@ public class MyDynamicActivity extends BasesActivity implements BaseView<String>
                 startActivityForResult(intent, 103);
 
                 break;
+
             default:
                 break;
         }
     }
+
 
     @Override
     public void success(String bean) {

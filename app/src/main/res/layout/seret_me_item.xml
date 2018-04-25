@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/fujin_fujin" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="20"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_head_username"
+                    style="@style/text_style_black"
+                    android:layout_centerVertical="true"
+                    android:text="NAME  28岁" />
+
+                <ImageView
+                    android:id="@+id/iv_isvip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_head_username"
+                    android:src="@mipmap/huangguan" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_userauth"
+                style="@style/text_style_gray"
+                android:layout_marginTop="3dp"
+                android:text="已认证个人身份-房-车"
+                android:textColor="@color/default_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_areaname"
+                    style="@style/text_style_gray"
+                    android:drawableLeft="@mipmap/fujin_weizhi"
+                    android:drawablePadding="5dp"
+                    android:text="工作生活在：山东-临沂"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_yearmoney"
+                    style="@style/text_style_gray"
+                    android:layout_marginLeft="5dp"
+                    android:drawableLeft="@mipmap/fujin_shouru"
+                    android:drawablePadding="5dp"
+                    android:text="100w以上"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_yichu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:layout_marginRight="1dp"
+            android:padding="15dp"
+            android:src="@mipmap/shangxian_yichu" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+</LinearLayout>

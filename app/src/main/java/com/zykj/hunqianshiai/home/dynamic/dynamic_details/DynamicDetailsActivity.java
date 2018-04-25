@@ -272,6 +272,8 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
                                     mPresenter.getData(UrlContent.DYNAMIC_DETAILS_URL, mParams, BaseModel.REFRESH_TYPE);
                                 }
                             });
+
+                    mOther_id = "";
                 }
 
                 break;
@@ -286,7 +288,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
 //            toastShow("监听到软键盘弹起");
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
             reply_dynamic = true;
-            mOther_id = "";
+//            mOther_id = "";
             et_content.setHint("评论");
 //            toastShow("监听到软件盘关闭");
         }

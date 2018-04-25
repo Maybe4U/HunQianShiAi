@@ -59,29 +59,49 @@
 
                 <com.zykj.hunqianshiai.tools.TabButton
                     android:id="@+id/tb_message"
+                    style="@style/tab_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/tab_button"
                     android:text="消息"
                     app:drawableTop="@drawable/selector_main_tab_message"
                     app:drawable_size="21dp" />
 
-                <ImageView
-                    android:id="@+id/iv_message_dot"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginTop="5dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/shape_red_dot"
-                    android:visibility="visible" />
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+
+
+                    <ImageView
+                        android:id="@+id/iv_message_dot"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@drawable/shape_red_dot"
+                        android:visibility="visible">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/msg_num"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:gravity="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="7sp" />
+
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
             <!--<com.zykj.hunqianshiai.tools.TabButton-->
-                <!--android:id="@+id/tb_message"-->
-                <!--style="@style/tab_button"-->
-                <!--android:text="消息"-->
-                <!--app:drawableTop="@drawable/selector_main_tab_message"-->
-                <!--app:drawable_size="21dp" />-->
+            <!--android:id="@+id/tb_message"-->
+            <!--style="@style/tab_button"-->
+            <!--android:text="消息"-->
+            <!--app:drawableTop="@drawable/selector_main_tab_message"-->
+            <!--app:drawable_size="21dp" />-->
 
 
             <com.zykj.hunqianshiai.tools.TabButton

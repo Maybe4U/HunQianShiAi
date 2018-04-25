@@ -2,7 +2,9 @@ package com.zykj.hunqianshiai.login_register.goago;
 
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BaseModelImpl;
@@ -36,6 +38,10 @@ public class HomeGoagoActivity extends BasesActivity implements RadioGroup.OnChe
     TabButton tb_my;
     @Bind(R.id.rg_tab)
     RadioGroup tab;
+    @Bind(R.id.iv_message_dot)
+    ImageView iv_message_dot;
+    @Bind(R.id.msg_num)
+    TextView msg_num;
 
     private int click = 0;
     private HomeFragment mHomeFragment;
@@ -59,6 +65,11 @@ public class HomeGoagoActivity extends BasesActivity implements RadioGroup.OnChe
 
         tab.setOnCheckedChangeListener(this);
         home.performClick();
+
+        //
+        iv_message_dot.setVisibility(View.GONE);
+        msg_num.setVisibility(View.GONE);
+
     }
 
     private void hideFragment(FragmentTransaction transaction) {

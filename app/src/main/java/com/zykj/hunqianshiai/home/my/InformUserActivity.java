@@ -184,21 +184,31 @@ public class InformUserActivity extends BasesActivity implements BaseView<String
                 } else {
                     type = 4;
                 }
-                showDialog();
+
                 if (null != selectList && !selectList.isEmpty()) {
+                    showDialog();
                     mParams.clear();
+                    //必须上传图片才能提交
                     for (int i = 0; i < selectList.size(); i++) {
                         mParams.put("pic" + i, new File(selectList.get(i).getCompressPath()));
                     }
                     mPresenter.getData(UrlContent.UPLOAD_PIC_URL, mParams, BaseModel.DEFAULT_TYPE);
-                } else {
+
                     mParams.clear();
                     mParams.put("userid", UrlContent.USER_ID);
                     mParams.put("p1", type);
                     mParams.put("p2", mUserid);
                     mParams.put("p3", mContents);
-
                     mPresenter.getData(UrlContent.INFROM_USER_URL, mParams, BaseModel.REFRESH_TYPE);
+                } else {
+//                    mParams.clear();
+//                    mParams.put("userid", UrlContent.USER_ID);
+//                    mParams.put("p1", type);
+//                    mParams.put("p2", mUserid);
+//                    mParams.put("p3", mContents);
+                    toastShow("请上传图片...");
+                    return;
+                    //mPresenter.getData(UrlContent.INFROM_USER_URL, mParams, BaseModel.REFRESH_TYPE);
                 }
                 break;
             default:

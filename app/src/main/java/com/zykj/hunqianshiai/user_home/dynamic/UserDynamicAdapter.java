@@ -26,7 +26,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by xu on 2017/12/20.
+ * 动态条目
  */
 
 public class UserDynamicAdapter extends BaseQuickAdapter<DynamicBean.DynamicData, BaseViewHolder> {

@@ -1,12 +1,7 @@
-package com.zykj.hunqianshiai.home.message.look;
+package com.zykj.hunqianshiai.home.dynamic.secret_dynamic;
 
-import android.content.Context;
-import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -16,8 +11,10 @@ import com.zykj.hunqianshiai.bases.BasesActivity;
 
 import butterknife.Bind;
 
-public class LookActivity extends BasesActivity implements RadioGroup.OnCheckedChangeListener {
-
+/**
+ * 隐私设置
+ */
+public class SecretDynamicActivity extends BasesActivity implements RadioGroup.OnCheckedChangeListener{
 
     @Bind(R.id.rb_activities)
     RadioButton rb_1;
@@ -30,17 +27,17 @@ public class LookActivity extends BasesActivity implements RadioGroup.OnCheckedC
     @Bind(R.id.rl_2)
     RelativeLayout rl_2;
 
-    private LookMeFragment mLookMeFragment;
-    private MyLookFragment mMyLookFragment;
+    private SecretMeFragment mSecretMeFragment;
+    private MySecretFragment mMySecretFragment;
 
     @Override
     protected int getContentViewX() {
-        return R.layout.activity_look;
+        return R.layout.activity_look_dynamic;
     }
 
     @Override
     protected void initView() {
-        appBar("最近来访");
+        appBar("隐私");
         rg.setOnCheckedChangeListener(this);
         rb_1.performClick();
     }
@@ -52,22 +49,22 @@ public class LookActivity extends BasesActivity implements RadioGroup.OnCheckedC
         hideFragment(transaction);
         switch (i) {
             case R.id.rb_activities:
-                if (null == mLookMeFragment) {
-                    mLookMeFragment = LookMeFragment.getInstance();
-                    transaction.add(R.id.fl_layout, mLookMeFragment);
+                if (null == mSecretMeFragment) {
+                    mSecretMeFragment = SecretMeFragment.getInstance();
+                    transaction.add(R.id.fl_layout, mSecretMeFragment);
                 } else {
-                    transaction.show(mLookMeFragment);
+                    transaction.show(mSecretMeFragment);
                 }
                 rl_1.setVisibility(View.VISIBLE);
                 rl_2.setVisibility(View.INVISIBLE);
 
                 break;
             case R.id.rb_information:
-                if (null == mMyLookFragment) {
-                    mMyLookFragment = MyLookFragment.getInstance();
-                    transaction.add(R.id.fl_layout, mMyLookFragment);
+                if (null == mMySecretFragment) {
+                    mMySecretFragment = MySecretFragment.getInstance();
+                    transaction.add(R.id.fl_layout, mMySecretFragment);
                 } else {
-                    transaction.show(mMyLookFragment);
+                    transaction.show(mMySecretFragment);
                 }
                 rl_1.setVisibility(View.INVISIBLE);
                 rl_2.setVisibility(View.VISIBLE);
@@ -77,14 +74,12 @@ public class LookActivity extends BasesActivity implements RadioGroup.OnCheckedC
     }
 
     private void hideFragment(FragmentTransaction transaction) {
-        if (null != mLookMeFragment) {
-            transaction.hide(mLookMeFragment);
+        if (null != mSecretMeFragment) {
+            transaction.hide(mSecretMeFragment);
         }
 
-        if (null != mMyLookFragment) {
-            transaction.hide(mMyLookFragment);
+        if (null != mMySecretFragment) {
+            transaction.hide(mMySecretFragment);
         }
     }
-
-
 }

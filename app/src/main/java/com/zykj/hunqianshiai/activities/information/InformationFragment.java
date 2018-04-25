@@ -87,6 +87,7 @@ public class InformationFragment extends BaseFragment implements BaseView<String
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<ActivitiesBean.ActivitiesData> data1 = adapter.getData();
                 String actid = data1.get(position).actid;
+
                 mBundle.clear();
                 mBundle.putString("id", actid);
                 openActivity(InformationDetailsActivity.class, mBundle);

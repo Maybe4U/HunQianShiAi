@@ -46,6 +46,7 @@ import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.ImageUtils;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.tools.L;
+import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,6 +54,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 import butterknife.Bind;
@@ -235,6 +237,7 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
 
             mBundle = new Bundle();
             mBundle.putString("headPic", headpic);
+            mBundle.putString("userid",aData.userid);
 
 
             //在地图上显示附近人的所有点
@@ -242,8 +245,11 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
 
             MarkerOptions options = new MarkerOptions().position(latLng).icon(bitmap).draggable(true);
 
+            //MarkerOptions options = new MarkerOptions().position(latLng).icon().draggable(true);
+
             //在地图上添加Marker，并显示
             Marker marker = (Marker) mBaiduMap.addOverlay(options);
+            marker.setToTop();
             marker.setExtraInfo(mBundle);
 
 
@@ -254,12 +260,12 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
             private BitmapDescriptor mDescriptor;
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent();
-                mBundle = marker.getExtraInfo();
+                Bundle bundle = marker.getExtraInfo();
+
                 //获取头像url
-                String headPic = mBundle.getString("headPic");
+                String headPic = bundle.getString("headPic");
                 //构建LatLng对象
-                LatLng latLng = new LatLng(marker.getPosition().latitude  + 0.005, marker.getPosition().longitude);
+                LatLng latLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
                 //通过Glide获取头像图片对象
                 Glide.with(NearbyLocationActivity.this)
                         .load(headPic)
@@ -273,7 +279,12 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
                                 Bitmap roundBitmap = ImageUtils.toRoundBitmap(bm);
                                 mDescriptor = BitmapDescriptorFactory.fromBitmap(roundBitmap);
                                 //显示infoWindow
-                                InfoWindow infoWindow = new InfoWindow(mDescriptor, latLng, 0, null);
+                                InfoWindow infoWindow = new InfoWindow(mDescriptor, latLng, -60, new InfoWindow.OnInfoWindowClickListener() {
+                                    @Override
+                                    public void onInfoWindowClick() {
+                                        openActivity(UserPageActivity.class,bundle);
+                                    }
+                                });
                                 mBaiduMap.showInfoWindow(infoWindow);
                             }
                         });

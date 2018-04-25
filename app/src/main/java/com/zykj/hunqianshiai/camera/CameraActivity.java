@@ -136,6 +136,17 @@ public class CameraActivity extends BasesActivity implements SurfaceHolder.Callb
 
                 saveBitmap = Bitmap.createScaledBitmap(saveBitmap, screenWidth, screenHeight, true);
 
+
+//                float x = 110;
+//                float y = 140;
+//                float cutHeight = screenWidth / (x / y);
+//                float cutWidth = screenHeight / (x / y);
+//                if(cutHeight > screenHeight){
+//                    saveBitmap = Bitmap.createBitmap(saveBitmap, 0, 0, (int)cutWidth, screenHeight);
+//                }else {
+//                    saveBitmap = Bitmap.createBitmap(saveBitmap, 0, 0, screenWidth, (int)cutHeight);
+//                }
+
                 String img_path = getExternalFilesDir(Environment.DIRECTORY_DCIM).getPath() +
                         File.separator + System.currentTimeMillis() + ".jpeg";
                 BitmapUtils.saveJPGE_After(CameraActivity.this, saveBitmap, img_path, 100);

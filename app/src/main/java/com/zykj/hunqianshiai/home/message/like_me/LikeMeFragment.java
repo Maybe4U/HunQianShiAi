@@ -133,7 +133,7 @@ public class LikeMeFragment extends BaseFragment implements BaseView<String> {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                if (UrlContent.IS_MEMBER_KEY) {
-//                    List<MyLikeBean.MyLikeData> data1 = adapter.getData();
+//                    List<SecretBean.MyLikeData> data1 = adapter.getData();
 //                    String userid = data1.get(position).userid;
 //                    mBundle.clear();
 //                    mBundle.putString("userid", userid);

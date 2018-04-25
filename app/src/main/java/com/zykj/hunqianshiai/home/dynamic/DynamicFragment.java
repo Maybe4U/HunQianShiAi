@@ -80,9 +80,13 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
 
     @Override
     public void initView() {
+        //onRefresh();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
+
+
 
         Glide.with(mContext)
                 .load(UrlContent.USER_PIC)
