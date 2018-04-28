@@ -44,7 +44,7 @@ public class RegionFragment extends BaseFragment {
     @Override
     public void initView() {
         TextView tv_title = mView.findViewById(R.id.tv_title);
-        tv_title.setText("脸谱");
+        tv_title.setText("人脸识别");
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);

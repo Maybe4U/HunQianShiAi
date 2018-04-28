@@ -30,6 +30,7 @@ public class DynamicDetailsAdapter extends BaseQuickAdapter<DynamicDetailsBean.C
                 .into((ImageView) helper.getView(R.id.iv_headpic));
         helper.setText(R.id.tv_username, item.username);
         helper.setText(R.id.tv_addtime, item.addtime);
+        helper.addOnClickListener(R.id.iv_headpic);
         if (item.userid.equals(UrlContent.USER_ID)) {
             if (item.userid.equals(item.other_id) || TextUtils.isEmpty(item.other_username)) {
                 helper.setText(R.id.tv_content, item.content);

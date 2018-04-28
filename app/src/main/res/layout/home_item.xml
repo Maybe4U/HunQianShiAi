@@ -114,8 +114,9 @@
                     android:id="@+id/check_heartbeat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/selector_home_heartbeat"
                     android:clickable="false"
-                    android:button="@drawable/selector_home_heartbeat" />
+                    android:checked="false" />
 
                 <TextView
                     android:layout_marginLeft="10dp"

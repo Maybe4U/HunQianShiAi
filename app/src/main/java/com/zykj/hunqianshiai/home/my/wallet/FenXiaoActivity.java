@@ -20,6 +20,7 @@ import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -76,6 +77,9 @@ public class FenXiaoActivity extends BasesActivity implements BaseView<String> {
     public void success(String bean) {
         FenXiaoBean fenXiaoBean = JsonUtils.GsonToBean(bean, FenXiaoBean.class);
          List<FenXiaoBean.FenXiaoData> data = fenXiaoBean.data;
+
+        //逆序排列
+        //Collections.reverse(data);
 
         FenXiaoAdapter fenXiaoAdapter = new FenXiaoAdapter(data);
         mRecyclerView.setAdapter(fenXiaoAdapter);

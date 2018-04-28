@@ -14,20 +14,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="择偶标准"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <TextView
-                style="@style/imaginary_line"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
-
-            <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -37,13 +23,9 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="10dp"
                 android:text="择偶标准"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
+                android:background="@color/background_color"
                 android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/background_color" />
 
             <LinearLayout
                 android:id="@+id/ll_age"

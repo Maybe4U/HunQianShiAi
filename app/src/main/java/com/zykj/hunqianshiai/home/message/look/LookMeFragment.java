@@ -144,7 +144,7 @@ public class LookMeFragment extends BaseFragment implements BaseView<String> {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //if (UrlContent.IS_MEMBER_KEY) {
                     List<MyLikeBean.MyLikeData> data1 = adapter.getData();
-                    String userid = data1.get(position).userid;
+                    String userid = data1.get(position).comeuserid;
                     mBundle.clear();
                     mBundle.putString("userid", userid);
                     openActivity(UserPageActivity.class, mBundle);

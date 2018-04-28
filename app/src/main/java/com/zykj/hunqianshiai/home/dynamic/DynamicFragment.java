@@ -100,9 +100,20 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
         mParams.clear();
         mParams.put("userid", UrlContent.USER_ID);
         mParams.put("page", page);
-        mParams.put("size", 6);
+        mParams.put("size", 12);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.DEFAULT_TYPE);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
+        mParams.clear();
+        mParams.put("userid", UrlContent.USER_ID);
+        mParams.put("page", page);
+        mParams.put("size", 6);
+        mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.DEFAULT_TYPE);
     }
 
     @OnClick({R.id.iv_like, R.id.ll_my_dynamic, R.id.tv_condition, R.id.tv_all, R.id.tv_same_city, R.id.tv_my_like, R.id.tv_like_me, R.id.iv_add_dynamic})
@@ -131,7 +142,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("page", 1);
-                mParams.put("size", 6);
+                mParams.put("size", 12);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_same_city:
@@ -141,7 +152,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("city", 1);
                 mParams.put("page", 1);
-                mParams.put("size", 6);
+                mParams.put("size", 12);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_my_like:
@@ -151,7 +162,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("me", 1);
                 mParams.put("page", 1);
-                mParams.put("size", 6);
+                mParams.put("size", 12);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_like_me:
@@ -161,7 +172,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("other", 1);
                 mParams.put("page", 1);
-                mParams.put("size", 6);
+                mParams.put("size", 12);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.iv_add_dynamic://添加动态
@@ -304,7 +315,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
             mParams.put("other", 1);
         }
         mParams.put("page", page);
-        mParams.put("size", 6);
+        mParams.put("size", 12);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
     }
 
@@ -322,7 +333,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
             mParams.put("other", 1);
         }
         mParams.put("page", page);
-        mParams.put("size", 6);
+        mParams.put("size", 12);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.LOADING_MORE_TYPE);
     }
 

@@ -379,6 +379,7 @@
                             android:orientation="horizontal">
 
                             <CheckBox
+                                android:id="@+id/cb_education"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -414,6 +415,7 @@
                             android:orientation="horizontal">
 
                             <CheckBox
+                                android:id="@+id/cb_car"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -449,6 +451,7 @@
                             android:orientation="horizontal">
 
                             <CheckBox
+                                android:id="@+id/cb_house"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"

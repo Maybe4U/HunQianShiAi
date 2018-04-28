@@ -122,6 +122,8 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
      */
     protected class GoTopTask extends AsyncTask<Integer, Integer, String> {
         private RecyclerView recyclerView;
+        private static final int STARTPOSITION = 10;//开始滑动的位置
+
         public GoTopTask(View view) {
             recyclerView = (RecyclerView) view;
         }
@@ -129,7 +131,6 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         @Override
         protected void onPreExecute() {
             //回到顶部时间置0  此处的时间不是狭义上的时间
-            time=0;
             super.onPreExecute();
         }
         @Override
@@ -137,16 +138,17 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             // TODO Auto-generated method stub
 
             for(int i=params[0];i>=0;i--){
-                publishProgress(i);
+
                 //返回顶部时间耗费15个item还没回去，则直接去顶部
                 //目的：要产生滚动的假象，但也不能耗时过多
-                time++;
-                if(time>15){
-                    publishProgress(0);
-                    return null;
+                if(i > STARTPOSITION){
+                    publishProgress(STARTPOSITION);
+                    i = STARTPOSITION;
+                }else {
+                    publishProgress(i);
                 }
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -155,7 +157,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         }
         @Override
         public void onProgressUpdate(Integer... values) {
-            recyclerView.smoothScrollToPosition(values[0]);
+            //recyclerView.smoothScrollToPosition(values[0]);
+            if(values[0] == STARTPOSITION){
+                recyclerView.scrollToPosition(values[0]);
+            }else {
+                recyclerView.smoothScrollToPosition(values[0]);
+            }
             super.onProgressUpdate(values);
         }
         @Override

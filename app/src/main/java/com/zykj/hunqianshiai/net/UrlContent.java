@@ -211,6 +211,11 @@ public class UrlContent {
     public static final String MY_LIKE_URL = BASE_URL + "c=user&a=getMyLinker";
 
     /**
+     * 是否为心动用户
+     */
+    public static final String IS_LIKER_URL = BASE_URL + "c=user&a=isLinker";
+
+    /**
      * 获取他人对用户心动的记录
      */
     public static final String LIKE_ME_URL = BASE_URL + "c=user&a=getToLinker";

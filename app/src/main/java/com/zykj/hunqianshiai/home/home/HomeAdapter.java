@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,7 +37,7 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, final HomeBean.HomeData item) {
-        helper.addOnClickListener(R.id.iv_recommend).addOnClickListener(R.id.ll_chat).addOnClickListener(R.id.ll_dynamic);
+        helper.addOnClickListener(R.id.iv_recommend).addOnClickListener(R.id.ll_chat).addOnClickListener(R.id.ll_dynamic).addOnClickListener(R.id.ll_heartbeat);
         helper.setText(R.id.tv_identification, item.userauth);
         Glide.with(mContext)
                 .load(item.headpic)
@@ -83,37 +84,6 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
 
         helper.setChecked(R.id.check_heartbeat, item.isliker);
 
-//        helper.getView(R.id.check_heartbeat).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mParams.clear();
-//                mParams.put("userid", UrlContent.USER_ID);
-//                mParams.put("uid", item.userid);
-//                mParams.put("rdm", UrlContent.RDM);
-//                mParams.put("sign", UrlContent.SIGN);
-//                if (check_heartbeat.isChecked()) {
-//
-//                    OkGo.<String>post(UrlContent.ADD_LIKE_URL)
-//                            .params(mParams)
-//                            .execute(new StringCallback() {
-//                                @Override
-//                                public void onSuccess(Response<String> response) {
-//
-//                                }
-//                            });
-//                } else {
-//                    OkGo.<String>post(UrlContent.DELETE_LIKE_URL)
-//                            .params(mParams)
-//                            .execute(new StringCallback() {
-//                                @Override
-//                                public void onSuccess(Response<String> response) {
-//
-//                                }
-//                            });
-//                }
-//            }
-//        });
-
         helper.getView(R.id.ll_heartbeat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,6 +93,21 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
 //                    openActivity(LoginActivity.class);
                     return;
                 }
+//                mParams.clear();
+//                mParams.put("userid", UrlContent.USER_ID);
+//                mParams.put("uid", item.userid);
+//                mParams.put("rdm", UrlContent.RDM);
+//                mParams.put("sign", UrlContent.SIGN);
+//                OkGo.<String>post(UrlContent.IS_LIKER_URL)
+//                        .params(mParams)
+//                        .execute(new StringCallback() {
+//                            @Override
+//                            public void onSuccess(Response<String> response) {
+//                                if(data)
+//                                check_heartbeat.setChecked(true);
+//                            }
+//                        });
+
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("uid", item.userid);
@@ -135,7 +120,14 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
+                                    Toast.makeText(mContext,"心动成功",Toast.LENGTH_SHORT).show();
                                     check_heartbeat.setChecked(true);
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    Toast.makeText(mContext,response.message(),Toast.LENGTH_SHORT).show();
+                                    super.onError(response);
                                 }
                             });
                 } else {
@@ -145,6 +137,7 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
+                                    Toast.makeText(mContext,"取消心动",Toast.LENGTH_SHORT).show();
                                     check_heartbeat.setChecked(false);
                                 }
                             });
@@ -181,5 +174,13 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.HomeData, BaseViewHol
 //                }
 //            }
 //        });
+    }
+
+
+    //通过position获取当前view
+    @Nullable
+    @Override
+    public View getViewByPosition(int position, int viewId) {
+        return super.getViewByPosition(position, viewId);
     }
 }

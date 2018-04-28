@@ -122,9 +122,10 @@ public class PicManagementActivity extends BasesActivity implements BaseView<Str
                         .enableCrop(false)// 是否裁剪 true or false
                         .compress(false)// 是否压缩 true or false
                         .videoQuality(0)
-                        .videoMaxSecond(7)
+                        //.videoMaxSecond(7)
                         .videoMinSecond(3)
-                        .recordVideoSecond(7)//视频秒数录制 默认60s int
+                        .recordVideoSecond(10)//视频秒数录制 默认60s int
+
 //                        .selectionMedia(mLocalMedia)// 是否传入已选图片 List<LocalMedia> list
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
                 break;

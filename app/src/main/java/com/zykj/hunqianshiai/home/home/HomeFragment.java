@@ -1,15 +1,24 @@
 package com.zykj.hunqianshiai.home.home;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
@@ -67,6 +76,10 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
     private String url;
     private int type = 1;
 
+    private BroadcastReceiver mReceiver;
+    private LocalBroadcastManager mManager;
+    private IntentFilter mFilter;
+
     //RecyclerView滚动到的item位置
     private int firstPosition;
 
@@ -84,6 +97,32 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mManager = LocalBroadcastManager.getInstance(getActivity());
+        mFilter = new IntentFilter();
+        mFilter.addAction("com.zykj.hunqianshiai.HEART_BEAT");
+
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int position = intent.getIntExtra("position",0);
+
+                //根据position拿到当前的view
+                CheckBox check = (CheckBox) mHomeAdapter.getViewByPosition(position, R.id.check_heartbeat);
+
+                if(check.isChecked()){
+                    check.setChecked(false);
+                }else {
+                    check.setChecked(true);
+                }
+            }
+        };
+        mManager.registerReceiver(mReceiver, mFilter);
     }
 
     @Override
@@ -186,6 +225,7 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
 
         //给tvText注册双击监听器
         DoubleClick.registerDoubleClickListener(topLayout,this);
+
         //监听RecyclerView滚动位置firstPosition，并将firstPosition值传递给GoTopTask任务
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -212,6 +252,7 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
                 List<HomeBean.HomeData> data1 = adapter.getData();
                 mBundle.clear();
                 mBundle.putString("userid", data1.get(position).userid);
+                mBundle.putInt("position", position);
                 openActivity(UserPageActivity.class, mBundle);
             }
         });
@@ -355,6 +396,13 @@ public class HomeFragment extends BaseFragment implements BaseView<String>, Swip
     public void OnDoubleClick(View v) {
         GoTopTask task=new GoTopTask(mRecyclerView);
         task.execute(firstPosition);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        mManager.unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
 }

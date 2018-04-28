@@ -97,6 +97,9 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
 
     private ArrayList<HeightBean> mHeightBeans = new ArrayList<>();
     private ArrayList<ArrayList<String>> height = new ArrayList<>();
+    private List<List<String>> mOptionsAgeItems;
+    private List<List<String>> mOptionsStatureItems;
+
 
     @Override
     protected int getContentViewX() {
@@ -111,11 +114,39 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
 
         et_id.setOnEditorActionListener(this);
 
-
-        String[] statures = getResources().getStringArray(R.array.statures);
+        List<String> list1 = new ArrayList<>();
+        list1.clear();
+        String[] statures = new String[62];
+        statures[0] = "不限";
+        for (int i = 1;i<=61;i++){
+            statures[i] = 139 + i + "cm";
+        }
         statureList = Arrays.asList(statures);
-        String[] ages = getResources().getStringArray(R.array.ages);
+
+        mOptionsStatureItems = new ArrayList<>();
+        for(int j=0;j<statureList.size();j++){
+            list1.add(statureList.get(j));
+        }
+        for(int k=0;k<62;k++){
+            mOptionsStatureItems.add(list1);
+        }
+
+        String[] ages = new String[84];
+        ages[0] = "不限";
+        for (int i = 1;i<=83;i++){
+            ages[i] = 17 + i + "岁";
+        }
         ageList = Arrays.asList(ages);
+        mOptionsAgeItems = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+        list2.clear();
+        for(int j=0;j<ageList.size();j++){
+            list2.add(ageList.get(j));
+        }
+        for(int k=0;k<84;k++){
+            mOptionsAgeItems.add(list2);
+        }
+
         String[] incomes = getResources().getStringArray(R.array.incomes);
         incomeList = Arrays.asList(incomes);
         String[] constellations = getResources().getStringArray(R.array.constellations);
@@ -333,15 +364,61 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                tv.setText(list.get(options1));
+
+                if(tv.equals(tvStature)){
+                    String s1 = list.get(options1);
+                    String s2 = mOptionsStatureItems.get(options1).get(options2);
+                    if(s1.equals("不限") || s2.equals("不限")){
+                        tv.setText("不限");
+                    }else if(list.get(options1).equals(mOptionsStatureItems.get(options1).get(options2))){
+                        tv.setText(s1);
+                    }else{
+
+                        int i1 = Integer.parseInt(s1.replace("cm", ""));
+                        int i2 = Integer.parseInt(s2.replace("cm", ""));
+
+                        if(i1>i2){
+                            tv.setText(s2 + "-" + s1);
+                        }else {
+                            tv.setText(s1 + "-" + s2);
+                        }
+
+                    }
+                }else if (tv.equals(tvAge)){
+                    String s1 = list.get(options1);
+                    String s2 = mOptionsAgeItems.get(options1).get(options2);
+                    if(s1.equals("不限") || s2.equals("不限")){
+                        tv.setText("不限");
+                    }else if(s1.equals(s2)){
+                        tv.setText(list.get(options1));
+                    }else{
+                        int i1 = Integer.parseInt(s1.replace("岁", ""));
+                        int i2 = Integer.parseInt(s2.replace("岁", ""));
+
+                        if(i1>i2){
+                            tv.setText(s2 + "-" + s1);
+                        }else {
+                            tv.setText(s1 + "-" + s2);
+                        }
+                    }
+                }else {
+                    tv.setText(list.get(options1));
+                }
+
 
             }
         }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
                 .setSubmitColor(R.color.black)
                 .setCancelColor(R.color.black)//取消按钮文字颜色
+                .setLinkage(false)
                 .build();
-
-        mPickerView.setPicker(list);
+        if(tv.equals(tvAge)){
+            mPickerView.setPicker(list,mOptionsAgeItems);
+        }else if(tv.equals(tvStature)){
+            mPickerView.setPicker(list,mOptionsStatureItems);
+        }else {
+            mPickerView.setPicker(list);
+        }
         mPickerView.show();
     }
 
@@ -352,32 +429,26 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         //身高
         if (!stature.equals("不限")) {
             String cm = stature.replace("cm", "");
-            String replace = cm.replace("以下", "");
-            String replace1 = replace.replace("以上", "");
-            String[] split = replace1.split("-");
+            String[] split = cm.split("-");
             if (split.length > 1) {
                 mBundle.putString("p1", split[0]);
                 mBundle.putString("p2", split[1]);
-
             } else {
-                if (split[0].equals("150")) {
-                    mBundle.putString("p2", split[0]);
-                } else {
+                if (split[0].equals("190")) {
                     mBundle.putString("p1", split[0]);
+                } else {
+                    mBundle.putString("p2", split[0]);
                 }
             }
         }
         //年龄
         String age = tvAge.getText().toString();
         if (!age.equals("不限")) {
-            //                    String cm = age.replace("cm", "");
-            String replace = age.replace("以下", "");
-            String replace1 = replace.replace("以上", "");
-            String[] split = replace1.split("-");
+           String ages = age.replace("岁", "");
+            String[] split = ages.split("-");
             if (split.length > 1) {
                 mBundle.putString("p3", split[0]);
                 mBundle.putString("p4", split[1]);
-
             } else {
                 if (split[0].equals("20")) {
                     mBundle.putString("p4", split[0]);
@@ -425,12 +496,12 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         //婚史
         String marriage = tvMarriage.getText().toString();
         if (!marriage.equals("不限")) {
-            mBundle.putString("p14", marriage);
+            mBundle.putString("p15", marriage);
         }
         //有无子女
         String hasChild = mTvHasChild.getText().toString();
         if (!hasChild.equals("不限")) {
-            mBundle.putString("P15", hasChild);
+            mBundle.putString("hasChild", hasChild);
         }
         //信仰
         String belief = mTvBelief.getText().toString();

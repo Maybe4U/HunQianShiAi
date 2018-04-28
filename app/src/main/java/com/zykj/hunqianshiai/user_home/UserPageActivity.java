@@ -1,12 +1,15 @@
 package com.zykj.hunqianshiai.user_home;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -144,6 +148,14 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     @Bind(R.id.rl_chat)
     RelativeLayout rl_chat;
 
+    @Bind(R.id.iv_sfrz)
+    ImageView mIvSfrz;
+    @Bind(R.id.cb_xueli)
+    CheckBox mCbXueli;
+    @Bind(R.id.cb_car)
+    CheckBox mCbCar;
+    @Bind(R.id.cb_house)
+    CheckBox mCbHouse;
     String[] hobbies = {"电影", "音乐", "书籍", "美食", "运动"};
     int[] images = {R.mipmap.dianying, R.mipmap.yinyue, R.mipmap.shuji, R.mipmap.meishi, R.mipmap.yundong};
 
@@ -197,11 +209,6 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        /*====================优化===================*/
-        //限制自己和自己聊天
-        if(UrlContent.USER_ID.equals(mUserid)){
-            rl_chat.setVisibility(View.GONE);
-        }
         switch (view.getId()) {
             case R.id.tv_black://拉黑
                 showDialog();
@@ -229,7 +236,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                                     @Override
                                                     public void onSuccess(Response<String> response) {
                                                         BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
-//                                                        toastShow(baseBean.message);
+                                                        //                                                        toastShow(baseBean.message);
                                                         if (baseBean.code == 200) {
                                                             RongIM.getInstance().addToBlacklist(mUserid, new RongIMClient.OperationCallback() {
                                                                 @Override
@@ -251,7 +258,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                                             });
                                                         }
 
-//                                            mPresenter.getData(UrlContent.ADD_BLACKLIST_URL, mParams, BaseModel.LOADING_MORE_TYPE);
+                                                        //                                            mPresenter.getData(UrlContent.ADD_BLACKLIST_URL, mParams, BaseModel.LOADING_MORE_TYPE);
 
                                                     }
                                                 });
@@ -332,6 +339,8 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 mParams.put("uid", mUserid);
                 mParams.put("rdm", UrlContent.RDM);
                 mParams.put("sign", UrlContent.SIGN);
+
+                int position = mBundle.getInt("position");
                 if (tv_heartveat.getText().equals("心动")) {
 
                     OkGo.<String>post(UrlContent.ADD_LIKE_URL)
@@ -343,6 +352,8 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                     mLike_num++;
                                     tv_like.setText(mLike_num + "");
                                     tv_heartveat.setText("已心动");
+                                    toastShow("心动成功");
+                                    heartBeatBroadcast(position);
                                 }
                             });
                 } else {
@@ -355,9 +366,13 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                     tv_like.setText(mLike_num + "");
                                     check_like.setChecked(false);
                                     tv_heartveat.setText("心动");
+                                    toastShow("取消心动");
+                                    heartBeatBroadcast(position);
                                 }
                             });
                 }
+
+
                 break;
             case R.id.ll_user_dynamic://Ta的动态
                 mBundle.clear();
@@ -394,7 +409,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                                                     toastShow(baseBean.message);
                                                 }
                                             });
-//                                    mPresenter.getData(UrlContent.HELP_ME_URL, mParams, BaseModel.REFRESH_TYPE);
+                                    //                                    mPresenter.getData(UrlContent.HELP_ME_URL, mParams, BaseModel.REFRESH_TYPE);
                                 } else {
                                     hideDialog();
                                     openActivity(PersonalAssistantActivity.class);
@@ -408,7 +423,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 mBundle.putString("title", "基本资料");
                 mBundle.putString("url", "http://47.104.91.22/api.php?c=Fell&a=jibenziliao&actid=13&userid=" + mUserid);
                 openActivity(WebViewActivity.class, mBundle);
-//                openActivity(UserInfoActivity.class);
+                //                openActivity(UserInfoActivity.class);
                 break;
             case R.id.iv_more://显示更多
                 if (layout.getVisibility() == View.GONE) {
@@ -450,7 +465,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                     mBundle.putString("title", "感情经历");
                     mBundle.putString("url", "http://47.104.91.22/api.php?c=Fell&a=xiangqing_1&userid=" + mUserid + "&type=" + "3");
                     openActivity(WebViewActivity.class, mBundle);
-//                    openActivity(UserMessageActivity.class);
+                    //                    openActivity(UserMessageActivity.class);
                 }
                 break;
             case R.id.iv_gift://礼物
@@ -483,7 +498,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 mBundle.putString("title", "择偶标准");
                 mBundle.putString("url", "http://47.104.91.22/api.php?c=Fell&a=zeoubiaozhun&actid=13&userid=" + mUserid);
                 openActivity(WebViewActivity.class, mBundle);
-//                openActivity(StandardActivity.class);
+                //                openActivity(StandardActivity.class);
                 break;
             case R.id.ll_remind://开通/添加 上线提醒
                 String s = tv_online.getText().toString();
@@ -525,6 +540,11 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
             }
         }
 
+        /*====================优化===================*/
+        //限制自己和自己聊天
+        if (UrlContent.USER_ID.equals(mUserid)) {
+            rl_chat.setVisibility(View.GONE);
+        }
 
         mHeadpic = data.headpic;
         glide(mHeadpic, iv_head, mOptions);
@@ -593,7 +613,9 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         PersonageInfoBean.RenZheng renzheng = data.renzheng;
 
         tv_sfrz.setText(renzheng.shenfen_auth);
-
+        if (renzheng.shenfen_auth2.equals("1")) {
+            mIvSfrz.setImageResource(R.mipmap.ge_shenfenrenzheng);
+        }
         String realname = renzheng.realname;
         if (!TextUtils.isEmpty(realname)) {
             String substring = realname.substring(0, 1);
@@ -614,11 +636,42 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
 
         tv_xueli.setText(renzheng.xueli);
         tv_xueli_auth.setText(renzheng.xueli_auth);
+        if (renzheng.xueli_auth2.equals("1")) {
+            mCbXueli.setChecked(true);
+            tv_xueli.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+            tv_xueli_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+        }else {
+            mCbXueli.setChecked(false);
+            tv_xueli.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_xueli_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+        }
+
         tv_car.setText(renzheng.car);
         tv_car_auth.setText(renzheng.car_auth);
+        if (renzheng.car_auth2.equals("1")) {
+            mCbCar.setChecked(true);
+            tv_car.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+            tv_car_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+        }else {
+            mCbCar.setChecked(false);
+            tv_car.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_car_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+        }
+
         tv_house.setText(renzheng.house);
         tv_huose_auth.setText(renzheng.huose_auth);
-        tv_meinfo.setText(data.meinfo);
+        if (renzheng.huose_auth2.equals("1")) {
+            mCbHouse.setChecked(true);
+            tv_house.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+            tv_huose_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
+        }else {
+            mCbHouse.setChecked(false);
+            tv_house.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_huose_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+        }
+        tv_meinfo.setText("自我介绍： " + data.meinfo);
+
+
         final LayoutInflater mInflater = LayoutInflater.from(this);
         ArrayList<String> strings = new ArrayList<>();
         if (!TextUtils.isEmpty(data.age)) {
@@ -676,9 +729,9 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         if (!TextUtils.isEmpty(like_biaozhun.yearmoney)) {
             strings1.add(like_biaozhun.yearmoney);
         }
-//        if (!TextUtils.isEmpty(like_biaozhun.marrytime)) {
-//            strings.add(like_biaozhun.marrytime);
-//        }
+        //        if (!TextUtils.isEmpty(like_biaozhun.marrytime)) {
+        //            strings.add(like_biaozhun.marrytime);
+        //        }
         if (!TextUtils.isEmpty(like_biaozhun.areaname)) {
             strings1.add(like_biaozhun.areaname);
         }
@@ -689,7 +742,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = (TextView) mInflater.inflate(R.layout.tv, mTagFlowLayout1, false);
-                tv.setText(s);
+                tv.setText("户籍： " + s);
                 return tv;
             }
         });
@@ -817,13 +870,28 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
 
     @Override
     public void loadMore(String bean) {
-//        toastShow(bean);
+        //        toastShow(bean);
 
     }
 
     @Override
     public void failed(String content) {
 
+    }
+
+
+    //发送心动广播  主要目的是在用户详情界面点击心动后，首页同步心动
+    private void heartBeatBroadcast(int position) {
+        Intent intent = new Intent("com.zykj.hunqianshiai.HEART_BEAT");
+        intent.putExtra("position", position);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     class PicAdapter extends BaseQuickAdapter<String, BaseViewHolder> {

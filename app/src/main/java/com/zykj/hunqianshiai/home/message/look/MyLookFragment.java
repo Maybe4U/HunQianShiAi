@@ -89,7 +89,7 @@ public class MyLookFragment extends BaseFragment implements BaseView<String> {
             }
         }
         //逆序排列
-        Collections.reverse(filterData);
+        //Collections.reverse(filterData);
 
         LookMeAdapter lookMeAdapter = new LookMeAdapter(filterData);
         mRecyclerView.setAdapter(lookMeAdapter);

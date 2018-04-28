@@ -279,6 +279,8 @@
 
                 <TextView
                     style="@style/text_style_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:drawableLeft="@mipmap/ge_renzheng"
@@ -312,6 +314,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/iv_sfrz"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
@@ -372,6 +375,7 @@
                             android:orientation="vertical">
 
                             <CheckBox
+                                android:id="@+id/cb_xueli"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:button="@drawable/check_education"
@@ -403,6 +407,7 @@
                             android:orientation="vertical">
 
                             <CheckBox
+                                android:id="@+id/cb_car"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:button="@drawable/check_car"
@@ -433,6 +438,7 @@
                             android:orientation="vertical">
 
                             <CheckBox
+                                android:id="@+id/cb_house"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:button="@drawable/check_house"

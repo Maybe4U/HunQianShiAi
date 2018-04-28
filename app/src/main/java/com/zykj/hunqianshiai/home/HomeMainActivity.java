@@ -206,6 +206,8 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
                     transaction.add(R.id.fl_layout, mDynamicFragment);
                 } else {
                     transaction.show(mDynamicFragment);
+                    //刷新动态
+                    mDynamicFragment.onResume();
                 }
 
 //                mDynamicFragment = DynamicFragment.getInstance();

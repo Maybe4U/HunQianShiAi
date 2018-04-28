@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.zykj.hunqianshiai.R;
+import com.zykj.hunqianshiai.bases.BaseBean;
 import com.zykj.hunqianshiai.bases.BaseModel;
 import com.zykj.hunqianshiai.bases.BaseModelImpl;
 import com.zykj.hunqianshiai.bases.BasePresenterImpl;
@@ -188,6 +189,12 @@ public class MemberPayActivity extends BasesActivity implements CompoundButton.O
             request.timeStamp = data.timestamp + "";
             request.sign = data.sign;
             api.sendReq(request);
+        }else if (paytype == 3) {
+            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
+            toastShow(baseBean.message);
+            if (baseBean.message.equals("支付成功")) {
+                finish();
+            }
         }
 
     }

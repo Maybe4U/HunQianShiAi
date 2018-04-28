@@ -19,6 +19,7 @@ import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.select_city.SelectCityActivity;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,7 +74,8 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
     private List<String> xi_yanList;
     private List<String> zi_nvList;
     private List<String> ti_zhongList;
-
+    private List<List<String>> mOptionsAgeItems;
+    private List<List<String>> mOptionsStatureItems;
     public SpouseStandardsFragment() {
     }
 
@@ -92,15 +94,15 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
 
     @Override
     public void initView() {
+
+        //初始化身高和年龄数据
+        initAgeAndStaInfo();
+
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
         mParams.clear();
         mParams.put("userid", UrlContent.USER_ID);
         mPresenter.getData(UrlContent.SPOUSE_STANDARDS_URL, mParams, BaseModel.DEFAULT_TYPE);
 
-        String[] statures = getResources().getStringArray(R.array.statures);
-        statureList = Arrays.asList(statures);
-        String[] ages = getResources().getStringArray(R.array.ages);
-        ageList = Arrays.asList(ages);
         String[] incomes = getResources().getStringArray(R.array.incomes);
         incomeList = Arrays.asList(incomes);
         String[] constellations = getResources().getStringArray(R.array.constellations);
@@ -122,6 +124,41 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
 
         String[] ti_zhong = getResources().getStringArray(R.array.ti_zhong1);
         ti_zhongList = Arrays.asList(ti_zhong);
+    }
+
+    private void initAgeAndStaInfo() {
+        List<String> list1 = new ArrayList<>();
+        list1.clear();
+        String[] statures = new String[62];
+        statures[0] = "不限";
+        for (int i = 1;i<=61;i++){
+            statures[i] = 139 + i + "cm";
+        }
+        statureList = Arrays.asList(statures);
+
+        mOptionsStatureItems = new ArrayList<>();
+        for(int j=0;j<statureList.size();j++){
+            list1.add(statureList.get(j));
+        }
+        for(int k=0;k<62;k++){
+            mOptionsStatureItems.add(list1);
+        }
+
+        String[] ages = new String[84];
+        ages[0] = "不限";
+        for (int i = 1;i<=83;i++){
+            ages[i] = 17 + i + "岁";
+        }
+        ageList = Arrays.asList(ages);
+        mOptionsAgeItems = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+        list2.clear();
+        for(int j=0;j<ageList.size();j++){
+            list2.add(ageList.get(j));
+        }
+        for(int k=0;k<84;k++){
+            mOptionsAgeItems.add(list2);
+        }
     }
 
     @OnClick({R.id.tv_content, R.id.ll_age, R.id.ll_income, R.id.ll_height, R.id.ll_work_city, R.id.ll_census, R.id.ll_marryinfo,
@@ -147,11 +184,29 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
                 mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        String text = ageList.get(options1);
-                        tv_age.setText(text);
+                        String str = null;
+                        String s1 = ageList.get(options1);
+                        String s2 = mOptionsAgeItems.get(options1).get(options2);
+                        if(s1.equals("不限") || s2.equals("不限")){
+                            str = "不限";
+                            tv_age.setText(str);
+                        }else if(s1.equals(s2)){
+                            tv_age.setText(ageList.get(options1));
+                        }else{
+                            int i1 = Integer.parseInt(s1.replace("岁", ""));
+                            int i2 = Integer.parseInt(s2.replace("岁", ""));
+
+                            if(i1>i2){
+                                tv_age.setText(s2 + "-" + s1);
+                                str = s2 + "-" + s1;
+                            }else {
+                                tv_age.setText(s1 + "-" + s2);
+                                str = s1 + "-" + s2;
+                            }
+                        }
                         mParams.clear();
                         mParams.put("userid", UrlContent.USER_ID);
-                        mParams.put("age", text);
+                        mParams.put("age", str);
                         mPresenter.getData(UrlContent.SET_SPOUSE_URL, mParams, BaseModel.REFRESH_TYPE);
                     }
                 }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
@@ -159,18 +214,37 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
                         .setCancelColor(R.color.black)//取消按钮文字颜色
                         .build();
 
-                mPickerView.setPicker(ageList);
+                mPickerView.setPicker(ageList,mOptionsAgeItems);
                 mPickerView.show();
                 break;
             case R.id.ll_height://身高
                 mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        String text = statureList.get(options1);
-                        tv_height.setText(text);
+                        String str = null;
+                        String s1 = statureList.get(options1);
+                        String s2 = mOptionsStatureItems.get(options1).get(options2);
+
+                        if(s1.equals("不限") || s2.equals("不限")){
+                            str = "不限";
+                            tv_height.setText(str);
+                        }else if(s1.equals(s2)){
+                            tv_height.setText(statureList.get(options1));
+                        }else{
+                            int i1 = Integer.parseInt(s1.replace("cm", ""));
+                            int i2 = Integer.parseInt(s2.replace("cm", ""));
+                            if(i1>i2){
+                                tv_height.setText(s2 + "-" + s1);
+                                str = s2 + "-" + s1;
+                            }else {
+                                tv_height.setText(s1 + "-" + s2);
+                                str = s1 + "-" + s2;
+                            }
+
+                        }
                         mParams.clear();
                         mParams.put("userid", UrlContent.USER_ID);
-                        mParams.put("height", text);
+                        mParams.put("height", str);
                         mPresenter.getData(UrlContent.SET_SPOUSE_URL, mParams, BaseModel.REFRESH_TYPE);
                     }
                 }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
@@ -178,7 +252,7 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
                         .setCancelColor(R.color.black)//取消按钮文字颜色
                         .build();
 
-                mPickerView.setPicker(statureList);
+                mPickerView.setPicker(statureList,mOptionsStatureItems);
                 mPickerView.show();
                 break;
             case R.id.ll_income://年收入

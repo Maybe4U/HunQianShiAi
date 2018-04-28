@@ -35,6 +35,7 @@ import com.zykj.hunqianshiai.home.dynamic.PopupWindowMoreOption;
 import com.zykj.hunqianshiai.look_pic_video.PicActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
+import com.zykj.hunqianshiai.user_home.UserPageActivity;
 import com.zykj.hunqianshiai.user_home.dynamic.UserDynamicAdapter;
 
 import java.io.Serializable;
@@ -109,6 +110,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
         screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         //阀值设置为屏幕高度的1/3
         keyHeight = screenHeight / 3;
+
     }
 
     @Override
@@ -186,6 +188,30 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
                     InputMethodManager inputManager = (InputMethodManager) et_content.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.showSoftInput(et_content, 0);
                 }
+            }
+        });
+
+        mDynamicDetailsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.iv_headpic:
+                        Bundle bundle = new Bundle();
+                        bundle.putString("userid",mFriends_id);
+                        openActivity(UserPageActivity.class,bundle);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        mIv_headpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",dynamicDetailsData.userid);
+                openActivity(UserPageActivity.class,bundle);
             }
         });
     }
@@ -287,7 +313,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
 
 //            toastShow("监听到软键盘弹起");
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
-            reply_dynamic = true;
+//            reply_dynamic = true;
 //            mOther_id = "";
             et_content.setHint("评论");
 //            toastShow("监听到软件盘关闭");

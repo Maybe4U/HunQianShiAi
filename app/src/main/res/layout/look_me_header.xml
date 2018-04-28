@@ -62,27 +62,33 @@
             <!--android:text="已认证个人身份-房-车"-->
             <!--android:textColor="@color/default_color" />-->
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
                 <TextView
                     android:id="@+id/tv_areaname"
                     style="@style/text_style_gray"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
                     android:drawableLeft="@mipmap/fujin_weizhi"
                     android:drawablePadding="5dp"
-                    android:text="工作生活在：山东-临沂"
+                    android:text="工作生活在：山东-临沂的某个地方"
                     android:textSize="13sp" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:id="@+id/tv_yearmoney"
                     style="@style/text_style_gray"
-                    android:layout_marginLeft="15dp"
                     android:drawableLeft="@mipmap/fujin_shouru"
                     android:drawablePadding="5dp"
-                    android:text="100w以上"
+                    android:text="100w-200w以上"
                     android:textSize="13sp" />
             </LinearLayout>
 

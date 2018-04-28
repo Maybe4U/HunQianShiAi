@@ -3,4 +3,11 @@
 
     <item android:drawable="@mipmap/shouye_xindong0" android:state_checked="false" />
     <item android:drawable="@mipmap/shouye_xindong1" android:state_checked="true" />
+
+    <item android:drawable="@mipmap/shouye_xindong0" android:state_selected="false"/>
+    <item android:drawable="@mipmap/shouye_xindong1" android:state_selected="true"/>
+
+    <item android:drawable="@mipmap/shouye_xindong0" android:state_pressed="false"/>
+    <item android:drawable="@mipmap/shouye_xindong1" android:state_pressed="true"/>
+
 </selector>

@@ -1,15 +1,29 @@
 package com.zykj.hunqianshiai.home.my;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -57,6 +71,8 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscription;
 import rx.functions.Action1;
+
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 /**
  * Created by xu on 2017/12/5.
@@ -108,6 +124,20 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     TextView tv_set_info;
     @Bind(R.id.iv_recommend)
     ImageView iv_recommend;
+    @Bind(R.id.ll_sfz)
+    RelativeLayout ll_sfz;
+    @Bind(R.id.iv_identification_car)
+    LinearLayout iv_identi_car;
+    @Bind(R.id.iv_identification_house)
+    LinearLayout iv_identi_house;
+    @Bind(R.id.iv_identification_education)
+    LinearLayout iv_identi_edu;
+    @Bind(R.id.cb_education)
+    CheckBox cb_education;
+    @Bind(R.id.cb_car)
+    CheckBox cb_car;
+    @Bind(R.id.cb_house)
+    CheckBox cb_house;
 
     private ArrayList<String> pics = new ArrayList<>();
     List<View> imageViews = new ArrayList<>();
@@ -128,6 +158,8 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     private String mFamilyinfo;
     private String mWorkplan;
     private String mFeeling;
+    private boolean isRunning = false;
+    private BannerThread mThread;
 
     public MyFragment() {
     }
@@ -162,6 +194,43 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                         mPresenter.getData(UrlContent.GET_INFO_URL, mParams, BaseModel.DEFAULT_TYPE);
                     }
                 });
+
+
+    }
+    //轮播图
+    private void initBannerThread() {
+        if(mThread == null){
+            if(imageViews.size() > 1){
+                //int item = Integer.MAX_VALUE - (Integer.MAX_VALUE / imageViews.size());
+                int item =page;
+                mViewPager.setCurrentItem(item);
+                if(mThread == null){
+                    mThread = new BannerThread();
+                    mThread.start();
+                }
+            }
+        }
+
+    }
+
+
+    private class BannerThread extends Thread{
+        @Override
+        public void run() {
+            isRunning = true;
+            while (isRunning) {
+                SystemClock.sleep(3000);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int currentItem = mViewPager.getCurrentItem();
+                        Log.e("currentItem","" + currentItem);
+                        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -177,7 +246,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         areaname = areaname.replace("市", "");
         tv_city.setText(areaname);
         if (!TextUtils.isEmpty(data.marrytime)) {
-            tv_marry.setText(" | 期望" + data.marrytime + "结婚");
+            tv_marry.setText(" | 期望结婚时间： " + data.marrytime);
         }
 
         if (data.is_vip == 1) {
@@ -239,31 +308,96 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             head = false;
         }
 
-        if (null != mAdapter) {
-            mAdapter.notifyDataSetChanged();
-        }
+
 
         PersonageInfoBean.RenZheng renzheng = data.renzheng;
-
+        /*================身份认证    begin=======================*/
+        //显示身份认证状态
         tv_sfrz.setText(renzheng.shenfen_auth);
+        //如果审核通过则显示认证信息
+        if(renzheng.shenfen_auth2.equals("1")){
+            //不可点击
+            ll_sfz.setClickable(false);
+            String realname = renzheng.realname;
+            if (!TextUtils.isEmpty(realname)) {
+                String substring = realname.substring(0, 1);
+                substring = substring + "**";
+                tv_rz_name.setText(substring);
+            }
 
-        String realname = renzheng.realname;
-        if (!TextUtils.isEmpty(realname)) {
-            String substring = realname.substring(0, 1);
-            substring = substring + "**";
-            tv_rz_name.setText(substring);
-        }
+            String card_number = renzheng.card_number;
+            if (!TextUtils.isEmpty(card_number)) {
+                String substring = card_number.substring(0, 10);
+                substring = substring + "*******";
+                tv_rz_number.setText(substring);
+            }
 
-        String card_number = renzheng.card_number;
-        if (!TextUtils.isEmpty(card_number)) {
-            String substring = card_number.substring(0, 10);
-            substring = substring + "*******";
-            tv_rz_number.setText(substring);
+            if (!TextUtils.isEmpty(renzheng.verifytime)) {
+                tv_rz_time.setText("认证通过时间：" + renzheng.verifytime);
+            }
+        } else {
+            ll_sfz.setClickable(true);
+            tv_rz_name.setText("");
+            tv_rz_number.setText("");
+            tv_rz_time.setText("");
         }
+        /*================身份认证    end=======================*/
 
-        if (!TextUtils.isEmpty(renzheng.verifytime)) {
-            tv_rz_time.setText("认证通过时间：" + renzheng.verifytime);
+        /*================学历认证    begin=======================*/
+
+        //如果审核通过则显示认证信息
+        if(renzheng.xueli_auth2.equals("1")){
+            //图标点亮
+            cb_education.setChecked(true);
+            //不可点击
+            iv_identi_edu.setClickable(false);
+            String xueli = renzheng.xueli;
+            if (!TextUtils.isEmpty(xueli)) {
+                //显示身份认证状态
+                tv_education.setText("学历已认证");
+            }
+        } else {
+            cb_education.setChecked(false);
+            iv_identi_edu.setClickable(true);
+            tv_education.setText(renzheng.xueli_auth);
         }
+        /*================学历认证    end=======================*/
+        /*================汽车认证    begin=======================*/
+
+        //如果审核通过则显示认证信息
+        if(renzheng.car_auth2.equals("1")){
+            //不可点击
+            iv_identi_car.setClickable(false);
+            cb_car.setChecked(true);
+            String car = renzheng.car;
+            if (!TextUtils.isEmpty(car)) {
+                //显示身份认证状态
+                tv_car.setText("车辆已认证");
+            }
+        } else {
+            cb_car.setChecked(false);
+            iv_identi_car.setClickable(true);
+            tv_car.setText(renzheng.car_auth);
+        }
+        /*================汽车认证    end=======================*/
+        /*================房产认证    begin=======================*/
+
+        //如果审核通过则显示认证信息
+        if(renzheng.huose_auth2.equals("1")){
+            //不可点击
+            iv_identi_house.setClickable(false);
+            cb_house.setChecked(true);
+            String house = renzheng.house;
+            if (!TextUtils.isEmpty(house)) {
+                //显示身份认证状态
+                tv_house.setText("房产已认证");
+            }
+        } else {
+            cb_house.setChecked(false);
+            iv_identi_house.setClickable(true);
+            tv_house.setText(renzheng.huose_auth);
+        }
+        /*================房产认证    end=======================*/
 
         RongIM.getInstance().setCurrentUserInfo(new UserInfo(data.userid, data.username, Uri.parse(data.headpic)));
 
@@ -287,12 +421,18 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                         .load(pics.get(i))
                         .apply(BasesActivity.mOptions)
                         .into(imageView);
+                if(pics.size()==2){
+                    imageViews.add(imageView);
+                }
                 imageViews.add(imageView);
             } else {
                 Glide.with(mContext)
                         .load(UrlContent.PIC_URL + pics.get(i))
                         .apply(BasesActivity.mOptions)
                         .into(imageView);
+                if(pics.size()==2){
+                    imageViews.add(imageView);
+                }
                 imageViews.add(imageView);
             }
 
@@ -300,6 +440,8 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 //                mAdapter.notifyDataSetChanged();
 //            }
         }
+
+
         if (null == mAdapter) {
             mAdapter = new MyPagerAdapter();
             mViewPager.setAdapter(mAdapter);
@@ -310,7 +452,12 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 //            mAdapter.notifyDataSetChanged();
         }
 
+        mViewPager.setCurrentItem(page);
+
+
+
         final int size = imageViews.size();
+
 
         tv_pic_management.setText("管理照片 " + 1 + "/" + size);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -321,16 +468,22 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
             @Override
             public void onPageSelected(int position) {
-                position = position + 1;
-                tv_pic_management.setText("管理照片 " + position + "/" + size);
+                position = position  % size ;
+
+                tv_pic_management.setText("管理照片 " + (position + 1)  + "/" + size);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-        mViewPager.setCurrentItem(page);
+
+        if (null != mAdapter) {
+            mAdapter.notifyDataSetChanged();
+        }
+
+
+        initBannerThread();
     }
 
     @Override
@@ -366,13 +519,32 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 openActivity(IdentificationHouseActivity.class);
                 break;
             case R.id.tv_pic_management://照片管理
-                page = mViewPager.getCurrentItem();
+//                page = mViewPager.getCurrentItem();
+//                mBundle.clear();
+//                mBundle.putString("headpic", mHeadpic);
+//                if (!TextUtils.isEmpty(mVideo)) {
+//                    mBundle.putString("video", mVideo);
+//                }
+//                openActivity(PicManagementActivity.class, mBundle);
+
+                int position = mAdapter.getItemPosition(mViewPager);
+
                 mBundle.clear();
-                mBundle.putString("headpic", mHeadpic);
-                if (!TextUtils.isEmpty(mVideo)) {
-                    mBundle.putString("video", mVideo);
+                mBundle.putStringArrayList("pics", pics);
+                mBundle.putBoolean("head", head);
+                if (null == mView) {
+                    mBundle.putInt("position", position);
+
+                } else {
+                    mBundle.putInt("position", position - 1);
+                    if (position == 0) {
+                        mBundle.putString("video", mVideo);
+                        openActivity(VideoActivity.class, mBundle);
+                        return;
+                    }
                 }
-                openActivity(PicManagementActivity.class, mBundle);
+                openActivity(PicsActivity.class, mBundle);
+
                 break;
             case R.id.iv_identification_education://学历认证
                 openActivity(IdentificationEducationActivity.class);
@@ -384,7 +556,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 openActivity(GiftActivity.class);
                 break;
             case R.id.tv_set_info://编辑资料
-                page = mViewPager.getCurrentItem();
+                //page = mViewPager.getCurrentItem();
                 openActivity(InfoActivity.class);
                 break;
             case R.id.ll_layout_1://自我介绍
@@ -498,12 +670,55 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 break;
         }
     }
-
+    //private List<View> imageViewList = new ArrayList<>();
     public class MyPagerAdapter extends PagerAdapter {
+
+        private View mView;
+
+
+
+//        private int oldViewCount = 0;
+//        private int newViewCount;  //如果内容页小于等于三，放大倍数到大于3
+//        public MyPagerAdapter(Context context, List<View> list) {
+//            oldViewCount = list.size();
+//            List<View> newList = plusImageViewList(list);//将图片数量增加到>=4
+//            newViewCount = newList.size();
+//            for (int i = 0; i < newList.size(); i++) {
+//                View view = newList.get(i);
+//
+//                ImageView imageView = new ImageView(context);
+//                imageView = (ImageView) view;
+//                //View view = newList.get(i);
+//                imageViewList.add(imageView);
+//            }
+//        }
+//        /**
+//         * 扩大图片列表数量到 >=4 的状态
+//         */
+//        private List<View> plusImageViewList(List<View> list) {
+//            if (list.size() == 1) {   //添加到4个数据
+//                for (int i = 0; i < 3; i++) {
+//                    list.add(list.get(0));
+//                }
+//            }
+//            if (list.size() == 2) {   //添加到4个数据
+//                list.add(list.get(0));
+//                list.add(list.get(1));
+//            }
+//            if(list.size() == 3){   //添加到6个数据
+//                list.add(list.get(0));
+//                list.add(list.get(1));
+//                list.add(list.get(2));
+//            }
+//            return list;
+//        }
 
         @Override
         public int getCount() {
-            return imageViews.size();
+            if(imageViews != null){
+                return Integer.MAX_VALUE;
+            }
+            return 0;
         }
 
         @Override
@@ -518,34 +733,38 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
         }
 
-
         @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
+        public Object instantiateItem(ViewGroup container, int position) {
+             //   Log.e("position1",position + "");
+            //if(imageViews.size() != 0){
+                position = position % imageViews.size();
 
-            View view = imageViews.get(position);
-            view.setOnClickListener(new View.OnClickListener() {
+            //Log.e("position1",position + "");
+                mView = imageViews.get(position);
+
+            mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //page = mViewPager.getCurrentItem();
                     mBundle.clear();
-                    mBundle.putStringArrayList("pics", pics);
-                    mBundle.putBoolean("head", head);
-                    if (null == mView) {
-                        mBundle.putInt("position", position);
-
-                    } else {
-                        mBundle.putInt("position", position - 1);
-                        if (position == 0) {
-                            mBundle.putString("video", mVideo);
-                            openActivity(VideoActivity.class, mBundle);
-                            return;
-                        }
+                    mBundle.putString("headpic", mHeadpic);
+                    if (!TextUtils.isEmpty(mVideo)) {
+                        mBundle.putString("video", mVideo);
                     }
-                    openActivity(PicsActivity.class, mBundle);
+                    openActivity(PicManagementActivity.class, mBundle);
                 }
             });
 
-            container.addView(view);
+            page = position;
+
+            ViewGroup parent = (ViewGroup) mView.getParent();
+            if(parent != null){
+                parent.removeView(mView);
+            }
+
+            container.addView(mView);
             return imageViews.get(position);
+            //return view;
         }
 
         private int mChildCount = 0;
@@ -566,11 +785,21 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         }
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (null != mSubscription && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
     }
 }

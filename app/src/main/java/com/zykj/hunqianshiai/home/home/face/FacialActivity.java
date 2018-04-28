@@ -56,7 +56,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
     private Camera mCamera;
     private int screenWidth;
     private int screenHeight;
-    private int cameraPosition = 0;//0代表前置摄像头，1代表后置摄像头
+    private int cameraPosition = 1;//1代表前置摄像头，0代表后置摄像头
     private String mImg_path;
     private BasePresenterImpl mPresenter;
     private Bundle mBundle;
@@ -68,7 +68,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
 
     @Override
     protected void initView() {
-        appBar("脸谱");
+        appBar("人脸识别");
 //        tv_right.setVisibility(View.VISIBLE);
 //        tv_right.setOnClickListener(this);
 //        tv_right.setText("确定");

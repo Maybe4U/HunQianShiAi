@@ -61,7 +61,7 @@ public class FaceActivity extends BasesActivity implements BaseView<String> {
 
     @Override
     protected void initView() {
-        appBar("脸谱");
+        appBar("人脸识别");
         mBundle = getIntent().getExtras();
         mPic = mBundle.getString("pic");
         WebSettings settings = mWebView.getSettings();

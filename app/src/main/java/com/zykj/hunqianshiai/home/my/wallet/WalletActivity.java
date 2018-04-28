@@ -17,6 +17,7 @@ import com.zykj.hunqianshiai.login_register.UploadBean;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -71,6 +72,10 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
     public void refresh(String bean) {
         WalletBean walletBean = JsonUtils.GsonToBean(bean, WalletBean.class);
         List<WalletBean.WalletData> data = walletBean.data;
+
+        //逆序排列
+        //Collections.reverse(data);
+
         WalletAdapter walletAdapter = new WalletAdapter(data);
         mRecyclerView.setAdapter(walletAdapter);
     }

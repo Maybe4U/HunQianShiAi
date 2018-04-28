@@ -169,7 +169,11 @@ public class FeedbackActivity extends BasesActivity implements BaseView<String> 
                     toastShow("请描述您反馈的问题");
                     return;
                 }
-
+                mPhone = et_phone.getText().toString().trim();
+                if (TextUtils.isEmpty(mPhone)) {
+                    toastShow("请输入联系方式");
+                    return;
+                }
                 showDialog();
                 if (null != selectList && !selectList.isEmpty()) {
                     mParams.clear();
@@ -179,7 +183,10 @@ public class FeedbackActivity extends BasesActivity implements BaseView<String> 
                     mPresenter.getData(UrlContent.UPLOAD_PIC_URL, mParams, BaseModel.DEFAULT_TYPE);
                 } else {
                     mPhone = et_phone.getText().toString().trim();
-
+                    if (TextUtils.isEmpty(mPhone)) {
+                        toastShow("请输入手机号");
+                        return;
+                    }
                     mParams.clear();
                     mParams.put("userid", UrlContent.USER_ID);
                     mParams.put("content", mContents);

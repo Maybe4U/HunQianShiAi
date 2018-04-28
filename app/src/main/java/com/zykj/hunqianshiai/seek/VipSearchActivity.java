@@ -61,6 +61,7 @@ public class VipSearchActivity extends BasesActivity implements BaseView<String>
         String p17 = mBundle.getString("p17", "");
         String p18 = mBundle.getString("p18", "");
         String p19 = mBundle.getString("p19", "");
+        String hasChild = mBundle.getString("hasChild", "");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -102,24 +103,26 @@ public class VipSearchActivity extends BasesActivity implements BaseView<String>
             mParams.put("p14", p14);
         }
         if (!TextUtils.isEmpty(p15)) {
-            mParams.put("p15", p15);
+        mParams.put("p15", p15);
+        }
+        if (!TextUtils.isEmpty(hasChild)) {
+            mParams.put("is_boy", hasChild);
         }
         if (!TextUtils.isEmpty(p16)) {
-            mParams.put("p16", p16);
+            mParams.put("xinyang", p16);
         }
         if (!TextUtils.isEmpty(p17)) {
-            mParams.put("p17", p17);
+            mParams.put("zhufang", p17);
         }
         if (!TextUtils.isEmpty(p18)) {
-            mParams.put("p18", p18);
+            mParams.put("buy_car", p18);
         }
         if (!TextUtils.isEmpty(p19)) {
-            mParams.put("p19", p19);
-        }
-        if (!TextUtils.isEmpty(p1)) {
+            mParams.put("zhi", p19);
         }
 
-        mParams.put("p20", 1);
+
+        //mParams.put("p20", 1);
 
         presenter.getData(UrlContent.SEARCH_VIP_URL, mParams, BaseModel.DEFAULT_TYPE);
     }
