@@ -24,7 +24,7 @@ public class SecretlistAdapter extends BaseQuickAdapter<SecretBean.SecretData, B
 
     @Override
     protected void convert(BaseViewHolder helper, SecretBean.SecretData item) {
-        helper.addOnClickListener(R.id.iv_yichu);
+        helper.addOnClickListener(R.id.iv_yichu).addOnClickListener(R.id.iv_head);
         Glide.with(mContext)
                 .load(item.headpic)
                 .apply(BasesActivity.mCircleRequestOptions)

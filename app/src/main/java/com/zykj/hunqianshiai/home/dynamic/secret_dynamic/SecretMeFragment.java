@@ -119,6 +119,12 @@ public class SecretMeFragment extends BaseFragment implements BaseView<String> {
                         mParams.put("type", 1);
                         mPresenter.getData(UrlContent.SEE_URL, mParams, BaseModel.REFRESH_TYPE);
                         break;
+
+                    case R.id.iv_head:
+                        mBundle.clear();
+                        mBundle.putString("userid",userid);
+                        openActivity(UserPageActivity.class,mBundle);
+                        break;
                 }
             }
         });

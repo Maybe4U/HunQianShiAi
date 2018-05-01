@@ -105,4 +105,7 @@ dependencies {
     compile 'com.github.lzyzsd:jsbridge:1.0.4'
     compile 'com.pgyersdk:sdk:2.8.1'
     compile 'com.squareup.picasso:picasso:2.5.1'
+
+    implementation 'com.android.support:support-v4:2.2.4'
+    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
 }

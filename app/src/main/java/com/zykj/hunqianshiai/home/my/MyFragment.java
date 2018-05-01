@@ -67,6 +67,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.bingoogolapple.bgabanner.BGABanner;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscription;
@@ -102,8 +103,6 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     TextView tv_house;
     @Bind(R.id.tv_family)
     TextView tv_family;
-    @Bind(R.id.view_pager)
-    ViewPager mViewPager;
     @Bind(R.id.tv_pic_management)
     TextView tv_pic_management;
     @Bind(R.id.tv_remind)
@@ -138,9 +137,12 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     CheckBox cb_car;
     @Bind(R.id.cb_house)
     CheckBox cb_house;
+    @Bind(R.id.view_banner)
+    BGABanner view_banner;
 
     private ArrayList<String> pics = new ArrayList<>();
     List<View> imageViews = new ArrayList<>();
+    private List<String> mUrlList = new ArrayList<>();
 
     private BasePresenterImpl mPresenter;
     private PopupWindowAddInfo mPopupWindowAddInfo;
@@ -148,7 +150,6 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     private Bundle mBundle;
     private String mVideo;
     private String mHeadpic;
-    private MyPagerAdapter mAdapter;
     private int page;
     private int mCode;
     private boolean head;
@@ -158,8 +159,6 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     private String mFamilyinfo;
     private String mWorkplan;
     private String mFeeling;
-    private boolean isRunning = false;
-    private BannerThread mThread;
 
     public MyFragment() {
     }
@@ -197,41 +196,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
 
     }
-    //轮播图
-    private void initBannerThread() {
-        if(mThread == null){
-            if(imageViews.size() > 1){
-                //int item = Integer.MAX_VALUE - (Integer.MAX_VALUE / imageViews.size());
-                int item =page;
-                mViewPager.setCurrentItem(item);
-                if(mThread == null){
-                    mThread = new BannerThread();
-                    mThread.start();
-                }
-            }
-        }
 
-    }
-
-
-    private class BannerThread extends Thread{
-        @Override
-        public void run() {
-            isRunning = true;
-            while (isRunning) {
-                SystemClock.sleep(3000);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int currentItem = mViewPager.getCurrentItem();
-                        Log.e("currentItem","" + currentItem);
-                        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                    }
-                });
-            }
-        }
-    }
 
     @Override
     public void success(String bean) {
@@ -283,6 +248,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         }
         imageViews.clear();
         pics.clear();
+        mUrlList.clear();
 
         mVideo = data.video;
         if (!TextUtils.isEmpty(mVideo)) {
@@ -293,9 +259,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                     .apply(BasesActivity.mOptions)
                     .into(video);
             imageViews.add(mView);
-            if (null != mAdapter) {
-                mAdapter.notifyDataSetChanged();
-            }
+            mUrlList.add(UrlContent.PIC_URL + data.video);
         } else {
             mView = null;
         }
@@ -413,54 +377,42 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             pics.addAll(picsBean.data);
         }
 
-        for (int i = 0; i < pics.size(); i++) {
-            ImageView imageView = new ImageView(mContext);
-            if (i == 0 && head) {
+        view_banner.setAdapter(new BGABanner.Adapter<ImageView,String>(){
 
+            @Override
+            public void fillBannerItem(BGABanner banner, ImageView itemView, @Nullable String model, int position) {
                 Glide.with(mContext)
-                        .load(pics.get(i))
+                        .load(model)
                         .apply(BasesActivity.mOptions)
-                        .into(imageView);
-                if(pics.size()==2){
-                    imageViews.add(imageView);
-                }
-                imageViews.add(imageView);
-            } else {
-                Glide.with(mContext)
-                        .load(UrlContent.PIC_URL + pics.get(i))
-                        .apply(BasesActivity.mOptions)
-                        .into(imageView);
-                if(pics.size()==2){
-                    imageViews.add(imageView);
-                }
-                imageViews.add(imageView);
+                        .into(itemView);
             }
+        });
+        //去重，防止重复添加
+        for (int i = 0; i < pics.size(); i++){
+            if(i==0 & head){
+                mUrlList.add(pics.get(i));
 
-//            if (null != mAdapter) {
-//                mAdapter.notifyDataSetChanged();
-//            }
+            }else {
+                mUrlList.add(UrlContent.PIC_URL + pics.get(i));
+            }
         }
+        view_banner.setData(mUrlList,null);
 
+        view_banner.setDelegate(new BGABanner.Delegate() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, View itemView, @Nullable Object model, int position) {
+                mBundle.clear();
+                mBundle.putString("headpic", mHeadpic);
+                if (!TextUtils.isEmpty(mVideo)) {
+                    mBundle.putString("video", mVideo);
+                }
+                openActivity(PicManagementActivity.class, mBundle);
+            }
+        });
 
-        if (null == mAdapter) {
-            mAdapter = new MyPagerAdapter();
-            mViewPager.setAdapter(mAdapter);
-        } else {
-            mAdapter = null;
-            mAdapter = new MyPagerAdapter();
-            mViewPager.setAdapter(mAdapter);
-//            mAdapter.notifyDataSetChanged();
-        }
-
-        mViewPager.setCurrentItem(page);
-
-
-
-        final int size = imageViews.size();
-
-
+        final int size = mUrlList.size();
         tv_pic_management.setText("管理照片 " + 1 + "/" + size);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        view_banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -468,22 +420,14 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
             @Override
             public void onPageSelected(int position) {
-                position = position  % size ;
-
                 tv_pic_management.setText("管理照片 " + (position + 1)  + "/" + size);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
-
-        if (null != mAdapter) {
-            mAdapter.notifyDataSetChanged();
-        }
-
-
-        initBannerThread();
     }
 
     @Override
@@ -527,22 +471,22 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 //                }
 //                openActivity(PicManagementActivity.class, mBundle);
 
-                int position = mAdapter.getItemPosition(mViewPager);
+//                int position = mAdapter.getItemPosition(mViewPager);
 
                 mBundle.clear();
                 mBundle.putStringArrayList("pics", pics);
                 mBundle.putBoolean("head", head);
-                if (null == mView) {
-                    mBundle.putInt("position", position);
-
-                } else {
-                    mBundle.putInt("position", position - 1);
-                    if (position == 0) {
-                        mBundle.putString("video", mVideo);
-                        openActivity(VideoActivity.class, mBundle);
-                        return;
-                    }
-                }
+//                if (null == mView) {
+//                    mBundle.putInt("position", position);
+//
+//                } else {
+//                    mBundle.putInt("position", position - 1);
+//                    if (position == 0) {
+//                        mBundle.putString("video", mVideo);
+//                        openActivity(VideoActivity.class, mBundle);
+//                        return;
+//                    }
+//                }
                 openActivity(PicsActivity.class, mBundle);
 
                 break;
@@ -652,7 +596,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             case R.id.rl_remind://上线提醒
                 if (mCode == 0) {
                     PopupWindowRemind popupWindowRemind = new PopupWindowRemind(mActivity);
-                    popupWindowRemind.showAtLocation(mViewPager, Gravity.CENTER, 0, 0);
+                    popupWindowRemind.showAtLocation(view_banner, Gravity.CENTER, 0, 0);
                 } else {
                     openActivity(OnlineActivity.class);
                 }
@@ -670,122 +614,6 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 break;
         }
     }
-    //private List<View> imageViewList = new ArrayList<>();
-    public class MyPagerAdapter extends PagerAdapter {
-
-        private View mView;
-
-
-
-//        private int oldViewCount = 0;
-//        private int newViewCount;  //如果内容页小于等于三，放大倍数到大于3
-//        public MyPagerAdapter(Context context, List<View> list) {
-//            oldViewCount = list.size();
-//            List<View> newList = plusImageViewList(list);//将图片数量增加到>=4
-//            newViewCount = newList.size();
-//            for (int i = 0; i < newList.size(); i++) {
-//                View view = newList.get(i);
-//
-//                ImageView imageView = new ImageView(context);
-//                imageView = (ImageView) view;
-//                //View view = newList.get(i);
-//                imageViewList.add(imageView);
-//            }
-//        }
-//        /**
-//         * 扩大图片列表数量到 >=4 的状态
-//         */
-//        private List<View> plusImageViewList(List<View> list) {
-//            if (list.size() == 1) {   //添加到4个数据
-//                for (int i = 0; i < 3; i++) {
-//                    list.add(list.get(0));
-//                }
-//            }
-//            if (list.size() == 2) {   //添加到4个数据
-//                list.add(list.get(0));
-//                list.add(list.get(1));
-//            }
-//            if(list.size() == 3){   //添加到6个数据
-//                list.add(list.get(0));
-//                list.add(list.get(1));
-//                list.add(list.get(2));
-//            }
-//            return list;
-//        }
-
-        @Override
-        public int getCount() {
-            if(imageViews != null){
-                return Integer.MAX_VALUE;
-            }
-            return 0;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-//            super.destroyItem(container, position, object);
-            container.removeView((View) object);
-
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-             //   Log.e("position1",position + "");
-            //if(imageViews.size() != 0){
-                position = position % imageViews.size();
-
-            //Log.e("position1",position + "");
-                mView = imageViews.get(position);
-
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //page = mViewPager.getCurrentItem();
-                    mBundle.clear();
-                    mBundle.putString("headpic", mHeadpic);
-                    if (!TextUtils.isEmpty(mVideo)) {
-                        mBundle.putString("video", mVideo);
-                    }
-                    openActivity(PicManagementActivity.class, mBundle);
-                }
-            });
-
-            page = position;
-
-            ViewGroup parent = (ViewGroup) mView.getParent();
-            if(parent != null){
-                parent.removeView(mView);
-            }
-
-            container.addView(mView);
-            return imageViews.get(position);
-            //return view;
-        }
-
-        private int mChildCount = 0;
-
-        @Override
-        public void notifyDataSetChanged() {
-            mChildCount = getCount();
-            super.notifyDataSetChanged();
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            if (mChildCount > 0) {
-                mChildCount--;
-                return POSITION_NONE;
-            }
-            return super.getItemPosition(object);
-        }
-    }
-
-
 
     @Override
     public void onDestroyView() {
@@ -793,13 +621,11 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         if (null != mSubscription && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
-
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isRunning = false;
     }
 }

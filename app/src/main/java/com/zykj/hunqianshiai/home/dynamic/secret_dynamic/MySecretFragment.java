@@ -108,10 +108,15 @@ public class MySecretFragment extends BaseFragment implements BaseView<String> {
                         });
 
                         mParams.clear();
-                        mParams.put("userid", UrlContent.USER_ID);
-                        mParams.put("other_id", userid);
+                        mParams.put("userid", userid);
+                        mParams.put("other_id", UrlContent.USER_ID);
                         mParams.put("type", 1);
                         mPresenter.getData(UrlContent.SEE_URL, mParams, BaseModel.REFRESH_TYPE);
+                        break;
+                    case R.id.iv_head:
+                        mBundle.clear();
+                        mBundle.putString("userid",userid);
+                        openActivity(UserPageActivity.class,mBundle);
                         break;
                 }
             }

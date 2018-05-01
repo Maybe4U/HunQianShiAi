@@ -120,7 +120,7 @@ public class SetActivity extends BasesActivity implements CompoundButton.OnCheck
                 popupWindowQuit.setClickListener(new BasePopupWindow.ClickListener() {
                     @Override
                     public void onClickListener(Object object) {
-                        destroyApp();
+                        //destroyApp();
                         openActivity(ChooseLoginActivity.class);
                         SPUtils.remove(SetActivity.this, SPKey.COMPLETE_LOGIN_KEY);
                         SPUtils.remove(SetActivity.this, SPKey.USER_ID_KEY);

@@ -1,7 +1,12 @@
 package com.zykj.hunqianshiai.user_home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -10,8 +15,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -172,6 +180,21 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     private String mHeadpic;
     private int mLike_num;
 
+    /**
+     * 整个Activity视图的根视图
+     */
+    View decorView;
+
+    /**
+     * 手指按下时的坐标
+     */
+    float downX, downY;
+
+    /**
+     * 手机屏幕的宽度和高度
+     */
+    float screenWidth, screenHeight;
+
     @Override
     protected int getContentViewX() {
         return R.layout.activity_user_page;
@@ -201,6 +224,18 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 layout.setVisibility(View.GONE);
             }
         });
+
+
+        // 获得decorView
+        decorView = getWindow().getDecorView();
+
+        // 获得手机屏幕的宽度和高度，单位像素
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
+
+        ObservableScrollView scrollView = new ObservableScrollView(UserPageActivity.this,screenWidth);
     }
 
     @OnClick({R.id.ll_user_dynamic, R.id.iv_back, R.id.tv_assistant, R.id.rl_user_info, R.id.iv_more, R.id.tv_share, R.id.tv_inform,
@@ -887,12 +922,6 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     class PicAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         public PicAdapter(@Nullable List<String> data) {
@@ -911,5 +940,77 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
             }
         }
     }
+
+
+
+    /*==================右滑返回上一层=====================*/
+    /**
+     * 通过重写该方法，对触摸事件进行处理
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN){// 当按下时
+            // 获得按下时的X坐标
+            downX = event.getX();
+
+        }else if(event.getAction() == MotionEvent.ACTION_MOVE){// 当手指滑动时
+            // 获得滑过的距离
+            float moveDistanceX = event.getX() - downX;
+            if(moveDistanceX > 0){// 如果是向右滑动
+                decorView.setX(moveDistanceX); // 设置界面的X到滑动到的位置
+            }
+
+        }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
+            // 获得滑过的距离
+            float moveDistanceX =  event.getX() - downX;
+            if(moveDistanceX > screenWidth / 2){
+                // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
+                continueMove(moveDistanceX);
+
+            }else{ // 如果滑动距离没有超过一半
+                // 恢复初始状态
+                rebackToLeft(moveDistanceX);
+            }
+        }
+        return super.onTouchEvent(event);
+    }
+
+    /**
+     * 从当前位置一直往右滑动到消失。
+     * 这里使用了属性动画。
+     */
+    private void continueMove(float moveDistanceX){
+        // 从当前位置移动到右侧。
+        ValueAnimator anim = ValueAnimator.ofFloat(moveDistanceX, screenWidth);
+        anim.setDuration(500); // 一秒的时间结束, 为了简单这里固定为1秒
+        anim.start();
+
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // 位移
+                float x = (float) (animation.getAnimatedValue());
+                decorView.setX(x);
+            }
+        });
+
+        // 动画结束时结束当前Activity
+        anim.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                finish();
+            }
+
+        });
+    }
+
+    /**
+     * Activity被滑动到中途时，滑回去~
+     */
+    private void rebackToLeft(float moveDistanceX){
+        ObjectAnimator.ofFloat(decorView, "X", moveDistanceX, 0).setDuration(300).start();
+    }
+
 
 }

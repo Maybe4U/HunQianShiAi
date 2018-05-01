@@ -148,7 +148,7 @@ public class FeedbackActivity extends BasesActivity implements BaseView<String> 
 //                // 进入相册 以下是例子：用不到的api可以不写
                 PictureSelector.create(this)
                         .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                        .maxSelectNum(8)// 最大图片选择数量 int
+                        .maxSelectNum(6)// 最大图片选择数量 int
                         .minSelectNum(1)// 最小选择数量 int
                         .imageSpanCount(4)// 每行显示个数 int
                         .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
@@ -182,11 +182,7 @@ public class FeedbackActivity extends BasesActivity implements BaseView<String> 
                     }
                     mPresenter.getData(UrlContent.UPLOAD_PIC_URL, mParams, BaseModel.DEFAULT_TYPE);
                 } else {
-                    mPhone = et_phone.getText().toString().trim();
-                    if (TextUtils.isEmpty(mPhone)) {
-                        toastShow("请输入手机号");
-                        return;
-                    }
+
                     mParams.clear();
                     mParams.put("userid", UrlContent.USER_ID);
                     mParams.put("content", mContents);
@@ -228,7 +224,6 @@ public class FeedbackActivity extends BasesActivity implements BaseView<String> 
 
             mParams.clear();
             mParams.put("userid", UrlContent.USER_ID);
-
             mParams.put("content", mContents);
             mParams.put("concact", mPhone);
             mParams.put("pic", uploadBean.data);

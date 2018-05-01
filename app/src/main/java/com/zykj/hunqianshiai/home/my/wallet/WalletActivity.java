@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.my.wallet;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -102,8 +103,11 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
                 openActivity(WithdrawDepositActivity.class);
                 break;
             case R.id.tv_right:
+                Bundle bundle = new Bundle();
+                bundle.clear();
+                bundle.putString("useid",UrlContent.USER_ID);
 //                openActivity(GiftActivity.class);
-                openActivity(FenXiaoActivity.class);
+                openActivity(FenXiaoActivity.class,bundle);
                 break;
         }
     }

@@ -2,22 +2,24 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/tools"
     android:background="@color/white">
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/iv_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/wo_shezhi"
         android:scaleType="center"
+        android:src="@mipmap/wo_shezhi"
 
         app:borderWidth="0dp"
         app:elevation="8dp"
-        app:useCompatPadding="true"
-        app:fabSize="mini" />
+        app:fabSize="mini"
+        app:useCompatPadding="true" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,21 +35,24 @@
                 android:layout_height="280dp">
 
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
+                <!--<android.support.v4.view.ViewPager-->
+                <!--android:id="@+id/view_pager"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/placeholder" />-->
+
+                <cn.bingoogolapple.bgabanner.BGABanner
+                    android:id="@+id/view_banner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/placeholder" />
+                    app:banner_pageChangeDuration="1000"
+                    app:banner_pointAutoPlayAble="true"
+                    app:banner_pointContainerBackground="@android:color/transparent"
+                    app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                    app:banner_pointTopBottomMargin="15dp"
+                    app:banner_transitionEffect="alpha" />
 
-                <!--<ImageView-->
-                    <!--android:id="@+id/iv_set"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_margin="10dp"-->
-                    <!--android:background="@color/black"-->
-                    <!--android:padding="5dp"-->
-                    <!--android:src="@mipmap/wo_shezhi" />-->
+                <!--style="@style/MatchMatch"-->
 
                 <TextView
                     android:id="@+id/tv_pic_management"
@@ -99,10 +104,10 @@
                 <ImageView
                     android:id="@+id/iv_recommend"
                     android:layout_width="wrap_content"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:src="@mipmap/huangguan" />
+                    android:src="@mipmap/huangguan"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_id"
@@ -681,7 +686,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </RelativeLayout>

@@ -483,7 +483,7 @@ public class SpouseStandardsFragment extends BaseFragment implements BaseView<St
     public void success(String bean) {
         SpouseStandardsBean spouseStandardsBean = JsonUtils.GsonToBean(bean, SpouseStandardsBean.class);
         SpouseStandardsBean.SpouseStandardsData data = spouseStandardsBean.data;
-        content.setText(data.info);
+        //content.setText(data.info);
         tv_age.setText(data.age);
         tv_height.setText(data.height);
         tv_income.setText(data.yearmoney);

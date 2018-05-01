@@ -7,7 +7,11 @@
         <item name="colorPrimaryDark">@color/default_color</item>
         <item name="colorAccent">@color/default_color</item>
     </style>
-
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
     <style name="AppTheme.Fullscreen">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>

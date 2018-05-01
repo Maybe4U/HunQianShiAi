@@ -127,6 +127,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".user_home.UserPageActivity"
+            android:theme="@style/MyTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".user_home.dynamic.UserDynamicActivity"
@@ -445,6 +446,7 @@
         <activity
             android:name=".chat.ConversationActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

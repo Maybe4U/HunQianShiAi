@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:/Android/githubDemo/HunQianShiAi/CallKit/CallKit.iml" filepath="D:/Android/githubDemo/HunQianShiAi/CallKit/CallKit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CallKit/CallKit.iml" filepath="$PROJECT_DIR$/CallKit/CallKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/CallLib/CallLib.iml" filepath="$PROJECT_DIR$/CallLib/CallLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/HunQianShiAi.iml" filepath="$PROJECT_DIR$/HunQianShiAi.iml" />
       <module fileurl="file://$PROJECT_DIR$/IMKit/IMKit.iml" filepath="$PROJECT_DIR$/IMKit/IMKit.iml" />

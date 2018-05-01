@@ -91,6 +91,8 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
     private BasePresenterImpl mPresenter;
     private Subscription mSubscribe;
     private Bundle mBundle;
+    private PopupWindowRz mPopupWindowRz;
+    private PopupWindowRz mWindowRz;
 
     @Override
     protected int getContentViewX() {
@@ -146,7 +148,7 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
                         mParams.put("userid", UrlContent.USER_ID);
                         //                        mPresenter.getData(UrlContent.GET_INFO_URL, mParams, BaseModel.LOADING_MORE_TYPE);
 
-                        mPresenter.getData(UrlContent.USER_STATE_URL, mParams, BaseModel.LOADING_MORE_TYPE);
+                        //mPresenter.getData(UrlContent.USER_STATE_URL, mParams, BaseModel.LOADING_MORE_TYPE);
 
                     }
                 });
@@ -315,9 +317,9 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
         UserStateBean userStateBean = JsonUtils.GsonToBean(bean, UserStateBean.class);
         UserStateBean.UserStateData data = userStateBean.data;
         if (data.is_shenfeizheng.equals("0")) {
-            PopupWindowRz popupWindowRz = new PopupWindowRz(this, "您还没有实名认证，是否去认证？");
-            popupWindowRz.showAtLocation(tab, Gravity.CENTER, 0, 0);
-            popupWindowRz.setClickListener(new BasePopupWindow.ClickListener() {
+            mPopupWindowRz = new PopupWindowRz(this, "您还没有实名认证，是否去认证？");
+            mPopupWindowRz.showAtLocation(tab, Gravity.CENTER, 0, 0);
+            mPopupWindowRz.setClickListener(new BasePopupWindow.ClickListener() {
                 @Override
                 public void onClickListener(Object object) {
                     openActivity(AuthenticationActivity.class);
@@ -326,9 +328,9 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
 
         } else {
             if (data.is_ren_lian.equals("0")) {
-                PopupWindowRz popupWindowRz = new PopupWindowRz(this, "您还没有进行人脸识别，是否去识别？");
-                popupWindowRz.showAtLocation(tab, Gravity.CENTER, 0, 0);
-                popupWindowRz.setClickListener(new BasePopupWindow.ClickListener() {
+                mWindowRz = new PopupWindowRz(this, "您还没有进行人脸识别，是否去识别？");
+                mWindowRz.showAtLocation(tab, Gravity.CENTER, 0, 0);
+                mWindowRz.setClickListener(new BasePopupWindow.ClickListener() {
                     @Override
                     public void onClickListener(Object object) {
                         openActivity(RecognitionActivity.class);
@@ -419,8 +421,10 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
             public void onCountChanged(int i) {
                 if (i == 0) {
                     iv_message_dot.setVisibility(View.GONE);
+                    msg_num.setVisibility(View.GONE);
                 } else {
                     iv_message_dot.setVisibility(View.VISIBLE);
+                    msg_num.setVisibility(View.VISIBLE);
                     if(i>99){
                         msg_num.setText("99+");
                     }else {
@@ -505,6 +509,13 @@ public class HomeMainActivity extends BasesActivity implements RadioGroup.OnChec
 
     @Override
     protected void onDestroy() {
+
+        if(mWindowRz != null){
+            mWindowRz.dismiss();
+        }
+        if(mPopupWindowRz != null){
+            mPopupWindowRz.dismiss();
+        }
         if (null != mSubscribe && !mSubscribe.isUnsubscribed()) {
             mSubscribe.unsubscribe();
         }

@@ -51,9 +51,11 @@ public class FenXiaoActivity extends BasesActivity implements BaseView<String> {
         mRecyclerView.setLayoutManager(layoutManager);
 
         mBundle = new Bundle();
+        String useid = mBundle.getString("useid");
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
+
         mParams.clear();
-        mParams.put("userid", "2202");
+        mParams.put("userid", useid);
         mParams.put("page", page);
         mParams.put("size", 10);
         mPresenter.getData(UrlContent.FEN_XIAO_URL, mParams, BaseModel.DEFAULT_TYPE);

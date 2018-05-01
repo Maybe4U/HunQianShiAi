@@ -1,6 +1,7 @@
 package com.zykj.hunqianshiai.bases;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.huawei.hms.support.log.LogLevel;
 import com.lzy.okgo.OkGo;
@@ -24,6 +25,9 @@ public class BaseModelImpl implements BaseModel<String> {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+
+                        //Log.e("netData-----",response.message());
+                        //Log.e("type-----",type + "");
                         switch (type) {
                             case BaseModel.DEFAULT_TYPE:
                                 listener.success(response.body());
