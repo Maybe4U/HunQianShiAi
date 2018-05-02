@@ -21,6 +21,10 @@ public class MyLikeAdapter extends BaseQuickAdapter<MyLikeBean.MyLikeData, BaseV
         super(R.layout.my_like_item, data);
     }
 
+    public MyLikeAdapter(int layoutResId, @Nullable List<MyLikeBean.MyLikeData> data) {
+        super(layoutResId, data);
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, MyLikeBean.MyLikeData item) {
         MyLikeBean.Info info = item.info;
@@ -36,4 +40,5 @@ public class MyLikeAdapter extends BaseQuickAdapter<MyLikeBean.MyLikeData, BaseV
         helper.setText(R.id.tv_yearmoney, info.yearmoney);
         helper.setText(R.id.tv_time, item.time);
     }
+
 }

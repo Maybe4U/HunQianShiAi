@@ -45,7 +45,7 @@ import rx.functions.Action1;
 import static com.zykj.hunqianshiai.bases.MyApplication.api;
 
 /**
- * 开通婚恋助理
+ * 开通上线提醒
  */
 public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnCheckedChangeListener, BaseView<String> {
     @Bind(R.id.cb_zfb)
@@ -249,6 +249,12 @@ public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnC
             request.timeStamp = data.timestamp + "";
             request.sign = data.sign;
             api.sendReq(request);
+        } else if (paytype == 3) {
+            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
+            toastShow(baseBean.message);
+            if (baseBean.message.equals("支付成功")) {
+                finish();
+            }
         }
 
     }

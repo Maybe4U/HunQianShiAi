@@ -29,4 +29,5 @@ public class SelectCityAdapter extends BaseQuickAdapter<SelectCityBean.SelectCit
         }
 
     }
+
 }

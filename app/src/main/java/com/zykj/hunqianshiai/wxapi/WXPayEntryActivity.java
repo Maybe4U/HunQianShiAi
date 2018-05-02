@@ -3,6 +3,7 @@ package com.zykj.hunqianshiai.wxapi;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +21,9 @@ import static com.zykj.hunqianshiai.bases.MyApplication.api;
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	
 	private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
-	
-//    private IWXAPI api;
+	private Dialog mDialog;
+
+	//    private IWXAPI api;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,20 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("提示");
 			builder.setMessage(getString(R.string.pay_result_callback_msg, String.valueOf(resp.errCode)));
-			builder.show();
+			mDialog = builder.show();
 
 			if (resp.errCode == 0) {
 				RxBus.getInstance().post(new WXBean());
 			}
 		}
 		finish();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(mDialog != null){
+			mDialog.dismiss();
+		}
 	}
 }

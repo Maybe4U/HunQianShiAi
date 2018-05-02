@@ -83,11 +83,11 @@ public class ObservableScrollView extends ScrollView {
         }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
             // 获得滑过的距离
             float moveDistanceX = event.getX() - downX;
-            if(moveDistanceX > screenWidth/2){
+            if(moveDistanceX > screenWidth / 2){
                 // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
                 return false;
             }else{ // 如果滑动距离没有超过一半
-                // 恢复初始状态
+                return  false;// 恢复初始状态
             }
         }
         return super.onTouchEvent(event);

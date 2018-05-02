@@ -124,7 +124,7 @@ public class LookMeFragment extends BaseFragment implements BaseView<String> {
             }
         }
 
-        Collections.reverse(filterData);
+        //Collections.reverse(filterData);
 
         LookMeAdapter lookMeAdapter = new LookMeAdapter(filterData);
         mRecyclerView.setAdapter(lookMeAdapter);

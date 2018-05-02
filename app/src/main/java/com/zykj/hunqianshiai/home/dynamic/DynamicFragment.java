@@ -99,8 +99,12 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
         mParams.clear();
         mParams.put("userid", UrlContent.USER_ID);
+//        mParams.put("city", 0);
+//        mParams.put("other", 0);
+//        mParams.put("me", 0);
+
         mParams.put("page", page);
-        mParams.put("size", 12);
+        mParams.put("size", 15);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.DEFAULT_TYPE);
 
     }

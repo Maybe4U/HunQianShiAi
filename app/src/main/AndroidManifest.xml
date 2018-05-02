@@ -447,6 +447,7 @@
             android:name=".chat.ConversationActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:theme="@style/MyTheme"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

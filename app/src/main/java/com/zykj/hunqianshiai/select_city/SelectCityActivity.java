@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class SelectCityActivity extends BasesActivity implements BaseView<String
     @Bind(R.id.tv_right)
     TextView right;
 
+    private View mHeadView;
     private HttpParams mParams;
     private BasePresenterImpl mPresenter;
     private SelectCityAdapter mSelectCityAdapter;
@@ -81,10 +83,18 @@ public class SelectCityActivity extends BasesActivity implements BaseView<String
 
     @Override
     public void success(String bean) {
+
+        mHeadView = LayoutInflater.from(SelectCityActivity.this).inflate(R.layout.select_city_item, null);
+        TextView tv_city = mHeadView.findViewById(R.id.tv_city);
+        tv_city.setText("不限");
+        //province.setText("不限");
+
+
         SelectCityBean selectCityBean = JsonUtils.GsonToBean(bean, SelectCityBean.class);
         List<SelectCityBean.SelectCityData> data = selectCityBean.data;
         final SelectCityAdapter selectCityAdapter = new SelectCityAdapter(data);
         mRecyclerView1.setAdapter(selectCityAdapter);
+        selectCityAdapter.setHeaderView(mHeadView);
         selectCityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -95,6 +105,7 @@ public class SelectCityActivity extends BasesActivity implements BaseView<String
                 }
                 selectCityData.select = 1;
                 CITY_ID = selectCityData.areaid;
+                tv_city.setTextColor(0xff000000);
                 province.setText(selectCityData.areaname);
                 city.setText("");
                 counties.setText("");
@@ -105,6 +116,24 @@ public class SelectCityActivity extends BasesActivity implements BaseView<String
                 mParams.put("flag", 1);
                 mPresenter.getData(UrlContent.GET_CITY_URL, mParams, BaseModel.REFRESH_TYPE);
                 selectCityAdapter.notifyDataSetChanged();
+            }
+        });
+        mHeadView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                province.setText("不限");
+                tv_city.setTextColor(0xffedbd5a);
+                city.setText("");
+                counties.setText("");
+                //selectCityAdapter.
+                CITY_ID = "";
+                //selectCityAdapter.notifyDataSetChanged();
+                Intent intent = new Intent();
+                intent.putExtra("city_id", CITY_ID);
+                intent.putExtra("city", province.getText().toString() + city.getText().toString() + counties.getText().toString());
+                setResult(102, intent);
+                finish();
+
             }
         });
     }
@@ -181,7 +210,7 @@ public class SelectCityActivity extends BasesActivity implements BaseView<String
         switch (view.getId()) {
             case R.id.tv_right:
 
-                if (TextUtils.isEmpty(CITY_ID)) {
+                if (TextUtils.isEmpty(province.getText().toString().trim())) {
                     toastShow("请选择地区");
                     return;
                 }

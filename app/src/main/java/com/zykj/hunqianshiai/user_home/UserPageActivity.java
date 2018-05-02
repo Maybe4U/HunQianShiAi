@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -505,6 +506,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 break;
             case R.id.iv_gift://礼物
                 final PopupWindowGift popupWindowGift = new PopupWindowGift(this, mBalance);
+                backgroundAlpha(1f);
                 popupWindowGift.showAtLocation(affectiveExperience, Gravity.BOTTOM, 0, 0);
                 popupWindowGift.setClickListener(new BasePopupWindow.ClickListener() {
                     @Override
@@ -958,6 +960,8 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
             float moveDistanceX = event.getX() - downX;
             if(moveDistanceX > 0){// 如果是向右滑动
                 decorView.setX(moveDistanceX); // 设置界面的X到滑动到的位置
+            }else {
+                decorView.setX(event.getX()); //
             }
 
         }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
@@ -1012,5 +1016,14 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         ObjectAnimator.ofFloat(decorView, "X", moveDistanceX, 0).setDuration(300).start();
     }
 
-
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
 }

@@ -1,12 +1,19 @@
 package com.zykj.hunqianshiai.chat;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.luck.picture.lib.PictureSelector;
@@ -39,11 +46,29 @@ import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.FileMessage;
 
-public class ConversationActivity extends BasesActivity implements BaseView<String> {
+
+
+public class ConversationActivity extends BasesActivity implements BaseView<String>{
 
     @Bind(R.id.iv_right_share)
     ImageView iv_right_share;
     private BasePresenterImpl mPresenter;
+
+    /**
+     * 整个Activity视图的根视图
+     */
+    View decorView;
+
+    /**
+     * 手指按下时的坐标
+     */
+    float downX, downY;
+
+    /**
+     * 手机屏幕的宽度和高度
+     */
+    float screenWidth, screenHeight;
+
 
     @Override
     protected int getContentViewX() {
@@ -52,6 +77,17 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
 
     @Override
     protected void initView() {
+
+        // 获得decorView
+        decorView = getWindow().getDecorView();
+
+        // 获得手机屏幕的宽度和高度，单位像素
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
+
+        //ChatLinearLayout linearLayout = new ChatLinearLayout(ConversationActivity.this,screenWidth);
 
         String targetId = getIntent().getData().getQueryParameter("targetId");
         String titel = getIntent().getData().getQueryParameter("title");
@@ -83,6 +119,7 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
         PersonageInfoBean.PersonageInfoData data = personageInfoBean.data;
         final String wx = data.wx;
         final PopupWindowWXNumber popupWindowWXNumber = new PopupWindowWXNumber(this, wx);
+        backgroundAlpha(1f);
         popupWindowWXNumber.showAtLocation(iv_right_share, Gravity.CENTER, 0, 0);
         popupWindowWXNumber.setClickListener(new BasePopupWindow.ClickListener() {
             @Override
@@ -188,6 +225,7 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
                                 } else {
                                     hideDialog();
                                     PopupWindowAssistant popupWindowAssistant = new PopupWindowAssistant(ConversationActivity.this);
+                                    backgroundAlpha(1f);
                                     popupWindowAssistant.showAtLocation(iv_right_share, Gravity.CENTER, 0, 0);
                                 }
                             }
@@ -207,6 +245,7 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
                                 BaseBean bean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
                                 if (bean.code == 200) {
                                     PopupWindowHei popupWindowVip = new PopupWindowHei(ConversationActivity.this);
+                                    backgroundAlpha(1f);
                                     popupWindowVip.showAtLocation(iv_right_share, Gravity.CENTER, 0, 0);
                                     popupWindowVip.setClickListener(new BasePopupWindow.ClickListener() {
                                         @Override
@@ -220,6 +259,7 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
                                     });
                                 } else {
                                     PopupWindowVip popupWindowVip = new PopupWindowVip(ConversationActivity.this);
+                                    backgroundAlpha(1f);
                                     popupWindowVip.showAtLocation(iv_right_share, Gravity.CENTER, 0, 0);
                                 }
                             }
@@ -276,4 +316,84 @@ public class ConversationActivity extends BasesActivity implements BaseView<Stri
             }
         }
     }
+
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN){// 当按下时
+            // 获得按下时的X坐标
+            downX = event.getX();
+
+        }else if(event.getAction() == MotionEvent.ACTION_MOVE){// 当手指滑动时
+            // 获得滑过的距离
+            float moveDistanceX = event.getX() - downX;
+            if(moveDistanceX > 0){// 如果是向右滑动
+                decorView.setX(moveDistanceX); // 设置界面的X到滑动到的位置
+            }else {
+                return false;
+            }
+
+        }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
+            // 获得滑过的距离
+            float moveDistanceX =  event.getX() - downX;
+            if(moveDistanceX > screenWidth / 2){
+                // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
+                continueMove(moveDistanceX);
+            }else if(moveDistanceX > 0){ // 如果滑动距离没有超过一半
+                // 恢复初始状态
+                rebackToLeft(moveDistanceX);
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    /**
+     * 从当前位置一直往右滑动到消失。
+     * 这里使用了属性动画。
+     */
+    private void continueMove(float moveDistanceX){
+        // 从当前位置移动到右侧。
+        ValueAnimator anim = ValueAnimator.ofFloat(moveDistanceX, screenWidth);
+        anim.setDuration(500); // 一秒的时间结束, 为了简单这里固定为1秒
+        anim.start();
+
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                // 位移
+                float x = (float) (animation.getAnimatedValue());
+                decorView.setX(x);
+            }
+        });
+
+        // 动画结束时结束当前Activity
+        anim.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                finish();
+            }
+
+        });
+    }
+
+    /**
+     * Activity被滑动到中途时，滑回去~
+     */
+    private void rebackToLeft(float moveDistanceX){
+        ObjectAnimator.ofFloat(decorView, "X", moveDistanceX, 0).setDuration(300).start();
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
 }

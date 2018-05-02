@@ -12,6 +12,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="@color/background_color"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -26,6 +27,7 @@
 
         <com.zykj.hunqianshiai.utils.ImaginaryLineView
             android:layout_width="1dp"
+
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp" />
@@ -56,9 +58,11 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/conversation"
-        android:name="io.rong.imkit.fragment.ConversationFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+        <fragment
+            android:id="@+id/conversation"
+            android:name="io.rong.imkit.fragment.ConversationFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 </LinearLayout>

@@ -41,7 +41,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class FacialActivity extends BasesActivity implements SurfaceHolder.Callback ,BaseView<String>{
+public class FacialActivity extends BasesActivity implements SurfaceHolder.Callback, BaseView<String> {
 
     @Bind(R.id.surface_view)
     SurfaceView mSurfaceView;
@@ -69,9 +69,9 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
     @Override
     protected void initView() {
         appBar("人脸识别");
-//        tv_right.setVisibility(View.VISIBLE);
-//        tv_right.setOnClickListener(this);
-//        tv_right.setText("确定");
+        //        tv_right.setVisibility(View.VISIBLE);
+        //        tv_right.setOnClickListener(this);
+        //        tv_right.setText("确定");
 
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(this);
@@ -88,7 +88,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
         super.onResume();
         if (mCamera == null) {
             mCamera = getCamera(cameraPosition);
-            if (mHolder != null) {
+            if (mHolder != null && mCamera != null) {
                 startPreview(mCamera, mHolder);
             }
         }
@@ -104,7 +104,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
         try {
             camera = Camera.open(id);
         } catch (Exception e) {
-
+            toastShow("相机权限未获得");
         }
         return camera;
     }
@@ -128,14 +128,16 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
     private void startPreview(Camera camera, SurfaceHolder holder) {
         try {
             //这里要设置相机的一些参数，下面会详细说下
-//            setupCamera(camera);
+            //            setupCamera(camera);
             camera.setPreviewDisplay(holder);
             //亲测的一个方法 基本覆盖所有手机 将预览矫正
             CameraUtil.getInstance().setCameraDisplayOrientation(this, cameraPosition, camera);
-//            camera.setDisplayOrientation(90);
+            //            camera.setDisplayOrientation(90);
             camera.startPreview();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            toastShow("请在设置中心打开相关权限");
             e.printStackTrace();
+            return;
         }
     }
 
@@ -146,8 +148,10 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        mCamera.stopPreview();
-        startPreview(mCamera, surfaceHolder);
+        if(mCamera != null){
+            mCamera.stopPreview();
+            startPreview(mCamera, surfaceHolder);
+        }
     }
 
     @Override
@@ -162,6 +166,9 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
     }
 
     private void captrue() {
+        if(mCamera == null){
+            return;
+        }
         mCamera.takePicture(null, null, new Camera.PictureCallback() {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
@@ -183,20 +190,20 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
                 if (!saveBitmap.isRecycled()) {
                     saveBitmap.recycle();
                 }
-                if (null!= mImg_path&& !TextUtils.isEmpty(mImg_path)) {
+                if (null != mImg_path && !TextUtils.isEmpty(mImg_path)) {
                     mParams.clear();
                     mParams.put("pic", new File(mImg_path));
                     mPresenter.getData(UrlContent.UPLOAD_PIC_URL, mParams, BaseModel.DEFAULT_TYPE);
                 }
-//                Intent intent = new Intent();
-//                intent.putExtra(AppConstant.KEY.IMG_PATH, img_path);
-//                setResult(AppConstant.RESULT_CODE.RESULT_OK, intent);
-//                finish();
+                //                Intent intent = new Intent();
+                //                intent.putExtra(AppConstant.KEY.IMG_PATH, img_path);
+                //                setResult(AppConstant.RESULT_CODE.RESULT_OK, intent);
+                //                finish();
 
                 //这里打印宽高 就能看到 CameraUtil.getInstance().getPropPictureSize(parameters.getSupportedPictureSizes(), 200);
                 // 这设置的最小宽度影响返回图片的大小 所以这里一般这是1000左右把我觉得
-//                Log.d("bitmapWidth==", bitmap.getWidth() + "");
-//                Log.d("bitmapHeight==", bitmap.getHeight() + "");
+                //                Log.d("bitmapWidth==", bitmap.getWidth() + "");
+                //                Log.d("bitmapHeight==", bitmap.getHeight() + "");
             }
         });
     }
@@ -207,7 +214,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
         super.onClick(view);
         switch (view.getId()) {
             case R.id.tv_right:
-                if (null!=mImg_path&& !TextUtils.isEmpty(mImg_path)) {
+                if (null != mImg_path && !TextUtils.isEmpty(mImg_path)) {
                     mParams.clear();
                     mParams.put("pic", new File(mImg_path));
                     mPresenter.getData(UrlContent.UPLOAD_PIC_URL, mParams, BaseModel.DEFAULT_TYPE);
@@ -236,7 +243,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
                 break;
             case R.id.iv_xc:
                 PictureSelector.create(this)
-//                        .openCamera(PictureMimeType.ofImage())
+                        //                        .openCamera(PictureMimeType.ofImage())
                         .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                         .maxSelectNum(1)// 最大图片选择数量 int
                         .minSelectNum(1)// 最小选择数量 int
@@ -285,8 +292,8 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
             UploadBean uploadBean = JsonUtils.GsonToBean(bean, UploadBean.class);
             String data = uploadBean.data;
             mBundle.clear();
-            mBundle.putString("pic",data);
-            openActivity(FaceActivity.class,mBundle);
+            mBundle.putString("pic", data);
+            openActivity(FaceActivity.class, mBundle);
             finish();
         }
     }

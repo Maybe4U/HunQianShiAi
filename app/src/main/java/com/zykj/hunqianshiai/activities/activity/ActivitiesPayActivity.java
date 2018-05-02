@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.zykj.hunqianshiai.R;
+import com.zykj.hunqianshiai.bases.BaseBean;
 import com.zykj.hunqianshiai.bases.BaseModel;
 import com.zykj.hunqianshiai.bases.BaseModelImpl;
 import com.zykj.hunqianshiai.bases.BasePresenterImpl;
@@ -129,6 +130,7 @@ public class ActivitiesPayActivity extends BasesActivity implements CompoundButt
                 }
                 paytype = 2;
                 break;
+
         }
     }
 
