@@ -184,7 +184,7 @@
 
                 <TextView
                     style="@style/text_style_gray"
-                    android:text="系统消息" />
+                    android:text="查看系统通知" />
             </LinearLayout>
 
             <ImageView

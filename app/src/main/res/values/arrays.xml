@@ -85,6 +85,7 @@
     </string-array>
 
     <string-array name="buy_car">
+        <item>不限</item>
         <item>已购车</item>
         <item>已购车、按揭中</item>
         <item>父母帮忙购车</item>
@@ -95,6 +96,7 @@
     </string-array>
 
     <string-array name="buy_house">
+        <item>不限</item>
         <item>已购房</item>
         <item>已购房、按揭中</item>
         <item>父母帮忙购房</item>
@@ -158,7 +160,7 @@
     </string-array>
 
     <string-array name="xin_yang">
-        <item>无信仰</item>
+        <item>不限</item>
         <item>马列主义</item>
         <item>基督教	</item>
         <item>佛教徒</item>
@@ -182,6 +184,7 @@
     </string-array>
 
     <string-array name="zi_nv">
+        <item>不限</item>
         <item>有</item>
         <item>没有</item>
     </string-array>

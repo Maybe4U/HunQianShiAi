@@ -79,7 +79,6 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
     private OptionsPickerView mPickerView;
     private List<Poi> mPoiList;
 
-
     @Override
     protected int getContentViewX() {
         return R.layout.activity_activities_apply;
@@ -175,18 +174,17 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
                 String [] sit = null;
                 sit = trim2.split(" ");
 
+                    mParams.clear();
+                    mParams.put("userid", UrlContent.USER_ID);
+                    mParams.put("p1", mActid);
+                    mParams.put("phone", trim1);
+                    mParams.put("name", trim);
+                    mParams.put("address", trim3);
+                    mParams.put("sheng", sit[0]);
+                    mParams.put("shi", sit[1]);
+                    mParams.put("qu", sit[2]);
 
-                mParams.clear();
-                mParams.put("userid", UrlContent.USER_ID);
-                mParams.put("p1", mActid);
-                mParams.put("phone", trim1);
-                mParams.put("name", trim);
-                mParams.put("address", trim3);
-                mParams.put("sheng", sit[0]);
-                mParams.put("shi", sit[1]);
-                mParams.put("qu", sit[2]);
-
-                mPresenter.getData(UrlContent.JOIN_ACTIVITY_URL, mParams, BaseModel.DEFAULT_TYPE);
+                    mPresenter.getData(UrlContent.JOIN_ACTIVITY_URL, mParams, BaseModel.DEFAULT_TYPE);
 
                 break;
         }
@@ -200,7 +198,7 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
         if (mCost.equals("0")) {
             mParams.clear();
             mParams.put("userid", UrlContent.USER_ID);
-            mParams.put("actid", mActid);
+            mParams.put("actid", activitiesApplyBean.data.id);
             mPresenter.getData(UrlContent.ACTIVITIES_NOPAY_URL, mParams, BaseModel.REFRESH_TYPE);
         } else {
             openActivity(ActivitiesPayActivity.class, mBundle);
@@ -211,8 +209,8 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
     @Override
     public void refresh(String bean) {
         BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
-        toastShow(baseBean.message);
         if (baseBean.code == 200) {
+            toastShow(baseBean.message);
             finish();
         }
     }

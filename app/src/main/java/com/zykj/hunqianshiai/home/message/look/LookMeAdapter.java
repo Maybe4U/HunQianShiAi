@@ -1,6 +1,7 @@
 package com.zykj.hunqianshiai.home.message.look;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -10,6 +11,7 @@ import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.home.message.MyLikeBean;
 import com.zykj.hunqianshiai.net.UrlContent;
+import com.zykj.hunqianshiai.tools.TextUtil;
 
 import java.util.List;
 
@@ -46,10 +48,20 @@ public class LookMeAdapter extends BaseQuickAdapter<MyLikeBean.MyLikeData, BaseV
             helper.setTextColor(R.id.tv_isonline, mContext.getResources().getColor(R.color.gray));
         }
 
-        helper.setText(R.id.tv_head_username, info.nickname + "  " + info.age + "岁");
+        if(TextUtils.isEmpty(info.age))
+        {
+            helper.setText(R.id.tv_head_username, info.nickname);
+        }else {
+            helper.setText(R.id.tv_head_username, info.nickname + "  " + info.age + "岁");
+        }
 
         helper.setText(R.id.tv_areaname, info.areaname);
         helper.setText(R.id.tv_yearmoney, info.yearmoney);
         helper.setText(R.id.tv_time, item.time);
+        if(item.info.isauth.equals("已认证身份")){
+            helper.setText(R.id.tv_comeuser,item.info.username + "查看了您的个人资料");
+        }else {
+            helper.setText(R.id.tv_comeuser,item.info.nickname + "查看了您的个人资料");
+        }
     }
 }

@@ -49,7 +49,12 @@ public class UserDynamicAdapter extends BaseQuickAdapter<DynamicBean.DynamicData
         helper.setText(R.id.tv_username, item.username);
         helper.setText(R.id.tv_time, item.time_befor);
         helper.setText(R.id.tv_content, item.content);
-        helper.setText(R.id.tv_sit, item.address);
+        if(item.address == "" || item.address.equals("不显示位置")){
+            helper.setGone(R.id.tv_sit,false);
+        }else {
+            helper.setVisible(R.id.tv_sit,true);
+            helper.setText(R.id.tv_sit, item.address);
+        }
         if (null != item.age && !TextUtils.isEmpty(item.age)) {
             helper.setText(R.id.tv_age, item.age + "岁");
         } else {

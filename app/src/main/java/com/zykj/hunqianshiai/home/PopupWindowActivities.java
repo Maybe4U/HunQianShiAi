@@ -5,17 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.activities.activity.ActivitiesBean;
 import com.zykj.hunqianshiai.activities.activity.ActivitiesDetailActivity;
+import com.zykj.hunqianshiai.bases.BaseModel;
 import com.zykj.hunqianshiai.bases.BasePopupWindow;
 import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
+import com.zykj.hunqianshiai.tools.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +57,7 @@ public class PopupWindowActivities extends BasePopupWindow {
                     mBundle.putString("title", "活动详情");
                     mBundle.putString("actid", activitiesData.actid);
                     mBundle.putString("cost", activitiesData.cost);
-                    mBundle.putString("state", "1");
+                    mBundle.putString("state", activitiesData.state);
                     mBundle.putString("url", UrlContent.PIC_URL + "api.php?c=Fell&a=huodong&actid=" + activitiesData.actid + "&userid=" + UrlContent.USER_ID);
                     Intent intent = new Intent(mActivity, ActivitiesDetailActivity.class);
                     intent.putExtras(mBundle);

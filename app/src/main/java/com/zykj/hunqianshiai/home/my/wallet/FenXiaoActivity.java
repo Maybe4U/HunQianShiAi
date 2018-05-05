@@ -50,12 +50,12 @@ public class FenXiaoActivity extends BasesActivity implements BaseView<String> {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mBundle = new Bundle();
-        String useid = mBundle.getString("useid");
+        mBundle = getIntent().getExtras();
+        String userid = mBundle.getString("userid");
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
 
         mParams.clear();
-        mParams.put("userid", useid);
+        mParams.put("userid", userid);
         mParams.put("page", page);
         mParams.put("size", 10);
         mPresenter.getData(UrlContent.FEN_XIAO_URL, mParams, BaseModel.DEFAULT_TYPE);
@@ -86,14 +86,34 @@ public class FenXiaoActivity extends BasesActivity implements BaseView<String> {
         FenXiaoAdapter fenXiaoAdapter = new FenXiaoAdapter(data);
         mRecyclerView.setAdapter(fenXiaoAdapter);
 
-        fenXiaoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//        fenXiaoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                List<FenXiaoBean.FenXiaoData> data1 = adapter.getData();
+//                FenXiaoBean.FenXiaoData fenXiaoData = data1.get(position);
+//                mBundle.clear();
+//                mBundle.putString("userid", fenXiaoData.userid);
+//                openActivity(UserPageActivity.class, mBundle);
+//            }
+//        });
+
+
+
+
+        fenXiaoAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                List<FenXiaoBean.FenXiaoData> data1 = adapter.getData();
-                FenXiaoBean.FenXiaoData fenXiaoData = data1.get(position);
-                mBundle.clear();
-                mBundle.putString("userid", fenXiaoData.userid);
-                openActivity(UserPageActivity.class, mBundle);
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.iv_headpic:
+                        List<FenXiaoBean.FenXiaoData> data1 = adapter.getData();
+                        FenXiaoBean.FenXiaoData fenXiaoData = data1.get(position);
+                        mBundle.clear();
+                        mBundle.putString("userid", fenXiaoData.userid);
+                        openActivity(UserPageActivity.class, mBundle);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }

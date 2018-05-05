@@ -258,7 +258,7 @@ public class RegisterActivity extends BasesActivity implements BaseView<String> 
                 final int count = 60;
                 String trim = getCode.getText().toString().trim();
                 if (trim.equals("获取验证码")) {
-                    SMSSDK.getVerificationCode("86", mPhone);
+                    SMSSDK.getVerificationCode("86", mPhone,"14967859",null);
                     //计时次数
                     mSubscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
                             .observeOn(AndroidSchedulers.mainThread())

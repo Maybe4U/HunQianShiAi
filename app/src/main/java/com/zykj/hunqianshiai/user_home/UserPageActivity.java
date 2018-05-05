@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -28,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.OkGo;
@@ -68,6 +71,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.MainActivity;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -195,6 +199,10 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
      * 手机屏幕的宽度和高度
      */
     float screenWidth, screenHeight;
+    private View mView;
+    private ImageView mIv_play;
+    private AlertDialog.Builder mDialog;
+    private String mString;
 
     @Override
     protected int getContentViewX() {
@@ -236,7 +244,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         screenWidth = metrics.widthPixels;
         screenHeight = metrics.heightPixels;
 
-        ObservableScrollView scrollView = new ObservableScrollView(UserPageActivity.this,screenWidth);
+        ObservableScrollView scrollView = new ObservableScrollView(UserPageActivity.this, screenWidth);
     }
 
     @OnClick({R.id.ll_user_dynamic, R.id.iv_back, R.id.tv_assistant, R.id.rl_user_info, R.id.iv_more, R.id.tv_share, R.id.tv_inform,
@@ -247,96 +255,14 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         super.onClick(view);
         switch (view.getId()) {
             case R.id.tv_black://拉黑
-                showDialog();
-                String string = tv_black.getText().toString();
-                if (string.equals("拉黑")) {
-                    mParams.clear();
-                    mParams.put("rdm", UrlContent.RDM);
-                    mParams.put("sign", UrlContent.SIGN);
-                    mParams.put("userid", UrlContent.USER_ID);
-                    OkGo.<String>post(UrlContent.IS_VIP_URL)
-                            .params(mParams)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
-                                    BaseBean bean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
-                                    if (bean.code == 200) {
-                                        mParams.clear();
-                                        mParams.put("userid", UrlContent.USER_ID);
-                                        mParams.put("ids", mUserid);
-                                        mParams.put("rdm", UrlContent.RDM);
-                                        mParams.put("sign", UrlContent.SIGN);
-                                        OkGo.<String>post(UrlContent.ADD_BLACKLIST_URL)
-                                                .params(mParams)
-                                                .execute(new StringCallback() {
-                                                    @Override
-                                                    public void onSuccess(Response<String> response) {
-                                                        BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
-                                                        //                                                        toastShow(baseBean.message);
-                                                        if (baseBean.code == 200) {
-                                                            RongIM.getInstance().addToBlacklist(mUserid, new RongIMClient.OperationCallback() {
-                                                                @Override
-                                                                public void onSuccess() {
-                                                                    hideDialog();
-                                                                    runOnUiThread(new Runnable() {
-                                                                        @Override
-                                                                        public void run() {
-                                                                            tv_black.setText("已拉黑");
-                                                                        }
-                                                                    });
+                //showDialog();
 
-                                                                }
-
-                                                                @Override
-                                                                public void onError(RongIMClient.ErrorCode errorCode) {
-                                                                    hideDialog();
-                                                                }
-                                                            });
-                                                        }
-
-                                                        //                                            mPresenter.getData(UrlContent.ADD_BLACKLIST_URL, mParams, BaseModel.LOADING_MORE_TYPE);
-
-                                                    }
-                                                });
-                                    } else {
-                                        hideDialog();
-                                        PopupWindowVip popupWindowVip = new PopupWindowVip(UserPageActivity.this);
-                                        popupWindowVip.showAtLocation(toolbarColor, Gravity.CENTER, 0, 0);
-                                    }
-                                }
-                            });
-                } else {
-                    hideDialog();
-                    RongIM.getInstance().removeFromBlacklist(mUserid, new RongIMClient.OperationCallback() {
-                        @Override
-                        public void onSuccess() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    tv_black.setText("拉黑");
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onError(RongIMClient.ErrorCode errorCode) {
-                        }
-                    });
-                    mParams.clear();
-                    mParams.put("userid", UrlContent.USER_ID);
-                    mParams.put("ids", mUserid);
-                    mParams.put("rdm", UrlContent.RDM);
-                    mParams.put("sign", UrlContent.SIGN);
-                    OkGo.<String>post(UrlContent.REMOVE_BLACKLIST_URL)
-                            .params(mParams)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
-
-                                }
-                            });
-
-                }
+                mString = tv_black.getText().toString();
+            if(mString.equals("拉黑")){
+                showConfirmDialog();
+            }else {
+                showCancelDialog();
+            }
 
                 break;
             case R.id.rl_video:
@@ -558,6 +484,145 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         }
     }
 
+    private void showConfirmDialog() {
+        mDialog = new AlertDialog.Builder(UserPageActivity.this);
+        mDialog.setTitle("提示");
+        mDialog.setMessage("确定要将TA加入黑名单吗？");
+        mDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        intoBlacklist();
+                    }
+                });
+        mDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        mDialog.show();
+    }
+
+    private void showCancelDialog() {
+        mDialog = new AlertDialog.Builder(UserPageActivity.this);
+        mDialog.setTitle("提示");
+        mDialog.setMessage("确定要将TA解除黑名单吗？");
+        mDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        intoBlacklist();
+                    }
+                });
+        mDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        mDialog.show();
+    }
+
+    private void intoBlacklist() {
+
+        if (mString.equals("拉黑")) {
+            mParams.clear();
+            mParams.put("rdm", UrlContent.RDM);
+            mParams.put("sign", UrlContent.SIGN);
+            mParams.put("userid", UrlContent.USER_ID);
+            OkGo.<String>post(UrlContent.IS_VIP_URL)
+                    .params(mParams)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            BaseBean bean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
+                            if (bean.code == 200) {
+                                mParams.clear();
+                                mParams.put("userid", UrlContent.USER_ID);
+                                mParams.put("ids", mUserid);
+                                mParams.put("rdm", UrlContent.RDM);
+                                mParams.put("sign", UrlContent.SIGN);
+                                OkGo.<String>post(UrlContent.ADD_BLACKLIST_URL)
+                                        .params(mParams)
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+                                                BaseBean baseBean = JsonUtils.GsonToBean(response.body(), BaseBean.class);
+                                                //                                                        toastShow(baseBean.message);
+                                                if (baseBean.code == 200) {
+                                                    RongIM.getInstance().addToBlacklist(mUserid, new RongIMClient.OperationCallback() {
+                                                        @Override
+                                                        public void onSuccess() {
+                                                            //hideDialog();
+                                                            runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    tv_black.setText("已拉黑");
+                                                                    toastShow("加入黑名单成功");
+                                                                }
+                                                            });
+
+                                                        }
+
+                                                        @Override
+                                                        public void onError(RongIMClient.ErrorCode errorCode) {
+                                                            hideDialog();
+                                                        }
+                                                    });
+                                                }
+
+                                                //                                            mPresenter.getData(UrlContent.ADD_BLACKLIST_URL, mParams, BaseModel.LOADING_MORE_TYPE);
+
+                                            }
+                                        });
+                            } else {
+                                //hideDialog();
+                                PopupWindowVip popupWindowVip = new PopupWindowVip(UserPageActivity.this);
+                                backgroundAlpha(1f);
+                                popupWindowVip.showAtLocation(toolbarColor, Gravity.CENTER, 0, 0);
+                            }
+                        }
+                    });
+        } else {
+            //hideDialog();
+            RongIM.getInstance().removeFromBlacklist(mUserid, new RongIMClient.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_black.setText("拉黑");
+                            toastShow("解除黑名单成功");
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                }
+            });
+            mParams.clear();
+            mParams.put("userid", UrlContent.USER_ID);
+            mParams.put("ids", mUserid);
+            mParams.put("rdm", UrlContent.RDM);
+            mParams.put("sign", UrlContent.SIGN);
+            OkGo.<String>post(UrlContent.REMOVE_BLACKLIST_URL)
+                    .params(mParams)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                        }
+                    });
+
+        }
+    }
+
     @Override
     public void success(String bean) {
         BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
@@ -576,15 +641,27 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 tv_black.setText("已拉黑");
             }
         }
-
+        mVideo1 = data.video;
         /*====================优化===================*/
         //限制自己和自己聊天
         if (UrlContent.USER_ID.equals(mUserid)) {
             rl_chat.setVisibility(View.GONE);
         }
-
-        mHeadpic = data.headpic;
-        glide(mHeadpic, iv_head, mOptions);
+        mView = View.inflate(UserPageActivity.this, R.layout.video_pic, null);
+        mIv_play = mView.findViewById(R.id.iv_play);
+        if (!TextUtils.isEmpty(mVideo1)) {
+            ImageView video = mView.findViewById(R.id.iv_video);
+            Glide.with(UserPageActivity.this)
+                    .load(UrlContent.PIC_URL + data.video)
+                    .apply(BasesActivity.mOptions)
+                    .into(video);
+            mIv_play.setVisibility(View.VISIBLE);
+        } else {
+            mView = null;
+            mHeadpic = data.headpic;
+            glide(mHeadpic, iv_head, mOptions);
+            mIv_play.setVisibility(View.GONE);
+        }
         mLike_num = data.like_num;
         tv_like.setText(mLike_num + "");
         mUsername = data.username;
@@ -600,7 +677,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
 
         mBalance = data.balance;
 
-        mVideo1 = data.video;
+
         if (null != mVideo1 && !TextUtils.isEmpty(mVideo1)) {
             rl_video.setVisibility(View.VISIBLE);
         } else {
@@ -675,36 +752,36 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         tv_xueli_auth.setText(renzheng.xueli_auth);
         if (renzheng.xueli_auth2.equals("1")) {
             mCbXueli.setChecked(true);
-            tv_xueli.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-            tv_xueli_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-        }else {
+            tv_xueli.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+            tv_xueli_auth.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+        } else {
             mCbXueli.setChecked(false);
-            tv_xueli.setTextColor(ContextCompat.getColor(this,R.color.black));
-            tv_xueli_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_xueli.setTextColor(ContextCompat.getColor(this, R.color.black));
+            tv_xueli_auth.setTextColor(ContextCompat.getColor(this, R.color.black));
         }
 
         tv_car.setText(renzheng.car);
         tv_car_auth.setText(renzheng.car_auth);
         if (renzheng.car_auth2.equals("1")) {
             mCbCar.setChecked(true);
-            tv_car.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-            tv_car_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-        }else {
+            tv_car.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+            tv_car_auth.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+        } else {
             mCbCar.setChecked(false);
-            tv_car.setTextColor(ContextCompat.getColor(this,R.color.black));
-            tv_car_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_car.setTextColor(ContextCompat.getColor(this, R.color.black));
+            tv_car_auth.setTextColor(ContextCompat.getColor(this, R.color.black));
         }
 
         tv_house.setText(renzheng.house);
         tv_huose_auth.setText(renzheng.huose_auth);
         if (renzheng.huose_auth2.equals("1")) {
             mCbHouse.setChecked(true);
-            tv_house.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-            tv_huose_auth.setTextColor(ContextCompat.getColor(this,R.color.default_color));
-        }else {
+            tv_house.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+            tv_huose_auth.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+        } else {
             mCbHouse.setChecked(false);
-            tv_house.setTextColor(ContextCompat.getColor(this,R.color.black));
-            tv_huose_auth.setTextColor(ContextCompat.getColor(this,R.color.black));
+            tv_house.setTextColor(ContextCompat.getColor(this, R.color.black));
+            tv_huose_auth.setTextColor(ContextCompat.getColor(this, R.color.black));
         }
         tv_meinfo.setText("自我介绍： " + data.meinfo);
 
@@ -944,49 +1021,102 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     }
 
 
+    float width6 = screenWidth / 6;
+    float width4 = screenWidth / 4;
 
-    /*==================右滑返回上一层=====================*/
-    /**
-     * 通过重写该方法，对触摸事件进行处理
-     */
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){// 当按下时
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {// 当按下时
             // 获得按下时的X坐标
-            downX = event.getX();
 
-        }else if(event.getAction() == MotionEvent.ACTION_MOVE){// 当手指滑动时
+            downX = event.getX();
+            downY = event.getY();
+
+
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {// 当手指滑动时
             // 获得滑过的距离
             float moveDistanceX = event.getX() - downX;
-            if(moveDistanceX > 0){// 如果是向右滑动
+            float moveDistanceY = Math.abs(event.getY() - downY);
+            float flag = moveDistanceX - moveDistanceY;
+            if (moveDistanceX > 0 && downX > width6 && downX < width4) {// 如果是向右滑动
                 decorView.setX(moveDistanceX); // 设置界面的X到滑动到的位置
-            }else {
-                decorView.setX(event.getX()); //
+            } else if (moveDistanceX <= 0) {
+                // 恢复初始状态
+                rebackToLeft(0);
             }
 
-        }else if(event.getAction() == MotionEvent.ACTION_UP){// 当抬起手指时
+
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {// 当抬起手指时
             // 获得滑过的距离
-            float moveDistanceX =  event.getX() - downX;
-            if(moveDistanceX > screenWidth / 2){
+            float moveDistanceX = event.getX() - downX;
+            float moveDistanceY = Math.abs(event.getY() - downY);
+            if (moveDistanceX > screenWidth / 3) {
                 // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
                 continueMove(moveDistanceX);
 
-            }else{ // 如果滑动距离没有超过一半
+            } else if (moveDistanceX > 0) { // 如果滑动距离没有超过一半
                 // 恢复初始状态
                 rebackToLeft(moveDistanceX);
+            } else {
+                decorView.setX(0);
             }
         }
-        return super.onTouchEvent(event);
+        //return super.onTouchEvent(event);
+        return super.dispatchTouchEvent(event);
     }
+
+    /*==================右滑返回上一层=====================*/
+
+    /**
+     * 通过重写该方法，对触摸事件进行处理
+     */
+    //    @Override
+    //    public boolean onTouchEvent(MotionEvent event) {
+    //        if (event.getAction() == MotionEvent.ACTION_DOWN) {// 当按下时
+    //            // 获得按下时的X坐标
+    //
+    //            downX = event.getX();
+    //            downY = event.getY();
+    //
+    //        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {// 当手指滑动时
+    //            // 获得滑过的距离
+    //            float moveDistanceX = event.getX() - downX;
+    //            float moveDistanceY = Math.abs(event.getY() - downY);
+    //            if(moveDistanceX > moveDistanceY){
+    //                if (moveDistanceX > 0) {// 如果是向右滑动
+    //                    decorView.setX(moveDistanceX); // 设置界面的X到滑动到的位置
+    //                } else {
+    //                    decorView.setX(event.getX()); //
+    //                }
+    //            }
+    //
+    //
+    //        } else if (event.getAction() == MotionEvent.ACTION_UP) {// 当抬起手指时
+    //            // 获得滑过的距离
+    //            float moveDistanceX = event.getX() - downX;
+    //            float moveDistanceY = Math.abs(event.getY() - downY);
+    //            if(moveDistanceX > moveDistanceY){
+    //                if (moveDistanceX > screenWidth / 2) {
+    //                    // 如果滑动的距离超过了手机屏幕的一半, 结束当前Activity
+    //                    continueMove(moveDistanceX);
+    //
+    //                } else{ // 如果滑动距离没有超过一半
+    //                    // 恢复初始状态
+    //                    rebackToLeft(moveDistanceX);
+    //                }
+    //            }
+    //        }
+    //        return super.onTouchEvent(event);
+    //    }
 
     /**
      * 从当前位置一直往右滑动到消失。
      * 这里使用了属性动画。
      */
-    private void continueMove(float moveDistanceX){
+    private void continueMove(float moveDistanceX) {
         // 从当前位置移动到右侧。
         ValueAnimator anim = ValueAnimator.ofFloat(moveDistanceX, screenWidth);
-        anim.setDuration(500); // 一秒的时间结束, 为了简单这里固定为1秒
+        anim.setDuration(300); // 一秒的时间结束, 为了简单这里固定为1秒
         anim.start();
 
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -1012,16 +1142,16 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     /**
      * Activity被滑动到中途时，滑回去~
      */
-    private void rebackToLeft(float moveDistanceX){
+    private void rebackToLeft(float moveDistanceX) {
         ObjectAnimator.ofFloat(decorView, "X", moveDistanceX, 0).setDuration(300).start();
     }
 
     /**
      * 设置添加屏幕的背景透明度
+     *
      * @param bgAlpha
      */
-    public void backgroundAlpha(float bgAlpha)
-    {
+    public void backgroundAlpha(float bgAlpha) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         getWindow().setAttributes(lp);

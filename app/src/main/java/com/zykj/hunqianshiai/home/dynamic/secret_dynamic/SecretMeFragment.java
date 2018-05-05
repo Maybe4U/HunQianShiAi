@@ -105,7 +105,7 @@ public class SecretMeFragment extends BaseFragment implements BaseView<String> {
                         RongIM.getInstance().removeFromBlacklist(userid, new RongIMClient.OperationCallback() {
                             @Override
                             public void onSuccess() {
-                                //toastShow("");
+                                toastShow("操作成功");
                             }
 
                             @Override

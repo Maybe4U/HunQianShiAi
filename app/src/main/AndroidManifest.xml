@@ -71,6 +71,7 @@
         </activity>
         <activity
             android:name=".home.HomeMainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".intro.IntroActivity"

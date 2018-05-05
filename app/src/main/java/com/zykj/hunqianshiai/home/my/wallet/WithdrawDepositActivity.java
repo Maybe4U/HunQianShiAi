@@ -1,6 +1,7 @@
 package com.zykj.hunqianshiai.home.my.wallet;
 
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.zykj.hunqianshiai.home.my.member.VipBean;
 import com.zykj.hunqianshiai.login_register.UploadBean;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
+import com.zykj.hunqianshiai.utils.CashierInputFilter;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,6 +56,8 @@ public class WithdrawDepositActivity extends BasesActivity implements BaseView<S
         tv_text1.setText(Html.fromHtml(str));
         String string = "3、<font color='#edbd5a'>礼物提现有效期为一年</font>，过期不能提现";
         tv_text2.setText(Html.fromHtml(string));
+        InputFilter[] filters = {new CashierInputFilter()};
+        et_money.setFilters(filters);
 
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
         mParams.clear();

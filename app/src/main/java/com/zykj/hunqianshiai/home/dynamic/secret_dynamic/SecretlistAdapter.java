@@ -35,7 +35,8 @@ public class SecretlistAdapter extends BaseQuickAdapter<SecretBean.SecretData, B
         } else {
             helper.setText(R.id.tv_head_username, item.username);
         }
-        helper.setVisible(R.id.iv_isvip, item.isvip);
+        //跟ios同步，不显示会员图标
+        helper.setVisible(R.id.iv_isvip, false);
 
         helper.setText(R.id.tv_userauth, item.userauth);
         helper.setText(R.id.tv_areaname, item.areaname);

@@ -42,5 +42,8 @@ public class SendGiftAdapter extends BaseQuickAdapter<SendGiftBean.SendGiftData,
                 .load(UrlContent.PIC_URL + item.url)
                 .apply(BasesActivity.mOptions)
                 .into((ImageView) helper.getView(R.id.iv_pic));
+
+
+        helper.addOnClickListener(R.id.iv_headPic);
     }
 }

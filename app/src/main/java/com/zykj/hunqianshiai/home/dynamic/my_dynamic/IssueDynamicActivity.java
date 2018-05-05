@@ -102,6 +102,7 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
     private String mContents;
     private int look = 1;
     private ArrayList<String> mData = new ArrayList<>();
+    private String mCity;
 
 
     @Override
@@ -194,7 +195,8 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
                 //                String addr = bdLocation.getAddrStr();    //获取详细地址信息
                 //                String country = bdLocation.getCountry();    //获取国家
                 //                String province = bdLocation.getProvince();    //获取省份
-                //                String city = bdLocation.getCity();    //获取城市
+                //获取城市
+                mCity = bdLocation.getCity();
                 //                String district = bdLocation.getDistrict();    //获取区县
                 //                String street = bdLocation.getStreet();    //获取街道信息
                 mPoiList = bdLocation.getPoiList();
@@ -266,14 +268,20 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
             case R.id.rl_sit://位置
                 if (null != mPoiList) {
                     final ArrayList<String> strings = new ArrayList<>();
+                    strings.add("不显示位置");
                     for (int i = 0; i < mPoiList.size(); i++) {
+
                         strings.add(mPoiList.get(i).getName());
                     }
                     mPickerView = new OptionsPickerView
                             .Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
                         @Override
                         public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                            setSit.setText(strings.get(options1));
+                            if(strings.get(options1).equals("不显示位置")){
+                                setSit.setText("不显示位置");
+                            }else {
+                                setSit.setText(mCity + "·" + strings.get(options1));
+                            }
                             setSit.setVisibility(View.VISIBLE);
                             selectSit.setVisibility(View.GONE);
                         }

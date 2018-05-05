@@ -294,7 +294,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
             mBundle.clear();
             mBundle.putString("pic", data);
             openActivity(FaceActivity.class, mBundle);
-            finish();
+            //finish();
         }
     }
 

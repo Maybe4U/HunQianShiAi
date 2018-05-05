@@ -95,7 +95,7 @@
                 style="@style/text_style_gray"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="3dp"
-                android:text="TA对你有好感，来了解下他吧。"
+                android:text="TA对你有好感，来了解下TA吧。"
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
@@ -118,5 +118,8 @@
             android:textSize="15sp"
             android:visibility="gone"/>
     </RelativeLayout>
-
+    <TextView
+        style="@style/imaginary_line"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 </LinearLayout>

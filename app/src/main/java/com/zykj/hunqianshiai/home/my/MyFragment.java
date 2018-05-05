@@ -159,6 +159,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     private String mFamilyinfo;
     private String mWorkplan;
     private String mFeeling;
+    private ImageView mIv_play;
 
     public MyFragment() {
     }
@@ -251,8 +252,10 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         mUrlList.clear();
 
         mVideo = data.video;
+        mView = View.inflate(mContext, R.layout.video_pic, null);
+        mIv_play = mView.findViewById(R.id.iv_play);
         if (!TextUtils.isEmpty(mVideo)) {
-            mView = View.inflate(mContext, R.layout.video_pic, null);
+
             ImageView video = mView.findViewById(R.id.iv_video);
             Glide.with(mContext)
                     .load(UrlContent.PIC_URL + data.video)
@@ -260,8 +263,10 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                     .into(video);
             imageViews.add(mView);
             mUrlList.add(UrlContent.PIC_URL + data.video);
+            mIv_play.setVisibility(View.VISIBLE);
         } else {
             mView = null;
+            mIv_play.setVisibility(View.GONE);
         }
 
         mHeadpic = data.headpic;
@@ -308,7 +313,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         /*================身份认证    end=======================*/
 
         /*================学历认证    begin=======================*/
-
+        tv_education.setText(renzheng.xueli_auth);
         //如果审核通过则显示认证信息
         if(renzheng.xueli_auth2.equals("1")){
             //图标点亮
@@ -323,7 +328,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         } else {
             cb_education.setChecked(false);
             iv_identi_edu.setClickable(true);
-            tv_education.setText(renzheng.xueli_auth);
+
         }
         /*================学历认证    end=======================*/
         /*================汽车认证    begin=======================*/

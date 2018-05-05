@@ -3,6 +3,7 @@ package com.zykj.hunqianshiai.home.my.wallet;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -25,6 +26,7 @@ import com.zykj.hunqianshiai.pay.WXBean;
 import com.zykj.hunqianshiai.pay.ZFBBean;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.tools.RxBus;
+import com.zykj.hunqianshiai.utils.CashierInputFilter;
 
 import java.util.Map;
 
@@ -64,6 +66,9 @@ public class RechargeActivity extends BasesActivity implements CompoundButton.On
         mCheckWX.setOnCheckedChangeListener(this);
         mCheckZFB.setOnCheckedChangeListener(this);
         mCheckZFB.performClick();
+
+        InputFilter[] filters = {new CashierInputFilter()};
+        et_money.setFilters(filters);
 
         mSubscribe = RxBus.getInstance().toObserverable(WXBean.class)
                 .subscribe(new Action1<WXBean>() {

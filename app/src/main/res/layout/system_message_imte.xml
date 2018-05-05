@@ -48,6 +48,7 @@
             android:layout_below="@id/tv_content"
             android:layout_marginTop="10dp"
             android:maxLines="1"
+            android:visibility="gone"
             android:text="查看详情" />
 
     </RelativeLayout>

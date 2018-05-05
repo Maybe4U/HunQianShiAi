@@ -29,7 +29,7 @@
             android:layout_marginLeft="25dp"
             android:background="@null"
             android:hint="请输入金额"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>

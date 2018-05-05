@@ -63,7 +63,8 @@
             <TextView
                 android:id="@+id/tv_time"
                 style="@style/text_style_gray"
-                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="9月7日  01：00" />
         </LinearLayout>
 
@@ -72,7 +73,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center_vertical"
-            android:layout_margin="20dp">
+            android:layout_margin="10dp">
 
             <ImageView
                 android:id="@+id/iv_image"

@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.my.my_gift;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,8 +13,10 @@ import com.zykj.hunqianshiai.bases.BaseModel;
 import com.zykj.hunqianshiai.bases.BaseModelImpl;
 import com.zykj.hunqianshiai.bases.BasePresenterImpl;
 import com.zykj.hunqianshiai.bases.BaseView;
+import com.zykj.hunqianshiai.home.my.wallet.FenXiaoBean;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
+import com.zykj.hunqianshiai.user_home.UserPageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +75,23 @@ public class ReceiveGiftFragment extends BaseFragment implements BaseView<String
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 openActivity(InformationDetailsActivity.class);
+            }
+        });
+
+        receiveGiftAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.iv_headpic:
+                        String userid = data.get(position).userinfo.userid;
+                        Bundle mBundle = new Bundle();
+                        mBundle.clear();
+                        mBundle.putString("userid", userid);
+                        openActivity(UserPageActivity.class, mBundle);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }

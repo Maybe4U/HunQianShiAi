@@ -109,7 +109,7 @@ public class LikeMeFragment extends BaseFragment implements BaseView<String> {
         } else {
             mIv_isvip.setVisibility(View.GONE);
         }
-        mTv_like.setText(info.username + "对你有好感，来了解下他吧。");
+        mTv_like.setText(info.username + "对你有好感，来了解下TA吧。");
 
         mTv_userauth.setText(info.userauth);
         mTv_areaname.setText(info.areaname);

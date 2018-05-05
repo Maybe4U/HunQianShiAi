@@ -91,9 +91,9 @@ public class MyLookFragment extends BaseFragment implements BaseView<String> {
         //逆序排列
         //Collections.reverse(filterData);
 
-        LookMeAdapter lookMeAdapter = new LookMeAdapter(filterData);
-        mRecyclerView.setAdapter(lookMeAdapter);
-        lookMeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        MyLookAdapter myLookAdapter = new MyLookAdapter(filterData);
+        mRecyclerView.setAdapter(myLookAdapter);
+        myLookAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<MyLikeBean.MyLikeData> data1 = adapter.getData();

@@ -28,6 +28,7 @@ public class FenXiaoAdapter extends BaseQuickAdapter<FenXiaoBean.FenXiaoData, Ba
                 .apply(BasesActivity.mCircleRequestOptions)
                 .into((ImageView) helper.getView(R.id.iv_head));
         helper.setText(R.id.tv_username, item.username);
+        helper.addOnClickListener(R.id.iv_headPic);
 
         if (TextUtils.isEmpty(item.age)) {
             helper.setText(R.id.tv_age, "");

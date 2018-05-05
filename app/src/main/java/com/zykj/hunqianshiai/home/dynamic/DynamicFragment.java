@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,6 +87,15 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (mLinearLayout.getVisibility() == View.VISIBLE) {
+                    mLinearLayout.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
 
 
         Glide.with(mContext)
@@ -103,7 +113,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
 //        mParams.put("other", 0);
 //        mParams.put("me", 0);
 
-        mParams.put("page", page);
+        mParams.put("page", 1);
         mParams.put("size", 15);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.DEFAULT_TYPE);
 
@@ -145,8 +155,8 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 condition.setText("全部");
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
-                mParams.put("page", page);
-                mParams.put("size", 12);
+                mParams.put("page", 1);
+                mParams.put("size", 15);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_same_city:
@@ -155,8 +165,8 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("city", 1);
-                mParams.put("page", page);
-                mParams.put("size", 12);
+                mParams.put("page", 1);
+                mParams.put("size", 15);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_my_like:
@@ -165,8 +175,8 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("me", 1);
-                mParams.put("page", page);
-                mParams.put("size", 12);
+                mParams.put("page", 1);
+                mParams.put("size", 15);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.tv_like_me:
@@ -175,8 +185,8 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
                 mParams.clear();
                 mParams.put("userid", UrlContent.USER_ID);
                 mParams.put("other", 1);
-                mParams.put("page", page);
-                mParams.put("size", 12);
+                mParams.put("page", 1);
+                mParams.put("size", 15);
                 mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
                 break;
             case R.id.iv_add_dynamic://添加动态
@@ -323,7 +333,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
             mParams.put("other", 1);
         }
         mParams.put("page", page);
-        mParams.put("size", 12);
+        mParams.put("size", 15);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.REFRESH_TYPE);
     }
 
@@ -341,7 +351,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
             mParams.put("other", 1);
         }
         mParams.put("page", page);
-        mParams.put("size", 12);
+        mParams.put("size", 15);
         mPresenter.getData(UrlContent.ALL_DYNAMIC_URL, mParams, BaseModel.LOADING_MORE_TYPE);
     }
 
@@ -351,6 +361,7 @@ public class DynamicFragment extends BaseFragment implements BaseView<String>, S
         List<DynamicBean.DynamicData> data = dynamicBean.data;
         mUserDynamicAdapter.setNewData(data);
         mSwipeRefreshLayout.setRefreshing(false);
+        mUserDynamicAdapter.notifyDataSetChanged();
     }
 
     @Override

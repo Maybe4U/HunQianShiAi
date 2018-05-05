@@ -18,16 +18,16 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_day"
-            style="@style/text_style_black"
-            android:text="11"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/tv_month"
             style="@style/text_style_black"
+            android:text="11月"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_day"
+            style="@style/text_style_black"
             android:layout_marginLeft="3dp"
-            android:text="7月"
+            android:text="07日"
             android:textSize="15sp" />
 
         <LinearLayout
@@ -45,6 +45,7 @@
                     android:id="@+id/tv_username"
                     style="@style/text_style_black"
                     android:text="@string/app_name"
+                    android:textColor="@color/gray"
                     android:textSize="15sp" />
 
             </RelativeLayout>
@@ -53,6 +54,7 @@
             <TextView
                 android:id="@+id/tv_content"
                 style="@style/text_style_black"
+                android:textColor="@color/gray"
                 android:text="content" />
 
             <android.support.v7.widget.RecyclerView
@@ -69,7 +71,7 @@
                     android:id="@+id/check_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentLeft="true"
                     android:button="@drawable/check_like"
                     android:gravity="center_vertical"
                     android:padding="7dp"
@@ -95,6 +97,18 @@
                     android:layout_centerVertical="true"
                     android:padding="5dp"
                     android:src="@mipmap/dong_gengduo" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_arename"
+                    style="@style/text_style_gray"
+                    android:drawableLeft="@mipmap/dong_weizhi"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="sit" />
             </RelativeLayout>
 
             <LinearLayout

@@ -71,6 +71,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
     public boolean reply_dynamic = true;//判断回复动态  还是回复评论
     private String mOther_id = "";
     private List<String> mImg;
+    private TextView mTv_line;
 
 
     @Override
@@ -91,6 +92,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
         mRecycler_like = mHeadView.findViewById(R.id.recycler_like);
         mTv_addtime3 = mHeadView.findViewById(R.id.tv_addtime3);
         mIv_like = mHeadView.findViewById(R.id.iv_like);
+        mTv_line = mHeadView.findViewById(R.id.tv_line);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -123,7 +125,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
         glide(dynamicDetailsData.headpic, mIv_headpic, mCircleRequestOptions);
         mTv_username.setText(dynamicDetailsData.content);
         mTv_addtime3.setText(dynamicDetailsData.addtime3);
-        mTv_arename.setText(dynamicDetailsData.arename);
+        mTv_arename.setText(dynamicDetailsData.address);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mRecycler_pic.setLayoutManager(gridLayoutManager);
@@ -232,6 +234,7 @@ public class DynamicDetailsActivity extends BasesActivity implements BaseView<St
         List<LikeBean.LikeData> data = likeBean.data;
         if (data.isEmpty()) {
             mIv_like.setVisibility(View.GONE);
+            mTv_line.setVisibility(View.GONE);
             return;
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

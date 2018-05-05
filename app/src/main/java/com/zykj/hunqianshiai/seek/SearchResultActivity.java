@@ -25,6 +25,7 @@ import com.zykj.hunqianshiai.home.home.HomeBean;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.user_home.UserPageActivity;
+import com.zykj.hunqianshiai.user_home.dynamic.UserDynamicActivity;
 
 import java.util.List;
 
@@ -122,6 +123,15 @@ public class SearchResultActivity extends BasesActivity implements BaseView<Stri
                                     }
                                 });
                         break;
+                    case R.id.ll_dynamic:
+                        mBundle.clear();
+                        mBundle.putString("userid", userid);
+
+                        //Log.e("该用户的ID",userid + "userid");
+                        //Log.e("该用户的ID",UrlContent.USER_ID + "UrlContent.USER_ID");
+                        openActivity(UserDynamicActivity.class, mBundle);
+                        break;
+
                 }
             }
         });

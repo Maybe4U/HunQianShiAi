@@ -66,7 +66,7 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
             return;
         }
         UploadBean uploadBean = JsonUtils.GsonToBean(bean, UploadBean.class);
-        tv_yue.setText(uploadBean.data + "元（余额+礼物）");
+        tv_yue.setText(uploadBean.data + "元（余额+返利）");
     }
 
     @Override
@@ -75,7 +75,7 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
         List<WalletBean.WalletData> data = walletBean.data;
 
         //逆序排列
-        //Collections.reverse(data);
+        Collections.reverse(data);
 
         WalletAdapter walletAdapter = new WalletAdapter(data);
         mRecyclerView.setAdapter(walletAdapter);
@@ -105,7 +105,7 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
             case R.id.tv_right:
                 Bundle bundle = new Bundle();
                 bundle.clear();
-                bundle.putString("useid",UrlContent.USER_ID);
+                bundle.putString("userid",UrlContent.USER_ID);
 //                openActivity(GiftActivity.class);
                 openActivity(FenXiaoActivity.class,bundle);
                 break;

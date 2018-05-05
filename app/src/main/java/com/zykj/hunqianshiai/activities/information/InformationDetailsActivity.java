@@ -90,6 +90,7 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
     private String mActid;
     //点赞数量
     private int mThumbUpNum;
+    private PopupWindowInformationReply mPopupWindowInformationReply;
 
 
     @Override
@@ -205,9 +206,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
                 }
                 break;
             case R.id.iv_details_comment:
-                PopupWindowInformationReply popupWindowInformationReply = new PopupWindowInformationReply(InformationDetailsActivity.this);
-                popupWindowInformationReply.showAtLocation(rightShare, Gravity.BOTTOM, 0, 0);
-                popupWindowInformationReply.setClickListener(new BasePopupWindow.ClickListener() {
+                mPopupWindowInformationReply = new PopupWindowInformationReply(InformationDetailsActivity.this);
+                mPopupWindowInformationReply.showAtLocation(rightShare, Gravity.BOTTOM, 0, 0);
+                mPopupWindowInformationReply.setClickListener(new BasePopupWindow.ClickListener() {
                     @Override
                     public void onClickListener(Object object) {
                         mParams.clear();
@@ -334,6 +335,9 @@ public class InformationDetailsActivity extends BasesActivity implements BaseVie
         mComment_num.setText(data.comment_num + "");
         List<DynamicDetailsBean.Comment> comment = data.comment;
         mInformationDetailsAdapter.setNewData(comment);
+        View v = getCurrentFocus();
+        IBinder windowToken = v.getWindowToken();
+        hideKeyboard(windowToken);//评论点击发送后隐藏软键盘
     }
 
     @Override

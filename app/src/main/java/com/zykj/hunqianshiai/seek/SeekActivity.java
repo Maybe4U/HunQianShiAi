@@ -307,12 +307,17 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                 tvStature.setText("不限");
                 tvAge.setText("不限");
                 tvIncome.setText("不限");
-                tvWorkCity.setText("不限");
                 tvHomeCity.setText("不限");
+                tvWorkCity.setText("不限");
                 tvEducation.setText("不限");
-                tvConstellation.setText("不限");
                 tvZodiac.setText("不限");
+                tvConstellation.setText("不限");
                 tvMarriage.setText("不限");
+
+                mTvBelief.setText("不限");
+                mTvHouse.setText("不限");
+                mTvCar.setText("不限");
+                mTvOccupation.setText("请输入职业");
                 break;
             case R.id.tv_affirm://确认
 

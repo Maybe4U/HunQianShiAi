@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.zykj.hunqianshiai.home.HomeMainActivity;
 import com.zykj.hunqianshiai.home.dynamic.LikeCommentActivity;
 import com.zykj.hunqianshiai.home.message.system_message.SystemMessageActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
@@ -45,9 +46,12 @@ public class MyReceiver extends BroadcastReceiver {
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 
+
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 String s = printBundle(bundle);
                 PushBean pushBean = JsonUtils.GsonToBean(s, PushBean.class);
+                Intent intent1 = new Intent(context, HomeMainActivity.class);
+                context.startActivity(intent1);
                 if (pushBean.catogry.equals("0")) {
 
                     Intent i = new Intent(context, SystemMessageActivity.class);

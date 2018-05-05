@@ -42,15 +42,24 @@ public class MyDynamicAdapter extends BaseQuickAdapter<MyDynamicBean.MyDynamicDa
         String addtime3 = item.addtime3;
         String month = addtime3.substring(0, 3);
         String day = addtime3.substring(3, 5);
-        helper.setText(R.id.tv_day, day);
+        helper.setText(R.id.tv_day, day + "日");
         helper.setText(R.id.tv_month, month);
-        helper.setText(R.id.tv_username, item.username);
+        //同步ios不显示昵称
+        //helper.setText(R.id.tv_username, item.username);
         helper.setText(R.id.tv_content, item.content);
         final CheckBox check_like = helper.getView(R.id.check_like);
         if (item.self_zan.equals("0")) {
             helper.setChecked(R.id.check_like, false);
         } else {
             helper.setChecked(R.id.check_like, true);
+        }
+
+        if(item.address == "" || item.address.equals("不显示位置")){
+            //helper.setVisible(R.id.tv_arename,false);
+            helper.setGone(R.id.tv_arename,false);
+        }else {
+            helper.setVisible(R.id.tv_arename,true);
+            helper.setText(R.id.tv_arename, item.address);
         }
 
         helper.getView(R.id.check_like).setOnClickListener(new View.OnClickListener() {

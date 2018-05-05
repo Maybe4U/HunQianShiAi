@@ -41,7 +41,7 @@ public class FaceRecognitionActivity extends BasesActivity implements BaseView<S
 
     @Override
     protected void initView() {
-        appBar("人脸认证");
+        appBar("人脸识别");
         mPresenter = new BasePresenterImpl(this, new BaseModelImpl());
     }
 

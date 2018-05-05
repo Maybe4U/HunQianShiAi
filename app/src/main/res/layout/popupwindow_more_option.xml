@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tv_my_look"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="不再显示该用户动态"
         android:textColor="@color/black"
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/tv_look_me"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="不让该用户看到我的动态"
         android:textColor="@color/black"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/tv_inform"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="举报"
         android:textColor="@color/black"
@@ -44,13 +44,13 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:background="@color/background_color" />
 
     <TextView
         android:id="@+id/tv_cancel"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:text="取消"
         android:textColor="@color/black"

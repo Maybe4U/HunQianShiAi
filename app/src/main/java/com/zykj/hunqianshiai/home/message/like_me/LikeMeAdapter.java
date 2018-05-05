@@ -35,6 +35,6 @@ public class LikeMeAdapter extends BaseQuickAdapter<MyLikeBean.MyLikeData, BaseV
         helper.setText(R.id.tv_areaname, info.areaname);
         helper.setText(R.id.tv_yearmoney, info.yearmoney);
         helper.setText(R.id.tv_time, item.time);
-        helper.setText(R.id.tv_like, info.nickname + "对你有好感，来了解下他吧。");
+        helper.setText(R.id.tv_like, info.nickname + "对你有好感，来了解下TA吧。");
     }
 }

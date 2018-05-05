@@ -302,7 +302,7 @@ public abstract class BasesActivity extends AppCompatActivity implements View.On
         return false;
     }
 
-    private void hideKeyboard(IBinder token) {
+    protected void hideKeyboard(IBinder token) {
         if (token != null) {
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);

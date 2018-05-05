@@ -32,6 +32,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -161,7 +162,7 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
             LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(16f);
+            update = MapStatusUpdateFactory.zoomTo(18f);
             mBaiduMap.animateMapStatus(update);
 
             /*判断baiduMap是已经移动到指定位置*/
@@ -241,8 +242,9 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
 
 
             //在地图上显示附近人的所有点
-            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.other_loc);
+            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.pin_purple2x);
 
+            //MarkerOptions options = new MarkerOptions().position(latLng).draggable(true);
             MarkerOptions options = new MarkerOptions().position(latLng).icon(bitmap).draggable(true);
 
             //MarkerOptions options = new MarkerOptions().position(latLng).icon().draggable(true);

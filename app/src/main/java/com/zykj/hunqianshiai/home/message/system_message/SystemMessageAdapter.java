@@ -20,9 +20,11 @@ public class SystemMessageAdapter extends BaseQuickAdapter<SystemMessageBean.Sys
 
     @Override
     protected void convert(BaseViewHolder helper, SystemMessageBean.SystemMessageData item) {
+
+        String [] s = item.remark.split("-");
         helper.setText(R.id.tv_title, item.title);
         helper.setText(R.id.tv_content, item.content);
-        helper.setText(R.id.tv_time, item.remark);
+        helper.setText(R.id.tv_time, s[0]);
 
     }
 

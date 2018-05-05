@@ -47,7 +47,7 @@ public class LikeCommentActivity extends BasesActivity implements BaseView<Strin
 
     @Override
     protected void initView() {
-        appBar("消息推送");
+        appBar("消息列表");
         right.setVisibility(View.VISIBLE);
         right.setText("清空");
 

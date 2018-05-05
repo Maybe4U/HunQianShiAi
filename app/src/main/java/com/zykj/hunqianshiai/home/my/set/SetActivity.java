@@ -15,6 +15,7 @@ import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BasePopupWindow;
 import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.intro.ChooseLoginActivity;
+import com.zykj.hunqianshiai.login_register.login.LoginActivity;
 import com.zykj.hunqianshiai.net.SPKey;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.SPUtils;
@@ -120,11 +121,12 @@ public class SetActivity extends BasesActivity implements CompoundButton.OnCheck
                 popupWindowQuit.setClickListener(new BasePopupWindow.ClickListener() {
                     @Override
                     public void onClickListener(Object object) {
-                        //destroyApp();
-                        openActivity(ChooseLoginActivity.class);
+                        destroyApp();
+                        //openActivity(ChooseLoginActivity.class);
                         SPUtils.remove(SetActivity.this, SPKey.COMPLETE_LOGIN_KEY);
                         SPUtils.remove(SetActivity.this, SPKey.USER_ID_KEY);
                         finish();
+                        openActivity(ChooseLoginActivity.class);
                     }
                 });
 

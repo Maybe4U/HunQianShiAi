@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/tv_yue"
             style="@style/text_style_black"
-            android:text="0元（余额+礼物）"
+            android:text="0元（余额+返利）"
             android:textColor="@color/default_color" />
     </LinearLayout>
 
@@ -70,7 +70,7 @@
         <TextView
             style="@style/text_style_black"
             android:layout_marginLeft="15dp"
-            android:text="消费充值记录"
+            android:text="消费充值返利记录"
             android:textColor="@color/default_color" />
     </LinearLayout>
 
