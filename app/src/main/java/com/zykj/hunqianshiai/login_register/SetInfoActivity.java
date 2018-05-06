@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.bases.BaseBean;
@@ -143,7 +145,7 @@ public class SetInfoActivity extends BasesActivity implements android.app.DatePi
                 startActivityForResult(intent, 101);
                 break;
             case R.id.rl_income://设置收入
-                mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         tvIncome.setText(incomeList.get(options1));

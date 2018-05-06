@@ -91,7 +91,7 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
 
     }
 
-    @OnClick({R.id.tv_chongzhi, R.id.tv_tixian, R.id.tv_right})
+    @OnClick({R.id.tv_chongzhi,  R.id.tv_right})
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -99,9 +99,9 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
             case R.id.tv_chongzhi:
                 openActivity(RechargeActivity.class);
                 break;
-            case R.id.tv_tixian:
-                openActivity(WithdrawDepositActivity.class);
-                break;
+//            case R.id.tv_tixian:
+//                openActivity(WithdrawDepositActivity.class);
+//                break;
             case R.id.tv_right:
                 Bundle bundle = new Bundle();
                 bundle.clear();

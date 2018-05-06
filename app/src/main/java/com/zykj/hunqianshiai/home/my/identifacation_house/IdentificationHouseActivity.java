@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -96,7 +98,7 @@ public class IdentificationHouseActivity extends BasesActivity implements BaseVi
         super.onClick(view);
         switch (view.getId()) {
             case R.id.rl_layout:
-                OptionsPickerView  pickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                OptionsPickerView  pickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
@@ -122,7 +124,7 @@ public class IdentificationHouseActivity extends BasesActivity implements BaseVi
                 pickerView.show();
                 break;
             case R.id.tv_select_buy://购买情况
-                mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = mStrings.get(options1);

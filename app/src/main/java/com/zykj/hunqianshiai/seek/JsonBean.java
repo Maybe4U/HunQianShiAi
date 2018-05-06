@@ -1,6 +1,6 @@
 package com.zykj.hunqianshiai.seek;
 
-import com.bigkoo.pickerview.model.IPickerViewData;
+import com.contrarywind.interfaces.IPickerViewData;
 
 import java.util.List;
 

@@ -11,9 +11,19 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bigkoo.pickerview.OptionsPickerView;
+//import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.configure.PickerOptions;
+import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bigkoo.pickerview.view.WheelOptions;
+import com.contrarywind.listener.OnItemSelectedListener;
+import com.contrarywind.view.WheelView;
 import com.google.gson.Gson;
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BasesActivity;
@@ -31,6 +41,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.MainActivity;
 
 /**
  * 筛选
@@ -118,32 +129,32 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         list1.clear();
         String[] statures = new String[62];
         statures[0] = "不限";
-        for (int i = 1;i<=61;i++){
+        for (int i = 1; i <= 61; i++) {
             statures[i] = 139 + i + "cm";
         }
         statureList = Arrays.asList(statures);
 
         mOptionsStatureItems = new ArrayList<>();
-        for(int j=0;j<statureList.size();j++){
+        for (int j = 0; j < statureList.size(); j++) {
             list1.add(statureList.get(j));
         }
-        for(int k=0;k<62;k++){
+        for (int k = 0; k < 62; k++) {
             mOptionsStatureItems.add(list1);
         }
 
         String[] ages = new String[84];
         ages[0] = "不限";
-        for (int i = 1;i<=83;i++){
+        for (int i = 1; i <= 83; i++) {
             ages[i] = 17 + i + "岁";
         }
         ageList = Arrays.asList(ages);
         mOptionsAgeItems = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
         list2.clear();
-        for(int j=0;j<ageList.size();j++){
+        for (int j = 0; j < ageList.size(); j++) {
             list2.add(ageList.get(j));
         }
-        for(int k=0;k<84;k++){
+        for (int k = 0; k < 84; k++) {
             mOptionsAgeItems.add(list2);
         }
 
@@ -171,29 +182,11 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         //购车
         String[] cars = getResources().getStringArray(R.array.buy_car);
         carsList = Arrays.asList(cars);
-
-        //解析城市文件
-        //        new Thread(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                // 写子线程中的操作,解析省市区数据
-        ////                initJsonData();
-        //
-        //                for (int i = 140; i < 201; i++) {
-        //                    mHeightBeans.add(new HeightBean((i - 140) + "", i + ""));
-        //                    ArrayList<String> strings = new ArrayList<>();
-        //                    for (int j = i; j < 201; j++) {
-        //                        strings.add(j + "");
-        //                    }
-        //                    height.add(strings);
-        //                }
-        //            }
-        //        }).start();
     }
 
     @OnClick({R.id.et_id, R.id.rl_stature, R.id.rl_age, R.id.rl_income, R.id.rl_work_city, R.id.rl_home_city,
             R.id.rl_education, R.id.rl_constellation, R.id.rl_zodiac, R.id.rl_marriage, R.id.tv_reset,
-            R.id.tv_affirm, R.id.rl_hasChild, R.id.rl_belief, R.id.rl_car, R.id.rl_house,R.id.rl_occupation})
+            R.id.tv_affirm, R.id.rl_hasChild, R.id.rl_belief, R.id.rl_car, R.id.rl_house, R.id.rl_occupation})
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -204,13 +197,13 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
 
                 break;
             case R.id.rl_stature://身高
-                showOption(tvStature,statureList);
+                showOption(tvStature, statureList);
                 break;
             case R.id.rl_age://年龄
-                showOption(tvAge,ageList);
+                showOption(tvAge, ageList);
                 break;
             case R.id.rl_income://年收入
-                showOption(tvIncome,incomeList);
+                showOption(tvIncome, incomeList);
                 break;
             case R.id.rl_work_city://工作生活在
                 if (UrlContent.IS_MEMBER_KEY) {
@@ -221,27 +214,6 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                     popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
                 }
 
-                //                mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                //                    @SuppressLint("SetTextI18n")
-                //                    @Override
-                //                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //                        //返回的分别是三个级别的选中位置
-                //                        tvWorkCity.setText(options1Items.get(options1).getPickerViewText()
-                //                                + options2Items.get(options1).get(options2)
-                //                                + options3Items.get(options1).get(options2).get(options3));
-                //                    }
-                //                })
-                //
-                //                        .setTitleText("城市选择")
-                //                        .setDividerColor(Color.BLACK)
-                //                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                //                        .setContentTextSize(20)
-                //                        .build();
-                //
-                //        /*pvOptions.setPicker(options1Items);//一级选择器
-                //        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-                //                mPickerView.setPicker(options1Items, options2Items, options3Items);//三级选择器
-                //                mPickerView.show();
                 break;
             case R.id.rl_home_city://户籍
                 if (UrlContent.IS_MEMBER_KEY) {
@@ -251,52 +223,30 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                     PopupWindowVip popupWindowVip = new PopupWindowVip(this);
                     popupWindowVip.showAtLocation(et_id, Gravity.CENTER, 0, 0);
                 }
-
-                //                mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-                //                    @SuppressLint("SetTextI18n")
-                //                    @Override
-                //                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //                        //返回的分别是三个级别的选中位置
-                //                        tvHomeCity.setText(options1Items.get(options1).getPickerViewText()
-                //                                + options2Items.get(options1).get(options2)
-                //                                + options3Items.get(options1).get(options2).get(options3));
-                //                    }
-                //                })
-                //
-                //                        .setTitleText("城市选择")
-                //                        .setDividerColor(Color.BLACK)
-                //                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                //                        .setContentTextSize(20)
-                //                        .build();
-                //
-                //        /*pvOptions.setPicker(options1Items);//一级选择器
-                //        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-                //                mPickerView.setPicker(options1Items, options2Items, options3Items);//三级选择器
-                //                mPickerView.show();
                 break;
             case R.id.rl_education://学历
-                showOption(tvEducation,educationList);
+                showOption(tvEducation, educationList);
                 break;
             case R.id.rl_constellation://星座
-                showOption(tvConstellation,constellationList);
+                showOption(tvConstellation, constellationList);
                 break;
             case R.id.rl_zodiac://属相
-                showOption(tvZodiac,zodiacList);
+                showOption(tvZodiac, zodiacList);
                 break;
             case R.id.rl_marriage://婚史
-                showOption(tvMarriage,marriageList);
+                showOption(tvMarriage, marriageList);
                 break;
             case R.id.rl_hasChild://有无子女
-                showOption(mTvHasChild,childrenList);
+                showOption(mTvHasChild, childrenList);
                 break;
             case R.id.rl_belief://有无信仰
-                showOption(mTvBelief,beliefsList);
+                showOption(mTvBelief, beliefsList);
                 break;
             case R.id.rl_house://有无房产
-                showOption(mTvHouse,housesList);
+                showOption(mTvHouse, housesList);
                 break;
             case R.id.rl_car://有无购车
-                showOption(mTvCar,carsList);
+                showOption(mTvCar, carsList);
                 break;
             case R.id.rl_occupation://有无职业
 
@@ -351,13 +301,13 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
      * params        :
      * return        :
      */
-    private void showOption(TextView tv,List<String> list) {
+    private void showOption(TextView tv, List<String> list) {
         //隐藏软键盘
         hideSoftInput();
 
-        if(tv.equals(tvStature) || tv.equals(tvAge) || tv.equals(tvIncome)){
+        if (tv.equals(tvStature) || tv.equals(tvAge) || tv.equals(tvIncome)) {
             showPickerView(tv, list);
-        }else if (UrlContent.IS_MEMBER_KEY) {
+        } else if (UrlContent.IS_MEMBER_KEY) {
             showPickerView(tv, list);
         } else {
             PopupWindowVip popupWindowVip = new PopupWindowVip(this);
@@ -366,65 +316,152 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
     }
 
     private void showPickerView(TextView tv, List<String> list) {
-        mPickerView = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+        //        mPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener()() {
+        //            @Override
+        //            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+        //
+        //                if(tv.equals(tvStature)){
+        //                    String s1 = list.get(options1);
+        //                    String s2 = mOptionsStatureItems.get(options1).get(options2);
+        //                    if(s1.equals("不限") || s2.equals("不限")){
+        //                        tv.setText("不限");
+        //                    }else if(list.get(options1).equals(mOptionsStatureItems.get(options1).get(options2))){
+        //                        tv.setText(s1);
+        //                    }else{
+        //
+        //                        int i1 = Integer.parseInt(s1.replace("cm", ""));
+        //                        int i2 = Integer.parseInt(s2.replace("cm", ""));
+        //
+        //                        if(i1>i2){
+        //                            tv.setText(s2 + "-" + s1);
+        //                        }else {
+        //                            tv.setText(s1 + "-" + s2);
+        //                        }
+        //
+        //                    }
+        //                }else if (tv.equals(tvAge)){
+        //                    String s1 = list.get(options1);
+        //                    String s2 = mOptionsAgeItems.get(options1).get(options2);
+        //                    if(s1.equals("不限") || s2.equals("不限")){
+        //                        tv.setText("不限");
+        //                    }else if(s1.equals(s2)){
+        //                        tv.setText(list.get(options1));
+        //                    }else{
+        //                        int i1 = Integer.parseInt(s1.replace("岁", ""));
+        //                        int i2 = Integer.parseInt(s2.replace("岁", ""));
+        //
+        //                        if(i1>i2){
+        //                            tv.setText(s2 + "-" + s1);
+        //                        }else {
+        //                            tv.setText(s1 + "-" + s2);
+        //                        }
+        //                    }
+        //                }else {
+        //                    tv.setText(list.get(options1));
+        //                }
+        //
+        //
+        //            }
+        //        }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
+        //                .setSubmitColor(R.color.black)
+        //                .setCancelColor(R.color.black)//取消按钮文字颜色
+        //                //.setSelectOptions(1,2)
+        //                //.setLinkage(true)
+        //                .build();
+        //        if(tv.equals(tvAge)){
+        //            mPickerView.setPicker(list,mOptionsAgeItems);
+        //        }else if(tv.equals(tvStature)){
+        //            mPickerView.setPicker(list,mOptionsStatureItems);
+        //        }else {
+        //            mPickerView.setPicker(list);
+        //        }
+        //        mPickerView.show();
+
+//        View view = View.inflate(this,com.bigkoo.pickerview.R.layout.pickerview_options,null);
+//
+//        final LinearLayout optionsPicker = (LinearLayout) view.findViewById(com.bigkoo.pickerview.R.id.optionspicker);
+//
+//
+//        WheelOptions wheelOptions = new WheelOptions(optionsPicker, false);
+//
+//        WheelView option1 = optionsPicker.findViewById(com.bigkoo.pickerview.R.id.options1);
+//        option1.setOnItemSelectedListener(new OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(int index) {
+//                mPickerView.setSelectOptions(index, index + 1);
+//            }
+//        });
+
+
+        mPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
 
-                if(tv.equals(tvStature)){
+
+                if (tv.equals(tvStature)) {
                     String s1 = list.get(options1);
                     String s2 = mOptionsStatureItems.get(options1).get(options2);
-                    if(s1.equals("不限") || s2.equals("不限")){
+                    if (s1.equals("不限") || s2.equals("不限")) {
                         tv.setText("不限");
-                    }else if(list.get(options1).equals(mOptionsStatureItems.get(options1).get(options2))){
+                    } else if (list.get(options1).equals(mOptionsStatureItems.get(options1).get(options2))) {
                         tv.setText(s1);
-                    }else{
+                    } else {
 
                         int i1 = Integer.parseInt(s1.replace("cm", ""));
                         int i2 = Integer.parseInt(s2.replace("cm", ""));
 
-                        if(i1>i2){
+                        if (i1 > i2) {
                             tv.setText(s2 + "-" + s1);
-                        }else {
+                        } else {
                             tv.setText(s1 + "-" + s2);
                         }
 
                     }
-                }else if (tv.equals(tvAge)){
+                } else if (tv.equals(tvAge)) {
                     String s1 = list.get(options1);
                     String s2 = mOptionsAgeItems.get(options1).get(options2);
-                    if(s1.equals("不限") || s2.equals("不限")){
+                    if (s1.equals("不限") || s2.equals("不限")) {
                         tv.setText("不限");
-                    }else if(s1.equals(s2)){
+                    } else if (s1.equals(s2)) {
                         tv.setText(list.get(options1));
-                    }else{
+                    } else {
                         int i1 = Integer.parseInt(s1.replace("岁", ""));
                         int i2 = Integer.parseInt(s2.replace("岁", ""));
 
-                        if(i1>i2){
+                        if (i1 > i2) {
                             tv.setText(s2 + "-" + s1);
-                        }else {
+                        } else {
                             tv.setText(s1 + "-" + s2);
                         }
                     }
-                }else {
+                } else {
                     tv.setText(list.get(options1));
                 }
-
-
             }
         }).setTitleBgColor(0xffedbd5a)//标题背景颜色 Night mode
                 .setSubmitColor(R.color.black)
                 .setCancelColor(R.color.black)//取消按钮文字颜色
-                .setLinkage(false)
+                //.setSelectOptions(1,1)
+                //.setLinkage(true)
+                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+                    @Override
+                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
+                        //mPickerView.setSelectOptions(options1,options1 + 1);
+                    }
+                })
                 .build();
-        if(tv.equals(tvAge)){
-            mPickerView.setPicker(list,mOptionsAgeItems);
-        }else if(tv.equals(tvStature)){
-            mPickerView.setPicker(list,mOptionsStatureItems);
-        }else {
+        if (tv.equals(tvAge)) {
+            mPickerView.setPicker(list, mOptionsAgeItems);
+            //mPickerView.setNPicker(list, mOptionsAgeItems,null);
+        } else if (tv.equals(tvStature)) {
+            mPickerView.setPicker(list, mOptionsStatureItems);
+        } else {
             mPickerView.setPicker(list);
         }
         mPickerView.show();
+
+
     }
 
     /*==================优化=====================*/
@@ -449,7 +486,7 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
         //年龄
         String age = tvAge.getText().toString();
         if (!age.equals("不限")) {
-           String ages = age.replace("岁", "");
+            String ages = age.replace("岁", "");
             String[] split = ages.split("-");
             if (split.length > 1) {
                 mBundle.putString("p3", split[0]);
@@ -608,7 +645,7 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
         //防止误触
-        if(!ButtonUtils.isFastDoubleClick()){
+        if (!ButtonUtils.isFastDoubleClick()) {
             if (i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_SEND || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 //让mPasswordEdit获取输入焦点
                 et_id.requestFocus();
@@ -642,12 +679,5 @@ public class SeekActivity extends BasesActivity implements TextView.OnEditorActi
                     break;
             }
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

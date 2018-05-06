@@ -1,6 +1,7 @@
 package com.zykj.hunqianshiai.seek;
 
-import com.bigkoo.pickerview.model.IPickerViewData;
+
+import com.contrarywind.interfaces.IPickerViewData;
 
 /**
  * Created by xu on 2018/2/5.

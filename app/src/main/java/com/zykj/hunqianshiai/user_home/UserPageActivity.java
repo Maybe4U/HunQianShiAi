@@ -7,8 +7,6 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -18,7 +16,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -71,7 +68,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.rong.imkit.MainActivity;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
@@ -155,12 +151,14 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     RelativeLayout rl_video;
     @Bind(R.id.check_like)
     CheckBox check_like;
+    @Bind(R.id.iv_play)
+    ImageView mIvPlay;
+
     @Bind(R.id.tv_black)
     TextView tv_black;
 
     @Bind(R.id.rl_chat)
     RelativeLayout rl_chat;
-
     @Bind(R.id.iv_sfrz)
     ImageView mIvSfrz;
     @Bind(R.id.cb_xueli)
@@ -203,6 +201,7 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
     private ImageView mIv_play;
     private AlertDialog.Builder mDialog;
     private String mString;
+    private ImageView mIv_video;
 
     @Override
     protected int getContentViewX() {
@@ -258,11 +257,11 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
                 //showDialog();
 
                 mString = tv_black.getText().toString();
-            if(mString.equals("拉黑")){
-                showConfirmDialog();
-            }else {
-                showCancelDialog();
-            }
+                if (mString.equals("拉黑")) {
+                    showConfirmDialog();
+                } else {
+                    showCancelDialog();
+                }
 
                 break;
             case R.id.rl_video:
@@ -654,14 +653,24 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
             Glide.with(UserPageActivity.this)
                     .load(UrlContent.PIC_URL + data.video)
                     .apply(BasesActivity.mOptions)
-                    .into(video);
-            mIv_play.setVisibility(View.VISIBLE);
+                    .into(iv_head);
+            mIvPlay.setVisibility(View.VISIBLE);
         } else {
             mView = null;
             mHeadpic = data.headpic;
             glide(mHeadpic, iv_head, mOptions);
-            mIv_play.setVisibility(View.GONE);
+            mIvPlay.setVisibility(View.GONE);
         }
+
+        iv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBundle.clear();
+                mBundle.putString("video", mVideo1);
+                openActivity(VideoActivity.class, mBundle);
+            }
+        });
+
         mLike_num = data.like_num;
         tv_like.setText(mLike_num + "");
         mUsername = data.username;
@@ -729,6 +738,9 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         tv_sfrz.setText(renzheng.shenfen_auth);
         if (renzheng.shenfen_auth2.equals("1")) {
             mIvSfrz.setImageResource(R.mipmap.ge_shenfenrenzheng);
+            tv_sfrz.setTextColor(ContextCompat.getColor(this, R.color.default_color));
+        } else {
+            tv_sfrz.setTextColor(ContextCompat.getColor(this, R.color.black));
         }
         String realname = renzheng.realname;
         if (!TextUtils.isEmpty(realname)) {
@@ -999,6 +1011,13 @@ public class UserPageActivity extends BasesActivity implements BaseView<String> 
         Intent intent = new Intent("com.zykj.hunqianshiai.HEART_BEAT");
         intent.putExtra("position", position);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
 

@@ -26,7 +26,9 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
-import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
@@ -273,8 +275,7 @@ public class IssueDynamicActivity extends BasesActivity implements BaseView<Stri
 
                         strings.add(mPoiList.get(i).getName());
                     }
-                    mPickerView = new OptionsPickerView
-                            .Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                    mPickerView = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                         @Override
                         public void onOptionsSelect(int options1, int options2, int options3, View v) {
                             if(strings.get(options1).equals("不显示位置")){

@@ -118,7 +118,7 @@ public class MemberActivity extends BasesActivity implements BaseView<String> {
         }
         VipBean vipBean = JsonUtils.GsonToBean(bean, VipBean.class);
         if (vipBean.data.state.equals("1")) {
-            tv_date.setText("到期时间：" + vipBean.data.endtime);
+            tv_date.setText("限时会员  " + "到期时间：" + vipBean.data.endtime);
         } else {
             tv_date.setText("到期时间：终身会员");
         }

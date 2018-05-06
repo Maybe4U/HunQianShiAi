@@ -44,8 +44,8 @@ public class MyDynamicAdapter extends BaseQuickAdapter<MyDynamicBean.MyDynamicDa
         String day = addtime3.substring(3, 5);
         helper.setText(R.id.tv_day, day + "日");
         helper.setText(R.id.tv_month, month);
-        //同步ios不显示昵称
-        //helper.setText(R.id.tv_username, item.username);
+
+        helper.setText(R.id.tv_username, item.username);
         helper.setText(R.id.tv_content, item.content);
         final CheckBox check_like = helper.getView(R.id.check_like);
         if (item.self_zan.equals("0")) {

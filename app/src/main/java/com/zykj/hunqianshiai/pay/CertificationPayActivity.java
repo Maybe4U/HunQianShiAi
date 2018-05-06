@@ -167,13 +167,14 @@ public class CertificationPayActivity extends BasesActivity implements CompoundB
             request.timeStamp = data.timestamp + "";
             request.sign = data.sign;
             api.sendReq(request);
-        } else if (paytype == 3) {
-            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
-            toastShow(baseBean.message);
-            if (baseBean.message.equals("支付成功")) {
-                finish();
-            }
         }
+//        else if (paytype == 3) {
+//            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
+//            toastShow(baseBean.message);
+//            if (baseBean.message.equals("支付成功")) {
+//                finish();
+//            }
+//        }
 
     }
 

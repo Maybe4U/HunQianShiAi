@@ -162,7 +162,7 @@ public class NearbyLocationActivity extends BasesActivity implements BaseView<St
             LatLng ll = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             mBaiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(18f);
+            update = MapStatusUpdateFactory.zoomTo(16f);
             mBaiduMap.animateMapStatus(update);
 
             /*判断baiduMap是已经移动到指定位置*/

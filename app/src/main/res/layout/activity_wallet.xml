@@ -55,6 +55,7 @@
             android:drawablePadding="10dp"
             android:drawableTop="@mipmap/qianbao_tixian"
             android:gravity="center"
+            android:visibility="gone"
             android:text="提现"
             android:textColor="@drawable/button_text"
             android:textSize="17dp" />

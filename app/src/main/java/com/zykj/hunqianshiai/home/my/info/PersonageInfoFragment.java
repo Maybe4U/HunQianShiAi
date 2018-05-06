@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
-import com.bigkoo.pickerview.TimePickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -204,7 +208,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
                 break;
             case R.id.ll_birthday://生日
                 //时间选择器
-                TimePickerView pvTime = new TimePickerView.Builder(mContext, new TimePickerView.OnTimeSelectListener() {
+                TimePickerView pvTime = new TimePickerBuilder(mContext, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {//选中事件回调
                         String format = new SimpleDateFormat("yyyy-MM-dd ").format(date);
@@ -222,7 +226,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
                 pvTime.show();
                 break;
             case R.id.ll_constellation://星座
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = constellationList.get(options1);
@@ -253,7 +257,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                    }
 //                });
 
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = shen_gaoList.get(options1);
@@ -272,7 +276,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
                 mPickerView.show();
                 break;
             case R.id.ll_income://年收入
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = incomeList.get(options1);
@@ -297,7 +301,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
                 break;
             case R.id.ll_marry://期望结婚时间
 
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = mMarry_timeList.get(options1);
@@ -327,7 +331,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
 //                    }
 //                });
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = min_zuList.get(options1);
@@ -351,7 +355,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
                 break;
             case R.id.ll_marryinfo://婚姻状况
 
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = marriageList.get(options1);
@@ -394,7 +398,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
 //                    }
 //                });
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = xin_yangList.get(options1);
@@ -424,7 +428,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
 //                    }
 //                });
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = yin_jiuList.get(options1);
@@ -455,7 +459,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                    }
 //                });
 
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = xi_yanList.get(options1);
@@ -499,7 +503,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                    }
 //                });
 
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = zi_nvList.get(options1);
@@ -529,7 +533,7 @@ public class PersonageInfoFragment extends BaseFragment implements BaseView<Stri
 //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
 //                    }
 //                });
-                mPickerView = new OptionsPickerView.Builder(mContext, new OptionsPickerView.OnOptionsSelectListener() {
+                mPickerView = new OptionsPickerBuilder(mContext, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         String text = ti_zhongList.get(options1);

@@ -16,7 +16,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
-import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BaseBean;
@@ -229,8 +232,7 @@ public class ActivitiesApplyActivity extends BasesActivity implements BaseView<S
     /*===================省市区选择框====================*/
 
     private void showPickerView() {// 弹出选择器
-        OptionsPickerView pvOptions = new OptionsPickerView
-                .Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置

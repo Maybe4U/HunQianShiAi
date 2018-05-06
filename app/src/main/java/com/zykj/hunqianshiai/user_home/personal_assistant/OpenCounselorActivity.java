@@ -52,8 +52,8 @@ public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnC
     CheckBox zfb;
     @Bind(R.id.cb_wx)
     CheckBox wx;
-    @Bind(R.id.cb_remaining)
-    CheckBox remaining;
+//    @Bind(R.id.cb_remaining)
+//    CheckBox remaining;
     @Bind(R.id.tv_date)
     TextView tv_date;
     @Bind(R.id.recycler_pay)
@@ -123,9 +123,9 @@ public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnC
             case R.id.cb_zfb:
                 if (b) {
                     wx.setChecked(false);
-                    remaining.setChecked(false);
+                    //remaining.setChecked(false);
                 } else {
-                    if (!wx.isChecked() && !remaining.isChecked()) {
+                    if (!wx.isChecked() ) {
                         zfb.setChecked(true);
                     }
                 }
@@ -134,24 +134,24 @@ public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnC
             case R.id.cb_wx:
                 if (b) {
                     zfb.setChecked(false);
-                    remaining.setChecked(false);
+                    //remaining.setChecked(false);
                 } else {
-                    if (!zfb.isChecked() && !remaining.isChecked()) {
+                    if (!zfb.isChecked()) {
                         wx.setChecked(true);
                     }
                 }
                 paytype = 2;
                 break;
-            case R.id.cb_remaining:
-                if (b) {
-                    wx.setChecked(false);
-                    zfb.setChecked(false);
-                } else {
-                    if (!wx.isChecked() && !zfb.isChecked()) {
-                        remaining.setChecked(true);
-                    }
-                }
-                paytype = 3;
+//            case R.id.cb_remaining:
+//                if (b) {
+//                    wx.setChecked(false);
+//                    zfb.setChecked(false);
+//                } else {
+//                    if (!wx.isChecked() && !zfb.isChecked()) {
+//                        remaining.setChecked(true);
+//                    }
+//                }
+//                paytype = 3;
         }
     }
 
@@ -249,13 +249,14 @@ public class OpenCounselorActivity extends BasesActivity implements CheckBox.OnC
             request.timeStamp = data.timestamp + "";
             request.sign = data.sign;
             api.sendReq(request);
-        } else if (paytype == 3) {
-            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
-            toastShow(baseBean.message);
-            if (baseBean.message.equals("支付成功")) {
-                finish();
-            }
         }
+//        else if (paytype == 3) {
+//            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
+//            toastShow(baseBean.message);
+//            if (baseBean.message.equals("支付成功")) {
+//                finish();
+//            }
+//        }
 
     }
 

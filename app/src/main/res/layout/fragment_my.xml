@@ -34,23 +34,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp">
 
-
-                <!--<android.support.v4.view.ViewPager-->
-                <!--android:id="@+id/view_pager"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:src="@drawable/placeholder" />-->
-
-                <cn.bingoogolapple.bgabanner.BGABanner
-                    android:id="@+id/view_banner"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:banner_pageChangeDuration="1000"
-                    app:banner_pointAutoPlayAble="true"
-                    app:banner_pointContainerBackground="@android:color/transparent"
-                    app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-                    app:banner_pointTopBottomMargin="15dp"
-                    app:banner_transitionEffect="alpha" />
+                    android:layout_height="wrap_content">
+
+
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/view_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:banner_pageChangeDuration="1000"
+                        app:banner_pointAutoPlayAble="true"
+                        app:banner_pointContainerBackground="@android:color/transparent"
+                        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                        app:banner_pointTopBottomMargin="15dp"
+                        app:banner_transitionEffect="alpha" />
+
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:layout_gravity="center"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_video_play" />
+
+                </FrameLayout>
+
 
                 <!--style="@style/MatchMatch"-->
 
@@ -399,12 +409,20 @@
                                 android:text="学历认证未认证" />
 
                             <ImageView
-
+                                android:id="@+id/iv_education_jinru"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:padding="8dp"
                                 android:src="@mipmap/jinru" />
+                            <TextView
+                                android:id="@+id/iv_education_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:padding="8dp"
+                                android:visibility="gone" />
+
                         </LinearLayout>
 
                         <TextView
@@ -435,12 +453,19 @@
                                 android:text="车辆认证未认证" />
 
                             <ImageView
-
+                                android:id="@+id/iv_car_jinru"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:padding="8dp"
                                 android:src="@mipmap/jinru" />
+                            <TextView
+                                android:id="@+id/iv_car_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:padding="8dp"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <TextView
@@ -471,12 +496,19 @@
                                 android:text="房屋认证未认证" />
 
                             <ImageView
-
+                                android:id="@+id/iv_house_jinru"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:padding="8dp"
                                 android:src="@mipmap/jinru" />
+                            <TextView
+                                android:id="@+id/iv_house_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:padding="8dp"
+                                android:visibility="gone" />
                         </LinearLayout>
 
 

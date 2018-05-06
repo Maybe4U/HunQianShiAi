@@ -1,25 +1,15 @@
 package com.zykj.hunqianshiai.home.my;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,11 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.module.GlideModule;
-import com.squareup.picasso.Picasso;
 import com.zykj.hunqianshiai.R;
 import com.zykj.hunqianshiai.bases.BaseFragment;
 import com.zykj.hunqianshiai.bases.BaseModel;
@@ -54,26 +39,22 @@ import com.zykj.hunqianshiai.home.my.set.SetActivity;
 import com.zykj.hunqianshiai.home.my.set.ShareActivity;
 import com.zykj.hunqianshiai.home.my.wallet.WalletActivity;
 import com.zykj.hunqianshiai.look_pic_video.PicsActivity;
-import com.zykj.hunqianshiai.look_pic_video.VideoActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 import com.zykj.hunqianshiai.tools.RxBus;
 import com.zykj.hunqianshiai.user_home.UserPageBean;
-import com.zykj.hunqianshiai.user_home.personal_assistant.OpenCounselorActivity;
-import com.zykj.hunqianshiai.user_home.personal_assistant.PersonalAssistantActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscription;
 import rx.functions.Action1;
-
-import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 /**
  * Created by xu on 2017/12/5.
@@ -139,6 +120,20 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     CheckBox cb_house;
     @Bind(R.id.view_banner)
     BGABanner view_banner;
+    @Bind(R.id.iv_education_jinru)
+    ImageView mIvEducationJinru;
+    @Bind(R.id.iv_education_name)
+    TextView mIvEducationName;
+    @Bind(R.id.iv_car_jinru)
+    ImageView mIvCarJinru;
+    @Bind(R.id.iv_car_name)
+    TextView mIvCarName;
+    @Bind(R.id.iv_house_jinru)
+    ImageView mIvHouseJinru;
+    @Bind(R.id.iv_house_name)
+    TextView mIvHouseName;
+    @Bind(R.id.iv_play)
+    ImageView mIvPlay;
 
     private ArrayList<String> pics = new ArrayList<>();
     List<View> imageViews = new ArrayList<>();
@@ -159,7 +154,6 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
     private String mFamilyinfo;
     private String mWorkplan;
     private String mFeeling;
-    private ImageView mIv_play;
 
     public MyFragment() {
     }
@@ -253,9 +247,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
         mVideo = data.video;
         mView = View.inflate(mContext, R.layout.video_pic, null);
-        mIv_play = mView.findViewById(R.id.iv_play);
         if (!TextUtils.isEmpty(mVideo)) {
-
             ImageView video = mView.findViewById(R.id.iv_video);
             Glide.with(mContext)
                     .load(UrlContent.PIC_URL + data.video)
@@ -263,10 +255,10 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                     .into(video);
             imageViews.add(mView);
             mUrlList.add(UrlContent.PIC_URL + data.video);
-            mIv_play.setVisibility(View.VISIBLE);
+            mIvPlay.setVisibility(View.VISIBLE);
         } else {
             mView = null;
-            mIv_play.setVisibility(View.GONE);
+            mIvPlay.setVisibility(View.GONE);
         }
 
         mHeadpic = data.headpic;
@@ -278,13 +270,12 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         }
 
 
-
         PersonageInfoBean.RenZheng renzheng = data.renzheng;
         /*================身份认证    begin=======================*/
         //显示身份认证状态
         tv_sfrz.setText(renzheng.shenfen_auth);
         //如果审核通过则显示认证信息
-        if(renzheng.shenfen_auth2.equals("1")){
+        if (renzheng.shenfen_auth2.equals("1")) {
             //不可点击
             ll_sfz.setClickable(false);
             String realname = renzheng.realname;
@@ -315,56 +306,97 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         /*================学历认证    begin=======================*/
         tv_education.setText(renzheng.xueli_auth);
         //如果审核通过则显示认证信息
-        if(renzheng.xueli_auth2.equals("1")){
-            //图标点亮
+        if (renzheng.xueli_auth2.equals("1")) {
+            mIvEducationJinru.setVisibility(View.GONE);
+            mIvEducationName.setVisibility(View.VISIBLE);
+            String xueli = renzheng.xueli;
+            //显示学历名称状态
+            mIvEducationName.setText(xueli);
+            //图标 点亮
             cb_education.setChecked(true);
             //不可点击
             iv_identi_edu.setClickable(false);
-            String xueli = renzheng.xueli;
-            if (!TextUtils.isEmpty(xueli)) {
-                //显示身份认证状态
-                tv_education.setText("学历已认证");
-            }
+            //已认证  点亮
+            tv_education.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
+            //学历名称  点亮
+            mIvEducationName.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
         } else {
+            //箭头显示
+            mIvEducationJinru.setVisibility(View.VISIBLE);
+            //学历名称 隐藏
+            mIvEducationName.setVisibility(View.GONE);
+            //图标 不点亮
             cb_education.setChecked(false);
+            //可点击
             iv_identi_edu.setClickable(true);
-
+            //未认证 变黑
+            tv_education.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+            //学历名称 变黑
+            mIvEducationName.setTextColor(ContextCompat.getColor(mContext, R.color.black));
         }
         /*================学历认证    end=======================*/
         /*================汽车认证    begin=======================*/
-
+        tv_car.setText(renzheng.car_auth);
         //如果审核通过则显示认证信息
-        if(renzheng.car_auth2.equals("1")){
+        if (renzheng.car_auth2.equals("1")) {
+            mIvCarJinru.setVisibility(View.GONE);
+            mIvCarName.setVisibility(View.VISIBLE);
+            String car = renzheng.car;
+            //显示学历名称状态
+            mIvCarName.setText(car);
+            //图标 点亮
+            cb_car.setChecked(true);
             //不可点击
             iv_identi_car.setClickable(false);
-            cb_car.setChecked(true);
-            String car = renzheng.car;
-            if (!TextUtils.isEmpty(car)) {
-                //显示身份认证状态
-                tv_car.setText("车辆已认证");
-            }
+            //已认证  点亮
+            tv_car.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
+            //学历名称  点亮
+            mIvCarName.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
         } else {
+            //箭头显示
+            mIvCarJinru.setVisibility(View.VISIBLE);
+            //学历名称 隐藏
+            mIvCarName.setVisibility(View.GONE);
+            //图标 不点亮
             cb_car.setChecked(false);
+            //可点击
             iv_identi_car.setClickable(true);
-            tv_car.setText(renzheng.car_auth);
+            //未认证 变黑
+            tv_car.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+            //学历名称 变黑
+            mIvCarName.setTextColor(ContextCompat.getColor(mContext, R.color.black));
         }
         /*================汽车认证    end=======================*/
         /*================房产认证    begin=======================*/
-
+        tv_house.setText(renzheng.huose_auth);
         //如果审核通过则显示认证信息
-        if(renzheng.huose_auth2.equals("1")){
+        if (renzheng.huose_auth2.equals("1")) {
+            mIvHouseJinru.setVisibility(View.GONE);
+            mIvHouseName.setVisibility(View.VISIBLE);
+            String house = renzheng.house;
+            //显示学历名称状态
+            mIvHouseName.setText(house);
+            //图标 点亮
+            cb_house.setChecked(true);
             //不可点击
             iv_identi_house.setClickable(false);
-            cb_house.setChecked(true);
-            String house = renzheng.house;
-            if (!TextUtils.isEmpty(house)) {
-                //显示身份认证状态
-                tv_house.setText("房产已认证");
-            }
+            //已认证  点亮
+            tv_house.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
+            //学历名称  点亮
+            mIvHouseName.setTextColor(ContextCompat.getColor(mContext, R.color.default_color));
         } else {
+            //箭头显示
+            mIvHouseJinru.setVisibility(View.VISIBLE);
+            //学历名称 隐藏
+            mIvHouseName.setVisibility(View.GONE);
+            //图标 不点亮
             cb_house.setChecked(false);
+            //可点击
             iv_identi_house.setClickable(true);
-            tv_house.setText(renzheng.huose_auth);
+            //未认证 变黑
+            tv_house.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+            //学历名称 变黑
+            mIvHouseName.setTextColor(ContextCompat.getColor(mContext, R.color.black));
         }
         /*================房产认证    end=======================*/
 
@@ -382,7 +414,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             pics.addAll(picsBean.data);
         }
 
-        view_banner.setAdapter(new BGABanner.Adapter<ImageView,String>(){
+        view_banner.setAdapter(new BGABanner.Adapter<ImageView, String>() {
 
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, @Nullable String model, int position) {
@@ -393,15 +425,15 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             }
         });
         //去重，防止重复添加
-        for (int i = 0; i < pics.size(); i++){
-            if(i==0 & head){
+        for (int i = 0; i < pics.size(); i++) {
+            if (i == 0 & head) {
                 mUrlList.add(pics.get(i));
 
-            }else {
+            } else {
                 mUrlList.add(UrlContent.PIC_URL + pics.get(i));
             }
         }
-        view_banner.setData(mUrlList,null);
+        view_banner.setData(mUrlList, null);
 
         view_banner.setDelegate(new BGABanner.Delegate() {
             @Override
@@ -425,7 +457,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
             @Override
             public void onPageSelected(int position) {
-                tv_pic_management.setText("管理照片 " + (position + 1)  + "/" + size);
+                tv_pic_management.setText("管理照片 " + (position + 1) + "/" + size);
             }
 
             @Override
@@ -468,30 +500,30 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 openActivity(IdentificationHouseActivity.class);
                 break;
             case R.id.tv_pic_management://照片管理
-//                page = mViewPager.getCurrentItem();
-//                mBundle.clear();
-//                mBundle.putString("headpic", mHeadpic);
-//                if (!TextUtils.isEmpty(mVideo)) {
-//                    mBundle.putString("video", mVideo);
-//                }
-//                openActivity(PicManagementActivity.class, mBundle);
+                //                page = mViewPager.getCurrentItem();
+                //                mBundle.clear();
+                //                mBundle.putString("headpic", mHeadpic);
+                //                if (!TextUtils.isEmpty(mVideo)) {
+                //                    mBundle.putString("video", mVideo);
+                //                }
+                //                openActivity(PicManagementActivity.class, mBundle);
 
-//                int position = mAdapter.getItemPosition(mViewPager);
+                //                int position = mAdapter.getItemPosition(mViewPager);
 
                 mBundle.clear();
                 mBundle.putStringArrayList("pics", pics);
                 mBundle.putBoolean("head", head);
-//                if (null == mView) {
-//                    mBundle.putInt("position", position);
-//
-//                } else {
-//                    mBundle.putInt("position", position - 1);
-//                    if (position == 0) {
-//                        mBundle.putString("video", mVideo);
-//                        openActivity(VideoActivity.class, mBundle);
-//                        return;
-//                    }
-//                }
+                //                if (null == mView) {
+                //                    mBundle.putInt("position", position);
+                //
+                //                } else {
+                //                    mBundle.putInt("position", position - 1);
+                //                    if (position == 0) {
+                //                        mBundle.putString("video", mVideo);
+                //                        openActivity(VideoActivity.class, mBundle);
+                //                        return;
+                //                    }
+                //                }
                 openActivity(PicsActivity.class, mBundle);
 
                 break;
@@ -514,17 +546,17 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 mBundle.putString("title", "自我介绍");
                 mBundle.putString("key", "meinfo");
                 openActivity(MyInfoActivity.class, mBundle);
-//                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_meinfo, "");
-//                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
-//                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
-//                    @Override
-//                    public void onClickListener(Object object) {
-//                        mParams.clear();
-//                        mParams.put("userid", UrlContent.USER_ID);
-//                        mParams.put("meinfo", object.toString());
-//                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
-//                    }
-//                });
+                //                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_meinfo, "");
+                //                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
+                //                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
+                //                    @Override
+                //                    public void onClickListener(Object object) {
+                //                        mParams.clear();
+                //                        mParams.put("userid", UrlContent.USER_ID);
+                //                        mParams.put("meinfo", object.toString());
+                //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
+                //                    }
+                //                });
                 break;
             case R.id.ll_layout_2://家庭状况
                 mBundle.clear();
@@ -532,17 +564,17 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 mBundle.putString("title", "家庭状况");
                 mBundle.putString("key", "familyinfo");
                 openActivity(MyInfoActivity.class, mBundle);
-//                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_family, "");
-//                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
-//                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
-//                    @Override
-//                    public void onClickListener(Object object) {
-//                        mParams.clear();
-//                        mParams.put("userid", UrlContent.USER_ID);
-//                        mParams.put("familyinfo", object.toString());
-//                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
-//                    }
-//                });
+                //                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_family, "");
+                //                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
+                //                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
+                //                    @Override
+                //                    public void onClickListener(Object object) {
+                //                        mParams.clear();
+                //                        mParams.put("userid", UrlContent.USER_ID);
+                //                        mParams.put("familyinfo", object.toString());
+                //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
+                //                    }
+                //                });
                 break;
             case R.id.ll_layout_3://职业规划
                 mBundle.clear();
@@ -550,17 +582,17 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 mBundle.putString("title", "职业规划");
                 mBundle.putString("key", "workplan");
                 openActivity(MyInfoActivity.class, mBundle);
-//                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_work_plan, "");
-//                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
-//                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
-//                    @Override
-//                    public void onClickListener(Object object) {
-//                        mParams.clear();
-//                        mParams.put("userid", UrlContent.USER_ID);
-//                        mParams.put("workplan", object.toString());
-//                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
-//                    }
-//                });
+                //                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_work_plan, "");
+                //                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
+                //                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
+                //                    @Override
+                //                    public void onClickListener(Object object) {
+                //                        mParams.clear();
+                //                        mParams.put("userid", UrlContent.USER_ID);
+                //                        mParams.put("workplan", object.toString());
+                //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
+                //                    }
+                //                });
                 break;
             case R.id.ll_layout_4://感情经历
                 mBundle.clear();
@@ -568,35 +600,35 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
                 mBundle.putString("title", "感情经历");
                 mBundle.putString("key", "feeling");
                 openActivity(MyInfoActivity.class, mBundle);
-//                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_feeling, "");
-//                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
-//                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
-//                    @Override
-//                    public void onClickListener(Object object) {
-//                        mParams.clear();
-//                        mParams.put("userid", UrlContent.USER_ID);
-//                        mParams.put("feeling", object.toString());
-//                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
-//                    }
-//                });
+                //                mPopupWindowAddInfo = new PopupWindowAddInfo(mActivity, tv_feeling, "");
+                //                mPopupWindowAddInfo.showAtLocation(tv_meinfo, Gravity.CENTER, 0, 0);
+                //                mPopupWindowAddInfo.setClickListener(new BasePopupWindow.ClickListener() {
+                //                    @Override
+                //                    public void onClickListener(Object object) {
+                //                        mParams.clear();
+                //                        mParams.put("userid", UrlContent.USER_ID);
+                //                        mParams.put("feeling", object.toString());
+                //                        mPresenter.getData(UrlContent.SET_INFO_URL, mParams, BaseModel.REFRESH_TYPE);
+                //                    }
+                //                });
                 break;
             case R.id.ll_counselor://私人助理
                 openActivity(ZhuLiActivity.class);
-//                mBundle.clear();
-//                mBundle.putString("title", "开通婚恋助理");
-//                mBundle.putString("type1", "2");
-//                mBundle.putString("type2", "1");
-//                mBundle.putString("type3", "5");
-//                openActivity(OpenCounselorActivity.class, mBundle);
+                //                mBundle.clear();
+                //                mBundle.putString("title", "开通婚恋助理");
+                //                mBundle.putString("type1", "2");
+                //                mBundle.putString("type2", "1");
+                //                mBundle.putString("type3", "5");
+                //                openActivity(OpenCounselorActivity.class, mBundle);
                 break;
             case R.id.ll_steward://婚恋管家
                 openActivity(GuanjiaActivity.class);
-//                mBundle.clear();
-//                mBundle.putString("title", "开通婚恋管家");
-//                mBundle.putString("type1", "3");
-//                mBundle.putString("type2", "2");
-//                mBundle.putString("type3", "6");
-//                openActivity(OpenCounselorActivity.class, mBundle);
+                //                mBundle.clear();
+                //                mBundle.putString("title", "开通婚恋管家");
+                //                mBundle.putString("type1", "3");
+                //                mBundle.putString("type2", "2");
+                //                mBundle.putString("type3", "6");
+                //                openActivity(OpenCounselorActivity.class, mBundle);
                 break;
             case R.id.rl_remind://上线提醒
                 if (mCode == 0) {
@@ -626,6 +658,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         if (null != mSubscription && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
+        ButterKnife.unbind(this);
     }
 
 

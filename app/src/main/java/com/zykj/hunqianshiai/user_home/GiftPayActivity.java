@@ -43,8 +43,8 @@ public class GiftPayActivity extends BasesActivity implements CompoundButton.OnC
     CheckBox zfb;
     @Bind(R.id.cb_wx)
     CheckBox wx;
-    @Bind(R.id.cb_remaining)
-    CheckBox remaining;
+//    @Bind(R.id.cb_remaining)
+//    CheckBox remaining;
     @Bind(R.id.tv_price)
     TextView tv_price;
 
@@ -76,7 +76,7 @@ public class GiftPayActivity extends BasesActivity implements CompoundButton.OnC
         tv_price.setText(mPrice + "元");
         zfb.setOnCheckedChangeListener(this);
         wx.setOnCheckedChangeListener(this);
-        remaining.setOnCheckedChangeListener(this);
+        //remaining.setOnCheckedChangeListener(this);
 
         mSubscribe = RxBus.getInstance().toObserverable(WXBean.class)
                 .subscribe(new Action1<WXBean>() {
@@ -123,9 +123,10 @@ public class GiftPayActivity extends BasesActivity implements CompoundButton.OnC
             case R.id.cb_zfb:
                 if (b) {
                     wx.setChecked(false);
-                    remaining.setChecked(false);
+                    //remaining.setChecked(false);
                 } else {
-                    if (!wx.isChecked() && !remaining.isChecked()) {
+                    //if (!wx.isChecked() && !remaining.isChecked()) {
+                    if (!wx.isChecked()) {
                         zfb.setChecked(true);
                     }
                 }
@@ -134,25 +135,25 @@ public class GiftPayActivity extends BasesActivity implements CompoundButton.OnC
             case R.id.cb_wx:
                 if (b) {
                     zfb.setChecked(false);
-                    remaining.setChecked(false);
+                    //remaining.setChecked(false);
                 } else {
-                    if (!zfb.isChecked() && !remaining.isChecked()) {
+                    if (!zfb.isChecked()) {
                         wx.setChecked(true);
                     }
                 }
                 paytype = 2;
                 break;
-            case R.id.cb_remaining:
-                if (b) {
-                    wx.setChecked(false);
-                    zfb.setChecked(false);
-                } else {
-                    if (!wx.isChecked() && !zfb.isChecked()) {
-                        remaining.setChecked(true);
-                    }
-                }
-                paytype = 3;
-                break;
+//            case R.id.cb_remaining:
+//                if (b) {
+//                    wx.setChecked(false);
+//                    zfb.setChecked(false);
+//                } else {
+//                    if (!wx.isChecked() && !zfb.isChecked()) {
+//                        remaining.setChecked(true);
+//                    }
+//                }
+//                paytype = 3;
+//                break;
             default:
                 break;
         }
@@ -193,13 +194,14 @@ public class GiftPayActivity extends BasesActivity implements CompoundButton.OnC
             request.timeStamp = data.timestamp + "";
             request.sign = data.sign;
             api.sendReq(request);
-        } else if (paytype == 3) {
-            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
-            toastShow(baseBean.message);
-            if (baseBean.message.equals("支付成功")) {
-                finish();
-            }
         }
+//        else if (paytype == 3) {
+//            BaseBean baseBean = JsonUtils.GsonToBean(bean, BaseBean.class);
+//            toastShow(baseBean.message);
+//            if (baseBean.message.equals("支付成功")) {
+//                finish();
+//            }
+//        }
     }
 
     @Override
