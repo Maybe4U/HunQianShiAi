@@ -6,7 +6,8 @@
 
     <TextView
         style="@style/imaginary_line"
-        android:layout_marginLeft="55dp"
+
+        android:layout_marginLeft="85dp"
         android:layout_marginRight="0dp" />
 
     <LinearLayout
@@ -107,6 +108,7 @@
                     style="@style/text_style_gray"
                     android:drawableLeft="@mipmap/dong_weizhi"
                     android:drawablePadding="10dp"
+                    android:paddingBottom="10dp"
                     android:gravity="center"
                     android:text="sit" />
             </RelativeLayout>

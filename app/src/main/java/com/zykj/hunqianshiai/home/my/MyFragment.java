@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.my;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -252,13 +253,14 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             Glide.with(mContext)
                     .load(UrlContent.PIC_URL + data.video)
                     .apply(BasesActivity.mOptions)
+                    //.override(600, 200)
                     .into(video);
             imageViews.add(mView);
             mUrlList.add(UrlContent.PIC_URL + data.video);
-            mIvPlay.setVisibility(View.VISIBLE);
+            //mIvPlay.setVisibility(View.VISIBLE);
         } else {
             mView = null;
-            mIvPlay.setVisibility(View.GONE);
+            //mIvPlay.setVisibility(View.GONE);
         }
 
         mHeadpic = data.headpic;
@@ -278,6 +280,7 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
         if (renzheng.shenfen_auth2.equals("1")) {
             //不可点击
             ll_sfz.setClickable(false);
+            tv_sfrz.setTextColor(ContextCompat.getColor(getContext(), R.color.default_color));
             String realname = renzheng.realname;
             if (!TextUtils.isEmpty(realname)) {
                 String substring = realname.substring(0, 1);
@@ -418,10 +421,13 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, @Nullable String model, int position) {
+
+                itemView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 Glide.with(mContext)
                         .load(model)
-                        .apply(BasesActivity.mOptions)
+                        .apply(BasesActivity.mMyOptions)
                         .into(itemView);
+
             }
         });
         //去重，防止重复添加
@@ -449,6 +455,21 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
 
         final int size = mUrlList.size();
         tv_pic_management.setText("管理照片 " + 1 + "/" + size);
+
+
+        String str = mUrlList.get(0);
+
+        if(str!=null && mVideo!=null){
+            if(str.length()>3 && mVideo.length()>3){
+                String sub1 = str.substring(str.length() - 3, str.length());
+                String sub2 = mVideo.substring(mVideo.length() - 3, mVideo.length());
+                if(sub1.equals(sub2)){
+                    mIvPlay.setVisibility(View.VISIBLE);
+                }else {
+                    mIvPlay.setVisibility(View.GONE);
+                }
+            }
+        }
         view_banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -458,6 +479,20 @@ public class MyFragment extends BaseFragment implements BaseView<String> {
             @Override
             public void onPageSelected(int position) {
                 tv_pic_management.setText("管理照片 " + (position + 1) + "/" + size);
+
+                String str = mUrlList.get(position);
+
+                if(str!=null && mVideo!=null){
+                    if(str.length()>3 && mVideo.length()>3){
+                        String sub1 = str.substring(str.length() - 3, str.length());
+                        String sub2 = mVideo.substring(mVideo.length() - 3, mVideo.length());
+                        if(sub1.equals(sub2)){
+                            mIvPlay.setVisibility(View.VISIBLE);
+                        }else {
+                            mIvPlay.setVisibility(View.GONE);
+                        }
+                    }
+                }
             }
 
             @Override

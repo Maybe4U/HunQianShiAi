@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.message.like_me;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -34,7 +35,9 @@ public class MyLikeAdapter extends BaseQuickAdapter<MyLikeBean.MyLikeData, BaseV
                 .into((ImageView) helper.getView(R.id.iv_head));
         helper.setText(R.id.tv_username, info.username + "  " + info.age + "岁");
         helper.setVisible(R.id.iv_isvip, info.isvip);
-
+        if(info.userauth.equals("未认证")){
+            helper.setTextColor(R.id.tv_userauth, Color.BLACK);
+        }
         helper.setText(R.id.tv_userauth, info.userauth);
         helper.setText(R.id.tv_areaname, info.areaname);
         helper.setText(R.id.tv_yearmoney, info.yearmoney);

@@ -3,17 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CallKit/CallKit.iml" filepath="$PROJECT_DIR$/CallKit/CallKit.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\CallKit\CallKit.iml" filepath="D:\Android\Maybe\HunQianShiAi\CallKit\CallKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/CallLib/CallLib.iml" filepath="$PROJECT_DIR$/CallLib/CallLib.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\CallLib\CallLib.iml" filepath="D:\Android\Maybe\HunQianShiAi\CallLib\CallLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/HunQianShiAi.iml" filepath="$PROJECT_DIR$/HunQianShiAi.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\HunQianShiAi.iml" filepath="D:\Android\Maybe\HunQianShiAi\HunQianShiAi.iml" />
       <module fileurl="file://$PROJECT_DIR$/IMKit/IMKit.iml" filepath="$PROJECT_DIR$/IMKit/IMKit.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\IMKit\IMKit.iml" filepath="D:\Android\Maybe\HunQianShiAi\IMKit\IMKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/IMLib/IMLib.iml" filepath="$PROJECT_DIR$/IMLib/IMLib.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\IMLib\IMLib.iml" filepath="D:\Android\Maybe\HunQianShiAi\IMLib\IMLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Android\Maybe\HunQianShiAi\app\app.iml" filepath="D:\Android\Maybe\HunQianShiAi\app\app.iml" />
     </modules>
   </component>
 </project>

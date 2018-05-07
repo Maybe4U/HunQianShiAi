@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.dynamic.secret_dynamic;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -37,7 +38,9 @@ public class SecretlistAdapter extends BaseQuickAdapter<SecretBean.SecretData, B
         }
         //跟ios同步，不显示会员图标
         helper.setVisible(R.id.iv_isvip, false);
-
+        if(item.userauth.equals("未认证")){
+            helper.setTextColor(R.id.tv_userauth, Color.BLACK);
+        }
         helper.setText(R.id.tv_userauth, item.userauth);
         helper.setText(R.id.tv_areaname, item.areaname);
         helper.setText(R.id.tv_yearmoney, item.yearmoney);

@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -93,12 +95,31 @@ public class MyDynamicAdapter extends BaseQuickAdapter<MyDynamicBean.MyDynamicDa
 //
 //            }
 //        });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         RecyclerView recyclerPic = helper.getView(R.id.recycler_pic);
-        recyclerPic.setLayoutManager(gridLayoutManager);
+
+        GridLayoutManager gridLayoutManager;
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+//        recyclerPic.setLayoutManager(gridLayoutManager);
 
         List<String> img = item.img;
         PicAdapter picAdapter = new PicAdapter(img);
+        LinearLayout.LayoutParams params;
+        int width = recyclerPic.getWidth();
+        if(img.size() == 1){
+            params = new LinearLayout.LayoutParams(240, ViewGroup.LayoutParams.WRAP_CONTENT);
+            gridLayoutManager = new GridLayoutManager(mContext, 1);
+            recyclerPic.setLayoutManager(gridLayoutManager);
+        }else if(img.size() == 2){
+            params = new LinearLayout.LayoutParams(240, ViewGroup.LayoutParams.WRAP_CONTENT);
+            gridLayoutManager = new GridLayoutManager(mContext, 2);
+            recyclerPic.setLayoutManager(gridLayoutManager);
+        }else {
+            params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            gridLayoutManager = new GridLayoutManager(mContext, 3);
+            recyclerPic.setLayoutManager(gridLayoutManager);
+        }
+        recyclerPic.setLayoutParams(params);
+
         recyclerPic.setAdapter(picAdapter);
 
         picAdapter.setOnItemClickListener(new OnItemClickListener() {

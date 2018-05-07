@@ -66,7 +66,7 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
             return;
         }
         UploadBean uploadBean = JsonUtils.GsonToBean(bean, UploadBean.class);
-        tv_yue.setText(uploadBean.data + "元（余额+返利）");
+        tv_yue.setText(uploadBean.data + "元");
     }
 
     @Override
@@ -91,17 +91,17 @@ public class WalletActivity extends BasesActivity implements BaseView<String> {
 
     }
 
-    @OnClick({R.id.tv_chongzhi,  R.id.tv_right})
+    @OnClick({R.id.tv_gift, R.id.tv_tixian, R.id.tv_right})
     @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-            case R.id.tv_chongzhi:
-                openActivity(RechargeActivity.class);
+            case R.id.tv_gift:
+                openActivity(GiftActivity.class);
                 break;
-//            case R.id.tv_tixian:
-//                openActivity(WithdrawDepositActivity.class);
-//                break;
+            case R.id.tv_tixian:
+                openActivity(WithdrawDepositActivity.class);
+                break;
             case R.id.tv_right:
                 Bundle bundle = new Bundle();
                 bundle.clear();

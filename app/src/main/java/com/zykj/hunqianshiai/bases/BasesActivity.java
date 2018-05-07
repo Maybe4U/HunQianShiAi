@@ -41,6 +41,7 @@ import butterknife.ButterKnife;
 public abstract class BasesActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static RequestOptions mOptions;
+    public static RequestOptions mMyOptions;
     public static RequestOptions mCircleRequestOptions;
     private CustomDialog mDialog;
     public static HttpParams mParams;
@@ -61,6 +62,11 @@ public abstract class BasesActivity extends AppCompatActivity implements View.On
         if (null == mOptions) {
             mOptions = new RequestOptions()
                     .centerCrop()
+                    .error(R.drawable.placeholder);
+        }
+        if (null == mMyOptions) {
+            mMyOptions = new RequestOptions()
+                    .fitCenter()
                     .error(R.drawable.placeholder);
         }
         if (null == mCircleRequestOptions) {

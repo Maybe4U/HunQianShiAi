@@ -1,5 +1,6 @@
 package com.zykj.hunqianshiai.home.message.people_nearby;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -149,7 +150,9 @@ public class PeopleNearbyActivity extends BasesActivity implements BaseView<Stri
         } else {
             mIv_isvip.setVisibility(View.GONE);
         }
-
+        if(info.userauth.equals("未认证")){
+            mTv_userauth.setTextColor(Color.BLACK);
+        }
         mTv_userauth.setText(info.userauth);
         mTv_areaname.setText(info.areaname);
         mTv_yearmoney.setText(info.yearmoney);

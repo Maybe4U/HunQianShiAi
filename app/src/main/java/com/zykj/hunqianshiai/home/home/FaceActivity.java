@@ -61,10 +61,12 @@ public class FaceActivity extends BasesActivity implements BaseView<String> {
 
     @Override
     protected void initView() {
-        appBar("人脸识别");
+        appBar("人脸匹配");
         mBundle = getIntent().getExtras();
         mPic = mBundle.getString("pic");
         WebSettings settings = mWebView.getSettings();
+        //设置加载进来的页面自适应手机屏幕
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setJavaScriptEnabled(true);
         mWebView.loadUrl(UrlContent.FACE_ALIKE_URL + "&userid=" + UrlContent.USER_ID + "&url=" + mPic + "&p=" + p);
 

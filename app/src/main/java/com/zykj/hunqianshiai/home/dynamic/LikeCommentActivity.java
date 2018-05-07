@@ -15,6 +15,7 @@ import com.zykj.hunqianshiai.bases.BasePresenterImpl;
 import com.zykj.hunqianshiai.bases.BaseView;
 import com.zykj.hunqianshiai.bases.BasesActivity;
 import com.zykj.hunqianshiai.home.dynamic.dynamic_details.DynamicDetailsActivity;
+import com.zykj.hunqianshiai.home.message.like_me.LikeMeActivity;
 import com.zykj.hunqianshiai.net.UrlContent;
 import com.zykj.hunqianshiai.tools.JsonUtils;
 
@@ -80,11 +81,18 @@ public class LikeCommentActivity extends BasesActivity implements BaseView<Strin
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<LikeCommentBean.LikeCommentData> data1 = adapter.getData();
                 LikeCommentBean.Other_table other_table = data1.get(position).other_table;
+                String catogry = data1.get(position).catogry;
                 if (null != other_table) {
                     String id = other_table.friend_id;
                     mBundle.clear();
                     mBundle.putString("friends_id", id);
                     openActivity(DynamicDetailsActivity.class, mBundle);
+                }
+                if(catogry.equals("5")){
+//                    String id = other_table.friend_id;
+//                    mBundle.clear();
+//                    mBundle.putString("friends_id", id);
+                    openActivity(LikeMeActivity.class);
                 }
             }
         });

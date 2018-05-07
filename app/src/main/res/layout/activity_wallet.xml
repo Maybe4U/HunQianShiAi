@@ -36,14 +36,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_chongzhi"
+            android:id="@+id/tv_gift"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:drawableTop="@mipmap/qianbao_chongzhi"
             android:gravity="center"
-            android:text="充值"
+            android:text="礼物"
             android:textColor="@drawable/button_text"
             android:textSize="17dp" />
 
@@ -55,7 +55,6 @@
             android:drawablePadding="10dp"
             android:drawableTop="@mipmap/qianbao_tixian"
             android:gravity="center"
-            android:visibility="gone"
             android:text="提现"
             android:textColor="@drawable/button_text"
             android:textSize="17dp" />

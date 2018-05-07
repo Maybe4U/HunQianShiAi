@@ -132,7 +132,7 @@
                 style="@style/text_style_gray"
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@mipmap/dong_weizhi"
-                android:drawablePadding="10sp"
+                android:drawablePadding="10dp"
                 android:text="sit"
                 android:textSize="13sp" />
 

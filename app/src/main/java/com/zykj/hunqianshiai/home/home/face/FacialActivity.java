@@ -68,7 +68,7 @@ public class FacialActivity extends BasesActivity implements SurfaceHolder.Callb
 
     @Override
     protected void initView() {
-        appBar("人脸识别");
+        appBar("人脸匹配");
         //        tv_right.setVisibility(View.VISIBLE);
         //        tv_right.setOnClickListener(this);
         //        tv_right.setText("确定");
